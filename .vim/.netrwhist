@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/pking 1/.vim/autoload/pking/external_plugins'
+let g:netrw_dirhist_2='/Users/pking 1/.vim/ftplugin'
+let g:netrw_dirhist_3='/Users/pking 1/.vim/plugin'

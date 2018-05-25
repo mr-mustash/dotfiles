@@ -1,0 +1,4 @@
+neww
+split-window -h -p 40
+split-window -v
+select-pane -t 1
