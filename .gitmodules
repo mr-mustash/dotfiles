@@ -22,3 +22,45 @@
 [submodule ".vim/pack/plugins/start/vim-gitgutter"]
 	path = .vim/pack/plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/plugins/opt/ctrlp-py-matcher"]
+	path = .vim/pack/plugins/opt/ctrlp-py-matcher
+	url = https://github.com/FelikZ/ctrlp-py-matcher.git
+[submodule ".vim/pack/plugins/opt/ctrlp.vim"]
+	path = .vim/pack/plugins/opt/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule ".vim/pack/plugins/opt/vim-fish"]
+	path = .vim/pack/plugins/opt/vim-fish
+	url = https://github.com/dag/vim-fish.git
+[submodule ".vim/pack/plugins/opt/vim-go"]
+	path = .vim/pack/plugins/opt/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule ".vim/pack/plugins/opt/vim-manpager"]
+	path = .vim/pack/plugins/opt/vim-manpager
+	url = https://github.com/lambdalisue/vim-manpager.git
+[submodule ".vim/pack/plugins/opt/vim-markdown"]
+	path = .vim/pack/plugins/opt/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
+[submodule ".vim/pack/plugins/opt/vim-mundo"]
+	path = .vim/pack/plugins/opt/vim-mundo
+	url = https://github.com/simnalamburt/vim-mundo.git
+[submodule ".vim/pack/plugins/opt/vim-obsession"]
+	path = .vim/pack/plugins/opt/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule ".vim/pack/plugins/opt/vim-pencil"]
+	path = .vim/pack/plugins/opt/vim-pencil
+	url = https://github.com/reedes/vim-pencil.git
+[submodule ".vim/pack/plugins/opt/vim-plist"]
+	path = .vim/pack/plugins/opt/vim-plist
+	url = git://github.com/darfink/vim-plist.git
+[submodule ".vim/pack/plugins/opt/vim-puppet"]
+	path = .vim/pack/plugins/opt/vim-puppet
+	url = https://github.com/rodjek/vim-puppet.git
+[submodule ".vim/pack/plugins/opt/vim-quickhl"]
+	path = .vim/pack/plugins/opt/vim-quickhl
+	url = https://github.com/t9md/vim-quickhl
+[submodule ".vim/pack/plugins/opt/vim-terraform"]
+	path = .vim/pack/plugins/opt/vim-terraform
+	url = https://github.com/hashivim/vim-terraform.git
+[submodule ".vim/pack/plugins/opt/vim-wordy"]
+	path = .vim/pack/plugins/opt/vim-wordy
+	url = https://github.com/reedes/vim-wordy.git
