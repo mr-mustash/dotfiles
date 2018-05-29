@@ -1,0 +1,24 @@
+[submodule ".vim/pack/plugins/start/vim-repeat"]
+	path = .vim/pack/plugins/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/pack/plugins/start/vim-surround"]
+	path = .vim/pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/pack/plugins/start/vim-commentary"]
+	path = .vim/pack/plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule ".vim/pack/plugins/start/committia.vim"]
+	path = .vim/pack/plugins/start/committia.vim
+	url = https://github.com/rhysd/committia.vim.git
+[submodule ".vim/pack/plugins/start/vim-airline"]
+	path = .vim/pack/plugins/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule ".vim/pack/plugins/start/vim-airline-themes"]
+	path = .vim/pack/plugins/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule ".vim/pack/plugins/start/vim-fugitive"]
+	path = .vim/pack/plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/pack/plugins/start/vim-gitgutter"]
+	path = .vim/pack/plugins/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
