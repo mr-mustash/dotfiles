@@ -64,3 +64,9 @@
 [submodule ".vim/pack/plugins/opt/vim-wordy"]
 	path = .vim/pack/plugins/opt/vim-wordy
 	url = https://github.com/reedes/vim-wordy.git
+[submodule ".vim/pack/colors/opt/vim-colors-solarized"]
+	path = .vim/pack/colors/opt/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/pack/colors/opt/vim-solarized8"]
+	path = .vim/pack/colors/opt/vim-solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
