@@ -74,15 +74,13 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 set spelllang=en_us
 
-" CUSTOM HIGHLIGHT GROUPS
-" Colorize the <C-x> menu
 highlight PmenuSel ctermbg=15 ctermfg=197
 highlight Pmenu ctermbg=15 ctermfg=217
 
 highlight SearchHighlight ctermfg=3
-highlight SpellBad ctermbg=132 ctermfg=0
 
-" Setting current line number highlighting
+highlight SpellBad ctermbg=132 ctermfg=7
+
 highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
 
 " ========================================================================= }}}
