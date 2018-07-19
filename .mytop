@@ -1,0 +1,12 @@
+user=
+pass=
+db=mysql
+delay=1
+port=
+socket=
+batchmode=0
+header=1
+color=1
+idle=0
+sort=1
+prompt=0
