@@ -2,6 +2,16 @@ update_submodules:
 	git submodule update --remote
 	git commit -am "Updating submodules"
 
+update_brewfile:
+	rm -rf Brewfile
+	brew bundle dump
+	sed -i '' '/newrelic/d' Brewfile
+	git commit -am "Updating Brewfile"
+
+brew:
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	brew bundle install
+
 dotfiles:
 	git submodule init
 	git submodule update --remote
