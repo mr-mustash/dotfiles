@@ -12,7 +12,11 @@ update_brewfile:
 # Building my homedir, one piece at a time.
 brew:
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	brew update
+	brew upgrade
 	brew bundle install
+	brew cleanup
+	brew cask cleanup
 
 mac_app_store:
 	mas signin --dialog geek279@gmail.com
