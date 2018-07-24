@@ -73,3 +73,6 @@
 [submodule ".hammerspoon/Anycomplete"]
 	path = .hammerspoon/Anycomplete
 	url = https://github.com/nathancahill/Anycomplete.git
+[submodule ".vim/pack/plugins/opt/vim-docker-tools"]
+	path = .vim/pack/plugins/opt/vim-docker-tools
+	url = https://github.com/kevinhui/vim-docker-tools.git
