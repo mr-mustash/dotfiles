@@ -7,7 +7,7 @@ update_brewfile:
 	rm -rf Brewfile
 	brew bundle dump
 	sed -i '' '/newrelic/d' Brewfile
-	git commit -am "Updating Brewfile"
+	git commit Brewfile "Updating Brewfile"
 
 # Building my homedir, one piece at a time.
 brew:
@@ -30,6 +30,6 @@ dotfiles_test:
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/.homedirtest/
 
-homedir: dotfiles_test brew mac_app_store
+homedir: dotfiles_test mac_app_store brew
 
-.PHONY: dotfiles brew mac_app_store
+.PHONY: dotfiles dotfiles_test mac_app_store brew
