@@ -45,7 +45,17 @@ function ssidChangedCallback()
 end
 
 wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
-wifiWatcher:start()
+
+-- Use the caffenaite watcher to turn the WiFi watcher on and off.
+cwatcher = hs.caffeinate.watcher.new(function(state)
+   if state == hs.caffeinate.watcher.systemDidWake then
+      wifiWatcher:start()
+   elseif state == hs.caffeinate.watcher.systemWillSleep then
+       wifiWatcher:stop()
+   end
+end)
+cwatcher:start()
+
 
 function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
