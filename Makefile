@@ -19,14 +19,22 @@ brew:
 	brew cask cleanup
 
 mac_app_store:
-	mas signin --dialog geek279@gmail.com
+	-mas signin --dialog geek279@gmail.com
 	mas install 1055511498 #Day One
 	mas install 585829637  #Todoist
 
 dotfiles:
+	MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 	git submodule init
 	git submodule update --remote
-	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/
+	rsync -rupE --copy-links --update --progress \
+		--exclude '.git' \
+		--exclude '.gitmodules' \
+		--exclude 'Makefile' \
+		--exclude 'Brewfile' \
+		--exclude 'README.md'  \
+		$(MAKEFILE_DIR) $(home)
+
 
 dotfiles_test:
 	mkdir -p ~/.homedirtest
