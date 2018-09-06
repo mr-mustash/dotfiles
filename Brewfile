@@ -30,6 +30,7 @@ brew "libxml2"
 brew "xz"
 brew "python"
 brew "gettext"
+brew "glances"
 brew "git"
 brew "gnupg", link: false
 brew "go"
