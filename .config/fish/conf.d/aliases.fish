@@ -62,5 +62,8 @@ if status --is-interactive
     abbr --add grh 'git reset --hard'
 
     # Kubernetes
-    abbr --add k 'kubectl'
+    function k
+        set -gx __kubectl_run (date '+%s')
+        kubectl $argv
+    end
 end
