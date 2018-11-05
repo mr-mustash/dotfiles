@@ -1,0 +1,22 @@
+[user]
+	name  = Patrick King
+	email = pking@newrelic.com
+	username = pking
+	signingkey = 2A590EC935F55DB1
+[core]
+	editor=vim
+    #whitespace=trailing-space,-space-before-tab,indent-with-non-tab,tab-in-indent,cr-at-eol
+	excludefile=~/.global_gitignore
+[hub]
+	protocol = https
+	host = source.datanerd.us
+[web]
+	browser = google-chrome
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg
+[push]
+	default = current
+[log]
+	showSignature = true
