@@ -14,6 +14,11 @@
 " 1 important ============================================================= {{{
 
 set nocompatible
+if has ("autocmd")
+    augroup setNoPasteAfterPaste
+        autocmd InsertLeave * set nopaste
+    augroup END
+endif
 set pastetoggle=<F12>
 
 " ========================================================================= }}}
