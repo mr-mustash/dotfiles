@@ -19,9 +19,13 @@ brew:
 	brew cask cleanup
 
 mac_app_store:
-	-mas signin --dialog geek279@gmail.com
+	mas signin --dialog geek279@gmail.com
 	mas install 1055511498 #Day One
 	mas install 585829637  #Todoist
+
+pre_commit:
+	brew install pre-commit
+	pre-commit install
 
 dotfiles:
 	MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
@@ -33,7 +37,7 @@ dotfiles:
 		--exclude 'Makefile' \
 		--exclude 'Brewfile' \
 		--exclude 'README.md'  \
-		$(MAKEFILE_DIR) $(home)
+		. ~/
 
 
 dotfiles_test:
@@ -42,6 +46,6 @@ dotfiles_test:
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/.homedirtest/
 
-homedir: dotfiles_test mac_app_store brew
+homedir: dotfiles_test mac_app_store brew pre_commit
 
-.PHONY: dotfiles dotfiles_test mac_app_store brew
+.PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit

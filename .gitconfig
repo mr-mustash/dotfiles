@@ -2,7 +2,7 @@
 	name  = Patrick King
 	email = pking@newrelic.com
 	username = pking
-	signingkey = 2A590EC935F55DB1
+	signingkey = 35F55DB1
 [core]
 	editor=vim
     #whitespace=trailing-space,-space-before-tab,indent-with-non-tab,tab-in-indent,cr-at-eol
@@ -15,7 +15,7 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = /usr/local/MacGPG2/bin/gpg
+	program = /usr/local/bin/gpg
 [push]
 	default = current
 [log]
