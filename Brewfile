@@ -37,6 +37,7 @@ brew "gnupg", link: false
 brew "gnutls"
 brew "go"
 brew "gource"
+brew "gpg2"
 brew "gpg-agent"
 brew "grc"
 brew "gzip"
@@ -62,10 +63,11 @@ brew "node"
 brew "pandoc"
 brew "percona-toolkit"
 brew "perl"
+brew "pinentry-mac"
 brew "pkg-config"
 brew "postgresql", restart_service: true
 brew "postgis"
-brew "pre-commit", link: false
+brew "pre-commit"
 brew "pyenv"
 brew "redis", restart_service: true
 brew "repo"
