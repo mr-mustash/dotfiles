@@ -84,7 +84,7 @@ highlight Pmenu ctermbg=15 ctermfg=217
 
 highlight SearchHighlight ctermfg=3
 
-highlight SpellBad ctermbg=132 ctermfg=7
+highlight SpellBad ctermbg=132 ctermfg=0
 
 highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
 
@@ -192,8 +192,8 @@ nnoremap <Down> :echoe "Use j"<CR>
 " Lets save our hands and use jk to leave insert and visual mode.
 inoremap <esc> <nop>
 inoremap jk <esc>
-vnoremap <esc> <nop>
-vnoremap jk <esc>
+" vnoremap <esc> <nop>
+" vnoremap jk <esc>
 
 " Remap n and N to use special highlighting function during search.
 nnoremap <silent> n  n:call pking#plugins#search#HLNext(0.03)<cr>
@@ -271,8 +271,8 @@ if has("autocmd")
         " entering the cmd window in insert mode. The first time this is run
         " there will be a brief error that appears, but it will clear quickly.
         autocmd CmdwinEnter *
-            \   silent call airline#add_statusline_func('airline#cmdwinenter')
-            \ | silent call airline#update_statusline()
+                    \   silent call airline#add_statusline_func('airline#cmdwinenter')
+                    \ | silent call airline#update_statusline()
         " Automatically enter insert mode when entering the command window
         autocmd CmdwinEnter * startinsert
         " I only want to have to press <C-c> once to exit
@@ -323,13 +323,13 @@ if has("autocmd")
         au!
         set viewoptions-=options
         autocmd VimLeave,BufLeave *
-            \   if expand('%') != '' && &buftype !~ 'nofile'
-            \|      mkview
-            \|  endif
+                    \   if expand('%') != '' && &buftype !~ 'nofile'
+                    \|      mkview
+                    \|  endif
         autocmd BufRead *
-            \   if expand('%') != '' && &buftype !~ 'nofile'
-            \|      silent loadview
-            \|  endif
+                    \   if expand('%') != '' && &buftype !~ 'nofile'
+                    \|      silent loadview
+                    \|  endif
     augroup END
 endif
 
@@ -348,8 +348,7 @@ if exists('g:ctrlp_cache_dir')
     endif
 endif
 
-set viminfo='50,\"5000,h
-
+set viminfo='50,\"5000,h,/0
 
 " Setting up explore to behaive like we expect
 let g:netrw_banner = 0
