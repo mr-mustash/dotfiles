@@ -46,7 +46,7 @@ if status --is-interactive
     abbr --add ssreport 'sensu-cli client delete (hostname --fqdn) ;and sleep 60 ;and sensu-report'
     abbr --add cnfdiff 'git diff --no-index -- /etc/my.cnf /nail/etc/my.cnf'
 
-    ## Git expansions
+    # Git expansions
     abbr --add gco 'git checkout'
     abbr --add gpom 'git pull origin master'
     abbr --add gcub 'git checkout -b u/(whoami)/'
@@ -60,4 +60,10 @@ if status --is-interactive
     abbr --add gdm 'git diff master'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
+
+    # Kubernetes
+    function k
+        set -gx __kubectl_run (date '+%s')
+        kubectl $argv
+    end
 end
