@@ -17,7 +17,7 @@ function fzf_env
     set -l green "64"
 
     # Solarized Dark color scheme for fzf
-    set -g FZF_DEFAULT_OPTS " 
+    set -g FZF_DEFAULT_OPTS "
       --height 40% --reverse --border --inline-info
       --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
       --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
