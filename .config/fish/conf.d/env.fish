@@ -32,7 +32,9 @@ if test -d $HOME/go
 end
 
 # New Relic Paths
-new_relic_env
+if test -e $HOME/.config/fish/functions/new_relic_env.fish
+    new_relic_env
+end
 
 #FZF
 fzf_env #Located in its own file in the functions directory.

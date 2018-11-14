@@ -28,7 +28,7 @@ pre_commit:
 	pre-commit install
 
 dotfiles:
-	MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+	#MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 	git submodule init
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress \
