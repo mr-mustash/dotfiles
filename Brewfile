@@ -73,8 +73,6 @@ brew "redis", restart_service: true
 brew "repo"
 brew "ripgrep"
 brew "ruby"
-brew "ruby@1.8", link: true
-brew "ruby@2.2"
 brew "rbenv"
 brew "s3cmd"
 brew "screenfetch"
