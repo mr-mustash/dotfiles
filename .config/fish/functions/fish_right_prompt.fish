@@ -7,17 +7,17 @@ function __cmd_duration -S -d 'Show command duration'
   else if [ "$CMD_DURATION" -lt 60000 ]
     set_color $fish_color_escape
     echo -n " "
-    math "scale=1;$CMD_DURATION/1000" | string replace -r '\\.0$' ''
+    math "$CMD_DURATION/1000" | xargs printf "%0.2f\n"
     echo -n 's'
   else if [ "$CMD_DURATION" -lt 3600000 ]
     set_color $fish_color_error
     echo -n " "
-    math "scale=1;$CMD_DURATION/60000" | string replace -r '\\.0$' ''
+    math "$CMD_DURATION/60000" | xargs printf "%0.2f\n"
     echo -n 'm'
   else
     echo -n " "
     set_color $fish_color_error
-    math "scale=2;$CMD_DURATION/3600000" | string replace -r '\\.0$' ''
+    math "$CMD_DURATION/3600000" | xargs printf "%0.2f\n"
     echo -n 'h'
   end
   set_color normal

@@ -5,24 +5,22 @@ set -x  fish_color_cwd green
 set -x  fish_color_cwd_root red
 set -x  fish_color_end 009900
 set -x  fish_color_error ff0000
-set -x  fish_color_escape bryellow\x1e\x2d\x2dbold
-set -x  fish_color_history_current \x2d\x2dbold
+set -x  fish_color_escape bryellow --bold
+set -x  fish_color_history_current --bold
 set -x  fish_color_host normal
-set -x  fish_color_match \x2d\x2dbackground\x3dbrblue
+set -x  fish_color_match --background=brblue
 set -x  fish_color_normal normal
 set -x  fish_color_operator bryellow
 set -x  fish_color_param 00afff
 set -x  fish_color_quote 999900
 set -x  fish_color_redirection 00afff
-set -x  fish_color_search_match bryellow\x1e\x2d\x2dbackground\x3dbrblack
-set -x  fish_color_selection white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+set -x  fish_color_search_match bryellow --background=brblack
+set -x  fish_color_selection white --bold --background=brblack
 set -x  fish_color_user brgreen
-set -x  fish_color_valid_path \x2d\x2dunderline
-set -x  fish_greeting \x1d
-set -x  fish_pager_color_completion \x1d
-set -x  fish_pager_color_description B3A06D\x1eyellow
-set -x  fish_pager_color_prefix white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
-set -x  fish_pager_color_progress brwhite\x1e\x2d\x2dbackground\x3dcyan
+set -x  fish_color_valid_path --underline
+set -x  fish_pager_color_description B3A06D yellow
+set -x  fish_pager_color_prefix white --bold --underline
+set -x  fish_pager_color_progress brwhite --background=cyan
 
 # Setting iTerm tab color based on environment
 # https://www.iterm2.com/documentation-escape-codes.html
