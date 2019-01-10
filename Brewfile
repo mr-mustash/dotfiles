@@ -4,11 +4,14 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "jmhobbs/parrot"
+brew "adns"
+brew "xy"
 brew "gdbm"
 brew "libyaml"
 brew "openssl"
 brew "sqlite"
 brew "python@2"
+brew "python"
 brew "ansible"
 brew "autojump"
 brew "automake"
@@ -50,6 +53,8 @@ brew "irssi"
 brew "oniguruma"
 brew "jq"
 brew "jrnl"
+brew "kubernetes-cli"
+brew "kubernetes-helm"
 brew "lastpass-cli"
 brew "libdbi"
 brew "mas"
@@ -105,5 +110,15 @@ cask "google-chrome"
 cask "hammerspoon"
 cask "java"
 cask "keybase"
+cask "prime95"
 cask "vlc"
 cask "yujitach-menumeters"
+mas "Day One", id: 1055511498
+mas "Evernote", id: 406056744
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "LastPass", id: 926036361
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Todoist", id: 585829637
