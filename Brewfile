@@ -48,7 +48,6 @@ brew "htop"
 brew "hub"
 brew "ifstat"
 brew "iftop"
-brew "influxdb", restart_service: true
 brew "irssi"
 brew "oniguruma"
 brew "jq"
