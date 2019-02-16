@@ -55,6 +55,26 @@ endif
 syntax enable
 set synmaxcol=120
 set hlsearch
+
+function! MyHighlights() abort
+    " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
+    " Only highlight the 81st character when it's visable on the screen.
+    highlight ColorColumn ctermbg=170 ctermfg=234
+    call matchadd('ColorColumn', '\%81v', 100)
+
+    " Other highlights
+    highlight PmenuSel ctermbg=15 ctermfg=197
+    highlight Pmenu ctermbg=15 ctermfg=217
+    highlight SearchHighlight ctermfg=3
+    highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
+    highlight SpellBad ctermbg=132 ctermfg=0
+endfunction
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call MyHighlights()
+augroup END
+
 colorscheme solarized
 
 if has('termguicolors') && $COLORTERM ==? 'truecolor'
@@ -73,20 +93,9 @@ if has ("autocmd")
     endif
 endif
 
-" Only highlight the 81st character when it's visable on the screen.
-highlight ColorColumn ctermbg=170 ctermfg=234
-call matchadd('ColorColumn', '\%81v', 100)
 
 set spelllang=en_us
 
-highlight PmenuSel ctermbg=15 ctermfg=197
-highlight Pmenu ctermbg=15 ctermfg=217
-
-highlight SearchHighlight ctermfg=3
-
-highlight SpellBad ctermbg=132 ctermfg=0
-
-highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
 
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
