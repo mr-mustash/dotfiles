@@ -24,12 +24,19 @@ set -gx GPG_TTY (tty)
 set -gx fish_user_paths  "~/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 
+if test -e /usr/local/share/fish/__fish_build_paths.fish
+    . /usr/local/share/fish/__fish_build_paths.fish
+end
+
 if test -d $HOME/go
     set -gx GOPATH "$HOME/go"
     if test -d $GOPATH/bin
         set -gx fish_user_paths "$GOPATH/bin" $fish_user_paths
     end
 end
+
+# Autojump
+[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
 # New Relic Paths
 if test -e $HOME/.config/fish/functions/new_relic_env.fish
@@ -38,3 +45,6 @@ end
 
 #FZF
 fzf_env #Located in its own file in the functions directory.
+
+# rbenv
+status --is-interactive; and source (rbenv init -|psub)
