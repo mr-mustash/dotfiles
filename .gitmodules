@@ -82,3 +82,6 @@
 [submodule ".vim/pack/plugins/opt/ansible-vim"]
 	path = .vim/pack/plugins/opt/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim.git
+[submodule ".vim/pack/plugins/opt/nuake"]
+	path = .vim/pack/plugins/opt/nuake
+	url = https://github.com/Lenovsky/nuake.git
