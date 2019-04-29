@@ -46,6 +46,6 @@ dotfiles_test:
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/.homedirtest/
 
-homedir: dotfiles_test mac_app_store brew pre_commit
+homedir: dotfiles brew mac_app_store pre_commit
 
 .PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit
