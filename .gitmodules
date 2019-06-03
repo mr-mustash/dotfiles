@@ -85,3 +85,6 @@
 [submodule ".vim/pack/plugins/opt/nuake"]
 	path = .vim/pack/plugins/opt/nuake
 	url = https://github.com/Lenovsky/nuake.git
+[submodule ".vim/pack/plugins/opt/vim-slime"]
+	path = .vim/pack/plugins/opt/vim-slime
+	url = https://github.com/jpalardy/vim-slime
