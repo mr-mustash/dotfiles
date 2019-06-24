@@ -88,3 +88,6 @@
 [submodule ".vim/pack/plugins/opt/vim-slime"]
 	path = .vim/pack/plugins/opt/vim-slime
 	url = https://github.com/jpalardy/vim-slime
+[submodule ".vim/pack/plugins/start/vim-illuminate"]
+	path = .vim/pack/plugins/start/vim-illuminate
+	url = https://github.com/RRethy/vim-illuminate.git
