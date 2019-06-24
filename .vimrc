@@ -66,8 +66,9 @@ function! MyHighlights() abort
     highlight PmenuSel ctermbg=15 ctermfg=197
     highlight Pmenu ctermbg=15 ctermfg=217
     highlight SearchHighlight ctermfg=3
+    highlight SpellBad ctermbg=7 ctermfg=none
     highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
-    highlight SpellBad ctermbg=132 ctermfg=0
+    highlight CursorLine cterm=none ctermbg=0 ctermfg=NONE
 endfunction
 
 augroup MyColors
@@ -306,7 +307,7 @@ endif
 " 22 executing external commands ========================================== {{{
 
 if &shell =~# 'fish$'
-    set shell=bash
+    set shell=fish
 endif
 
 " ========================================================================= }}}
@@ -362,6 +363,9 @@ set viminfo='50,\"5000,h,/0
 " Setting up explore to behaive like we expect
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
+
+autocmd VimEnter * echo "<^.^>"
+
 
 " ========================================================================= }}}
 " vim: set fdm=marker fdl=1 :
