@@ -91,3 +91,9 @@
 [submodule ".vim/pack/plugins/start/vim-illuminate"]
 	path = .vim/pack/plugins/start/vim-illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
+[submodule ".vim/pack/plugins/start/vim-qf"]
+	path = .vim/pack/plugins/start/vim-qf
+	url = https://github.com/romainl/vim-qf.git
+[submodule ".vim/pack/plugins/start/ale"]
+	path = .vim/pack/plugins/start/ale
+	url = https://github.com/w0rp/ale.git

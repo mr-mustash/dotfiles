@@ -42,8 +42,8 @@ endfunction
 " command mode, or displaying nicely padded text for that matter. Keeping the
 " above here in case it's all fixed one day.
 " call airline#add_statusline_func('CustomStatusline')
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = "Obsessed "
+"let g:airline#extensions#obsession#enabled = 1
+"let g:airline#extensions#obsession#indicator_text = " Obsessed "
 
 "augroup vim_airline
 "  autocmd!
