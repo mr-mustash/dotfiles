@@ -13,5 +13,6 @@ nnoremap <silent> <Leader>afr :ALEFindReferences<CR>
 let g:ale_linters = {
             \   'go':   ['gopls', 'gofmt'],
             \   'sh':   ['shfmt', 'shellcheck'],
+            \   'vim':  ['vint'],
             \   'yaml': [],
             \}
