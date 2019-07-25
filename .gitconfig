@@ -5,7 +5,11 @@
 	signingkey = 35F55DB1
 [core]
 	editor=vim
+	whitespace=all
 	excludefile=~/.global_gitignore
+[hub]
+	protocol = https
+	host = source.datanerd.us
 [web]
 	browser = google-chrome
 [commit]
@@ -16,3 +20,10 @@
 	default = current
 [log]
 	showSignature = true
+[alias]
+	up = pull --rebase --autostash
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

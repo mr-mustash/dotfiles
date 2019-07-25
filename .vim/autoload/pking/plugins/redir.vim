@@ -1,4 +1,4 @@
-function! pking#plugins#prose#Redir(cmd)
+function! pking#plugins#Redir(cmd)
     for win in range(1, winnr('$'))
         if getwinvar(win, 'scratch')
             execute win . 'windo close'
