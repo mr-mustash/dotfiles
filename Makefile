@@ -25,6 +25,9 @@ pre_commit:
 	brew install pre-commit
 	pre-commit install
 
+darwin:
+	./Darwin/darwin_setup.sh
+
 dotfiles:
 	#MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 	git submodule init
@@ -35,6 +38,7 @@ dotfiles:
 		--exclude 'Makefile' \
 		--exclude 'Brewfile' \
 		--exclude 'README.md'  \
+		--exclude 'Darwin' \
 		. ~/
 
 npm:
@@ -47,8 +51,15 @@ dotfiles_test:
 	mkdir -p ~/.homedirtest
 	git submodule init
 	git submodule update --remote
-	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/.homedirtest/
+	rsync -rupE --copy-links --update --progress \
+		--exclude '.git' \
+		--exclude '.gitmodules' \
+		--exclude 'Makefile' \
+		--exclude 'Brewfile' \
+		--exclude 'README.md'  \
+		--exclude 'Darwin' \
+		. ~/.homedirtest/
 
-homedir: mac_app_store dotfiles brew npm pip pre_commit
+homedir: mac_app_store dotfiles darwin brew npm pip pre_commit
 
-.PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit npm pip
+.PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit npm pip darwin
