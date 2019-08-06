@@ -20,8 +20,6 @@ brew:
 
 mac_app_store:
 	mas signin --dialog geek279@gmail.com
-	mas install 1055511498 #Day One
-	mas install 585829637  #Todoist
 
 pre_commit:
 	brew install pre-commit
@@ -39,6 +37,11 @@ dotfiles:
 		--exclude 'README.md'  \
 		. ~/
 
+npm:
+	npm install sign-bunny
+
+pip:
+	pip3 install vim-vint gmail-yaml-filters
 
 dotfiles_test:
 	mkdir -p ~/.homedirtest
@@ -46,6 +49,6 @@ dotfiles_test:
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress --exclude '.git' --exclude 'Makefile' --exclude 'README.md'  . ~/.homedirtest/
 
-homedir: dotfiles brew mac_app_store pre_commit
+homedir: mac_app_store dotfiles brew npm pip pre_commit
 
-.PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit
+.PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit npm pip

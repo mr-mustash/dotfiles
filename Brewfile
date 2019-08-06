@@ -36,6 +36,9 @@ brew "python"
 brew "gettext"
 brew "glances"
 brew "git"
+brew "git-extras"
+brew "git-flow"
+brew "git-lfs"
 brew "gnupg", link: false
 brew "gnutls"
 brew "go"
@@ -110,12 +113,14 @@ cask "hammerspoon"
 cask "java"
 cask "keybase"
 cask "macupdater"
+cask "postman"
 cask "prime95"
 cask "vlc"
 cask "yujitach-menumeters"
+mas "Cinebench", id: 1438772273
 mas "Day One", id: 1055511498
-mas "Evernote", id: 406056744
 mas "GarageBand", id: 682658836
+mas "HazeOver", id: 430798174
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "LastPass", id: 926036361
