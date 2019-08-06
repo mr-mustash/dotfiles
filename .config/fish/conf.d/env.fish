@@ -24,7 +24,6 @@ set -gx GPG_TTY (tty)
 set -gx fish_user_paths  "~/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 
-# Use the brew provided gnu utilities
 if test -e (brew --prefix coreutils)/libexec/gnubin
     set -gx fish_user_paths (brew --prefix coreutils)/libexec/gnubin $fish_user_paths
 end
