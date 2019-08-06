@@ -1,7 +1,6 @@
-    
+
 function __fish_right_prompt_timer -a ms
   set -l time
-  set -l time_icon "⌛"
 
   if test "$ms" -eq 0
     return
@@ -22,5 +21,8 @@ function __fish_right_prompt_timer -a ms
     set time (math -s2 "$ms / 1000 / 60 / 60 / 24")"d"
   end
 
-  echo "$time_icon $time"
+  set_color --bold --background brblack
+  echo -n "$time "
+  set_color normal
+
 end

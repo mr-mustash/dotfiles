@@ -1,15 +1,18 @@
 function fish_mode_prompt --description 'Displays the current mode'
     switch $fish_bind_mode
         case default
-            set_color --bold --background bryellow white
-            echo '[N]'
+            # bryellow is equal to grey???
+            set color bryellow
+            set mode 'N'
         case insert
-            set_color --bold --background yellow white
-            echo '[I]'
+            set color yellow
+            set mode 'I'
         case visual
-            set_color --bold --background magenta white
-            echo '[V]'
+            set color magenta
+            set mode 'V'
     end
+    # For some reason I have to set the background color for bold to work.
+    set_color --bold --background brblack $color
+    echo -n "$mode "
     set_color normal
-    echo -n ' '
 end
