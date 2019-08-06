@@ -24,8 +24,13 @@ set -gx GPG_TTY (tty)
 set -gx fish_user_paths  "~/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 
+# Use the brew provided gnu utilities
+if test -e (brew --prefix coreutils)/libexec/gnubin
+    set -gx fish_user_paths (brew --prefix coreutils)/libexec/gnubin $fish_user_paths
+end
+
 if test -e /usr/local/share/fish/__fish_build_paths.fish
-    . /usr/local/share/fish/__fish_build_paths.fish
+    source /usr/local/share/fish/__fish_build_paths.fish
 end
 
 if test -d $HOME/go
@@ -44,7 +49,9 @@ if test -e $HOME/.config/fish/functions/new_relic_env.fish
 end
 
 #FZF
-fzf_env #Located in its own file in the functions directory.
+if test -e $HOME/.config/fish/functions/fzf_env.fish
+    fzf_env
+end
 
 # rbenv
 status --is-interactive; and source (rbenv init -|psub)
