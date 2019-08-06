@@ -1,0 +1,90 @@
+# Check to see if custom colos are already set
+if not set -q __pking_init_colours
+    # -----------------------------------------------------------------------------
+    # universals
+    # -----------------------------------------------------------------------------
+    set -U fish_color_autosuggestion 555
+    set -U fish_color_command 005fd7
+    set -U fish_color_comment 990000
+    set -U fish_color_cwd cyan
+    set -U fish_color_cwd_root magenta
+    set -U fish_color_end 009900
+    set -U fish_color_error ff0000
+    set -U fish_color_escape bryellow --bold
+    set -U fish_color_history_current --bold
+    set -U fish_color_host normal
+    set -U fish_color_match --background=brblue
+    set -U fish_color_normal normal
+    set -U fish_color_operator bryellow
+    set -U fish_color_param 00afff
+    set -U fish_color_quote 999900
+    set -U fish_color_redirection 00afff
+    set -U fish_color_search_match bryellow --background=brblack
+    set -U fish_color_selection white --bold --background=brblack
+    set -U fish_color_user green
+    set -U fish_color_valid_path --underline
+    set -U fish_pager_color_description B3A06D yellow
+    set -U fish_pager_color_prefix white --bold --underline
+    set -U fish_pager_color_progress brwhite --background=cyan
+
+    # -----------------------------------------------------------------------------
+    # prompt
+    # -----------------------------------------------------------------------------
+
+    set -U fish_color_user_root $fish_color_cwd_root
+    set -U fish_prompt_color_clock blue
+    set -U fish_prompt_color_duration $fish_color_dimmed
+    set -U fish_prompt_color_exit $fish_color_error
+    set -U fish_prompt_color_git_branch magenta
+    set -U fish_prompt_color_git_stashed $fish_color_dimmed
+    set -U fish_prompt_color_git_needs_add red
+    set -U fish_prompt_color_git_needs_commit yellow
+    set -U fish_prompt_color_git_needs_push cyan
+    set -U fish_prompt_color_git_clean green
+    set -U fish_prompt_color_jobs yellow
+
+    set -U __pking_init_colours ✓
+end
+
+# -----------------------------------------------------------------------------
+# LS_COLORS
+# -----------------------------------------------------------------------------
+set -gx CLICOLOR 1
+set -gx LSCOLORS 'ExfxcxdxbxegedhbegXcXd'
+
+# -----------------------------------------------------------------------------
+# iTerm2 Colors
+# -----------------------------------------------------------------------------
+#
+# Setting iTerm tab color based on environment
+# https://www.iterm2.com/documentation-escape-codes.html
+set uname (uname)
+
+# Reset Terminal for localhost
+if test $uname = 'Darwin'
+    echo -e "\033]6;1;bg;*;default\a" | tr -d '\n'
+end
+
+# First test to see if we're connected to a linux machine
+if test $uname = 'Linux'
+    if set -q "$environment" == "" ; set -gx (hostname -s | awk -F '-' '{print $2}') ; end
+    # (These Colors based on Solarized)
+    switch $environment
+    case dev  # Green
+        echo -e "\033]6;1;bg;red;brightness;103\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;137\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;30\a" | tr -d '\n'
+    case staging # Blue
+        echo -e "\033]6;1;bg;red;brightness;44\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;129\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;168\a" | tr -d '\n'
+    case prod # Red
+        echo -e "\033]6;1;bg;red;brightness;172\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;47\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;53\a" | tr -d '\n'
+    case '*' #Magenta
+        echo -e "\033]6;1;bg;red;brightness;211\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;54\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;130\a" | tr -d '\n'
+    end
+end

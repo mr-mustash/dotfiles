@@ -27,7 +27,7 @@ if status --is-interactive
     alias less='less -R'
 
     # Cleaner time output.
-    alias time='time -f "\t%e real\t%U user\t%S sys\t%P CPU\t%x status"'
+    #alias time='time -f "\t%e real\t%U user\t%S sys\t%P CPU\t%x status"'
 
     ### Abbreviations ###
     # tmux
