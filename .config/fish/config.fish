@@ -1,3 +1,8 @@
+# Colors
+if status is-interactive
+    source "$__fish_config_dir/colors.fish"
+end
+
 # Adding my prompt configs first
 set -gx fish_function_path $HOME/.config/fish/prompt/ $fish_function_path
 

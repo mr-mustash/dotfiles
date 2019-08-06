@@ -17,5 +17,8 @@ function __fish_right_prompt_signal --description 'Converts an exit code into a 
     set exit $code
   end
 
-  echo -n "$fail_icon $exit "
+  echo -n "$fail_icon "
+  set_color $fish_prompt_color_exit
+  echo -n "$exit "
+  set_color normal
 end
