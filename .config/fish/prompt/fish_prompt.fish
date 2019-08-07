@@ -15,7 +15,8 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     __fish_prompt_pwd
-    __fish_prompt_git
+    __fish_prompt_git_branch
+    __fish_prompt_git_status
     __fish_prompt_jobs
 
     set -l glyph "¶"
