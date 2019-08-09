@@ -7,7 +7,7 @@ function __fish_right_prompt_signal --description 'Converts an exit code into a 
   set -l sysexits USAGE DATAERR NOINPUT NOUSER NOHOST UNAVAILABLE SOFTWARE \
                   OSERR OSFILE CANTCREAT IOERR TEMPFAIL PROTOCOL NOPERM CONFIG
 
-  set -l fail_icon "✘"
+  set -l fail_icon ""
 
   if test $code -gt 128 -a $code -le 165
     set exit $signals[(math "$code - 128")]
@@ -18,7 +18,7 @@ function __fish_right_prompt_signal --description 'Converts an exit code into a 
   end
 
   echo -n "$fail_icon "
-  set_color $fish_prompt_color_exit
+  set_color $fish_prompt_color_exit --bold
   echo -n "$exit "
   set_color normal
 end

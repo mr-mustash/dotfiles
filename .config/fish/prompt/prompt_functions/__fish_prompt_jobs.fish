@@ -3,5 +3,5 @@ function __fish_prompt_jobs --description 'Helper function for fish_prompt'
 
   set job_count (jobs | wc -l)
 
-  echo -n (set_color $fish_prompt_color_jobs) "$job_count "
+  echo -n (set_color $fish_prompt_color_jobs) "$job_count"
 end

@@ -1,4 +1,5 @@
 function fish_right_prompt --description 'Display the right side of the interactive prompt'
+
     set -l exit $status
     set -l time $CMD_DURATION
 
@@ -16,6 +17,12 @@ function fish_right_prompt --description 'Display the right side of the interact
         end
     end
 
+    # Display the time if we're wide enough
+    if test $COLUMNS -gt 132
+        set_color $fish_prompt_color_clock
+        printf "%s " (date +%T)
+        set_color normal
+    end
 
 end
 

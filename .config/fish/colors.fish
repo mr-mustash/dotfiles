@@ -1,5 +1,5 @@
 # Check to see if custom colos are already set
-if not set -q __pking_init_colours
+if not set -q __pking_init_colors
     # -----------------------------------------------------------------------------
     # universals
     # -----------------------------------------------------------------------------
@@ -12,7 +12,7 @@ if not set -q __pking_init_colours
     set -U fish_color_error ff0000
     set -U fish_color_escape bryellow --bold
     set -U fish_color_history_current --bold
-    set -U fish_color_host normal
+    set -U fish_color_host blue --bold
     set -U fish_color_match --background=brblue
     set -U fish_color_normal normal
     set -U fish_color_operator bryellow
@@ -21,7 +21,7 @@ if not set -q __pking_init_colours
     set -U fish_color_redirection 00afff
     set -U fish_color_search_match bryellow --background=brblack
     set -U fish_color_selection white --bold --background=brblack
-    set -U fish_color_user green
+    set -U fish_color_user green --bold
     set -U fish_color_valid_path --underline
     set -U fish_pager_color_description B3A06D yellow
     set -U fish_pager_color_prefix white --bold --underline
@@ -31,19 +31,39 @@ if not set -q __pking_init_colours
     # prompt
     # -----------------------------------------------------------------------------
 
-    set -U fish_color_user_root $fish_color_cwd_root
-    set -U fish_prompt_color_clock blue
-    set -U fish_prompt_color_duration $fish_color_dimmed
-    set -U fish_prompt_color_exit $fish_color_error
-    set -U fish_prompt_color_git_branch magenta
-    set -U fish_prompt_color_git_stashed $fish_color_dimmed
-    set -U fish_prompt_color_git_needs_add red
-    set -U fish_prompt_color_git_needs_commit yellow
-    set -U fish_prompt_color_git_needs_push cyan
-    set -U fish_prompt_color_git_clean green
-    set -U fish_prompt_color_jobs yellow
+    set -U fish_color_user_root red --bold
+    set -U fish_prompt_color_clock blue --bold
+    set -U fish_prompt_color_duration $fish_color_autosuggestion --bold
+    set -U fish_prompt_color_exit $fish_color_error --bold
 
-    set -U __pking_init_colours ✓
+    # Branch color
+    set -U fish_prompt_color_git_branch magenta --bold
+
+    # Git Status icon colors
+    set -U fish_prompt_color_git_untracked red
+    set -U fish_prompt_color_git_added green
+    set -U fish_prompt_color_git_modified yellow
+    set -U fish_prompt_color_git_renamed cyan
+    set -U fish_prompt_color_git_deleted red
+    set -U fish_prompt_color_git_stashed purple
+    set -U fish_prompt_color_git_unmerged red
+    set -U fish_prompt_color_git_diverged magenta
+    set -U fish_prompt_color_git_ahead magenta
+    set -U fish_prompt_color_git_behind magenta
+    set -U fish_prompt_color_git_clean green
+
+    # Language icon colors
+    set -U fish_prompt_color_golang_icon 89CBDA --bold
+    set -U fish_prompt_color_docker_icon 3158E5 --bold
+    set -U fish_prompt_color_vim_icon 41913F --bold
+
+    # Number of jobs running in prompt
+    set -U fish_prompt_color_jobs yellow --bold
+
+    # Misc
+    set -U fish_prompt_color_k8s 3158E5 --bold
+
+    set -gx __pking_init_colours ✓
 end
 
 # -----------------------------------------------------------------------------
