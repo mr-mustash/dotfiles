@@ -84,7 +84,7 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
 
             set -l status_symbol icon_$i
             set -l full_status_symbol "$$status_symbol"
-            set -l status_with_color (set_color $full_color ; echo $full_status_symbol ; set_color normal)
+            set -l status_with_color (set_color $full_color --bold; echo $full_status_symbol ; set_color normal)
 
             set full_git_status "$full_git_status$status_with_color"
 

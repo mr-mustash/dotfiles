@@ -1,5 +1,5 @@
 function __fish_prompt_pwd --description 'Format the current directory for the prompt'
-  set -l max (math "round($COLUMNS / 6)") # maximum length = 1/6rd window width
+  set -l max (math "round($COLUMNS / 8)") # maximum length = 1/8rd window width
 
   set -l short_path (pwd | string replace -r ".*/" "")   # basename of current dir
   set -l short_path_length (string length $short_path)
@@ -25,5 +25,5 @@ function __fish_prompt_pwd --description 'Format the current directory for the p
     set long_path "…/$trimmed_path"
   end
 
-  echo -ns (set_color $fish_color_cwd) $long_path (set_color normal)
+  echo -ns (set_color $fish_color_cwd --bold) $long_path (set_color normal)
 end
