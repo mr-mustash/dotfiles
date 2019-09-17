@@ -87,7 +87,7 @@ end
 
 # First test to see if we're connected to a linux machine
 if test $uname = 'Linux'
-    if set -q "$environment" == "" ; set -gx (hostname -s | awk -F '-' '{print $2}') ; end
+    if set -q "$environment" == "" ; set -gx environment (hostname -s | awk -F '-' '{print $2}') ; end
     # (These Colors based on Solarized)
     if set -q "$environment" != ""
         switch $environment
