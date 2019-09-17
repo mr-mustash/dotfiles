@@ -9,10 +9,6 @@ function __fish_prompt_language_docker -d "Display docker version"
         return
     end
 
-    if not type -q docker
-        return
-    end
-
     set -l docker_version (docker version -f "{{.Server.Version}}" 2>/dev/null)
     # if docker daemon isn't running you'll get an error like 'Bad response from Docker engine'
     if test "$docker_version" = ""
