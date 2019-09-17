@@ -18,7 +18,7 @@ function __fish_prompt_pwd --description 'Format the current directory for the p
 
   if test $excess -gt 0
     # cut to $max chars long, trim leading detritus and add leader
-    set cut_path (string sub --start $excess $long_path)
+    set cut_path (string sub --start "$excess" "$long_path")
     set path_parts (string split --max=1 / $cut_path)
     set trimmed_path $path_parts[2]
 
