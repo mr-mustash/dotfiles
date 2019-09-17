@@ -7,10 +7,8 @@ function __fish_prompt_git_branch --description "Display git the git branch name
     set -l git_dir (command git rev-parse --git-dir 2>/dev/null)
     or return 0
 
-    set -l git_status (git status --branch --porcelain=v2 2>/dev/null)
-    or return
-
-    set -l git_branch (string match -r '(?<=branch.head ).*' $git_status |sed -e 's/ //' )
+    set -l git_branch (git branch | grep '^*' | awk '{print $2}')
+    or return 0
 
     # If the branch name is too long take out the '/u/pking/'
     set -l max (math "round($COLUMNS / 8)") # maximum length = 1/8rd window width
@@ -19,11 +17,11 @@ function __fish_prompt_git_branch --description "Display git the git branch name
     if test $git_branch_length -gt $max
         set git_branch (echo $git_branch | sed -e 's/u\/pking\///')
         set git_branch (echo "../$git_branch")
-end
+    end
 
-echo -ns (set_color --bold) " on" (set_color normal)
-set_color $fish_prompt_color_git_branch --bold
-echo -ns "  $git_branch"
+    echo -ns (set_color --bold) " on" (set_color normal)
+    set_color $fish_prompt_color_git_branch --bold
+    echo -ns "  $git_branch"
 
-set_color normal
+    set_color normal
 end

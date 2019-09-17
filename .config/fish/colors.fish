@@ -1,5 +1,5 @@
 # Check to see if custom colos are already set
-if not set -q __pking_init_colors
+#if not set -q __pking_init_colors
     # -----------------------------------------------------------------------------
     # universals
     # -----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ if not set -q __pking_init_colors
     set -U fish_prompt_color_k8s 3158E5 --bold
 
     set -gx __pking_init_colours ✓
-end
+    #end
 
 # -----------------------------------------------------------------------------
 # LS_COLORS

@@ -1,11 +1,31 @@
+#!/usr/local/opt/coreutils/libexec/gnubin/env fish
 function __fish_prompt_git_status --description 'Display git info in the fish prompt'
-    # Fail if we don't have git installed
-    in-path git
-    or return 0
+    #set -l parent_pid $argv[1]
 
-    # Fail if we're not inside a git repo
-    set -l git_dir (command git rev-parse --git-dir 2>/dev/null)
-    or return 0
+    #set -l ppid (ps -o ppid= %self)
+
+    #test "$ppid" -eq "$parent_pid"
+    #or return 0
+
+    # Fail if we don't have git installed
+    #in-path git
+    #or return 0
+    ##or set -U prompt_$parent_pid "" ;and kill -WINCH $parent_pid ;and return 0
+
+    ## Fail if we're not inside a git repo
+    #git rev-parse --git-dir 2>/dev/null 1>/dev/null
+    #or return 0
+    ##or set -U prompt_$parent_pid "" ;and kill -WINCH $parent_pid ;and return 0
+
+    #if set -q git_running_$parent_pid
+    #    if ps aux | grep git_running_$parent_pid | egrep -v 'grep' 2>/dev/null 1>/dev/null
+    #        return 0
+    #    else
+    #        set -U git_running_$parent_pid $fish_pid
+    #    end
+    #else
+    #    set -U git_running_$parent_pid $fish_pid
+    #end
 
     set -l icon_untracked "?"
     set -l icon_added "+"
@@ -93,8 +113,14 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
 
     if [ "$full_git_status" ]
         set full_git_status (echo $full_git_status | sed -e 's/ //')
-        echo -n " "
-        echo  "[$full_git_status]" | sed -e 's/ //' | tr -d '\n'
+        echo -ns " "
+        echo -ns "[$full_git_status]" | sed -e 's/ //' | tr -d '\n'
+        #set -U prompt_$parent_pid (echo -ns " " && echo -ns "[$full_git_status]" | sed -e 's/ //' | tr -d '\n')
+        #set -e git_running_$parent_pid
+        #kill -WINCH $parent_pid
+    else
+        #set -U prompt_$parent_pid ""
+        #set -e git_running_$parent_pid
+        #kill -WINCH $parent_pid
     end
 end
-

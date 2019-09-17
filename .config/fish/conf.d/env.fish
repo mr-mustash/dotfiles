@@ -27,17 +27,19 @@ set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making
 # each shell (and vim for some reason?) take over a second to load.
-if set -q __brew_coreutils_path
-    if test "$__brew_coreutils_path" != ""
-        set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+if status is-interactive
+    if set -q __brew_coreutils_path
+        if test "$__brew_coreutils_path" != ""
+            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+        else
+            set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
+            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+        end
     else
-        set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-        set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
-    end
-else
-    if test -e (brew --prefix coreutils)/libexec/gnubin
-        set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-        set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+        if test -e (brew --prefix coreutils)/libexec/gnubin
+            set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
+            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+        end
     end
 end
 
@@ -57,13 +59,19 @@ end
 
 # New Relic Paths
 if test -e $HOME/.config/fish/functions/new_relic_env.fish
+    source $HOME/.config/fish/functions/new_relic_env.fish
     new_relic_env
 end
 
 #FZF
 if test -e $HOME/.config/fish/functions/fzf_env.fish
+    source $HOME/.config/fish/functions/fzf_env.fish
     fzf_env
 end
 
 # rbenv
 #status --is-interactive; and source (rbenv init -|psub)
+
+# Async prompt
+set -gx async_prompt_functions 'fish_prompt fish_right_prompt __fish_prompt_jobs __fish_prompt_git_status __fish_prompt_git_branch __fish_right_prompt_k8s_context'
+set -gx async_prompt_inherit_variables 'all'
