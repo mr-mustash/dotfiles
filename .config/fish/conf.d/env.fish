@@ -27,18 +27,20 @@ set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making
 # each shell (and vim for some reason?) take over a second to load.
-if status is-interactive
-    if set -q __brew_coreutils_path
-        if test "$__brew_coreutils_path" != ""
-            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+if in-path brew
+    if status is-interactive
+        if set -q __brew_coreutils_path
+            if test "$__brew_coreutils_path" != ""
+                set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+            else
+                set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
+                set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+            end
         else
-            set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
-        end
-    else
-        if test -e (brew --prefix coreutils)/libexec/gnubin
-            set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-            set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+            if test -e (brew --prefix coreutils)/libexec/gnubin
+                set -gx __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
+                set -gx fish_user_paths $__brew_coreutils_path $fish_user_paths
+            end
         end
     end
 end
