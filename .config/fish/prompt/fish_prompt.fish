@@ -9,14 +9,32 @@ function fish_prompt --description 'Write out the prompt'
     #$HOME/.config/fish/prompt/prompt_functions/__fish_prompt_git_status.fish $fish_pid &
 
     __fish_prompt_username
-    if test "$SSH_CONNECTION" != "" ; __fish_prompt_hostname ; end
-        __fish_prompt_pwd
+    if test "$SSH_CONNECTION" != ""
+        __fish_prompt_hostname
+    end
+
+    # If we're inside a docker container display the hostname as well
+    if test -e /proc/self/cgroup
+        if test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
+            __fish_prompt_hostname
+            echo -ns "("
+            echo -ns (set_color $fish_prompt_color_docker_icon) "" (set_color normal)
+            echo -ns ") "
+        end
+    end
+
+    __fish_prompt_pwd
+
+    set -l git_working_tree (command git rev-parse --show-toplevel 2>/dev/null)
+    if test -n "$git_working_tree"
         __fish_prompt_git_branch
         __fish_prompt_git_status
-        #echo -ns $updated_status
-        __fish_prompt_languages
-        __fish_prompt_jobs
+        __fish_prompt_git_autofetch
+    end
 
-        set -l glyph "➜"
-        echo -ns (set_color $fish_color_user) " $glyph " (set_color normal)
+    __fish_prompt_languages
+    __fish_prompt_jobs
+
+    set -l glyph "➜"
+    echo -ns (set_color $fish_color_user) " $glyph " (set_color normal)
 end
