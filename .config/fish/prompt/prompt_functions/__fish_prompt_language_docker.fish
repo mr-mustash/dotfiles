@@ -1,11 +1,12 @@
 function __fish_prompt_language_docker -d "Display docker version"
-    in-path docker
-    return
-
     if not test -f Dockerfile \
         -o -f docker-compose.yml \
         -o -f /.dockerenv \
         -o -f "$COMPOSE_FILE"
+        return
+    end
+
+    if not type -q docker
         return
     end
 
