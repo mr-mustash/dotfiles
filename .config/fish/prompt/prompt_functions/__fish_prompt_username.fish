@@ -20,7 +20,7 @@ function __fish_prompt_username --description 'Display username on remost host o
             echo -ns (set_color $user_color) "$_local_user" (set_color normal)
         else
             echo -ns (set_color $user_color) "$_local_user " (set_color normal)
-            echo -ns (set_color --bold) "in " (set_color normal)
+            echo -ns (set_color --bold) "on " (set_color normal)
         end
 
     end

@@ -9,18 +9,13 @@ function fish_prompt --description 'Write out the prompt'
     #$HOME/.config/fish/prompt/prompt_functions/__fish_prompt_git_status.fish $fish_pid &
 
     __fish_prompt_username
-    if test "$SSH_CONNECTION" != ""
+    if test "$SSH_CONNECTION" != "" || test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
         __fish_prompt_hostname
     end
 
     # If we're inside a docker container display the hostname as well
     if test -e /proc/self/cgroup
-        if test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
-            __fish_prompt_hostname
-            echo -ns "("
-            echo -ns (set_color $fish_prompt_color_docker_icon) "" (set_color normal)
-            echo -ns ") "
-        end
+        __fish_prompt_hostname
     end
 
     __fish_prompt_pwd
