@@ -13,11 +13,6 @@ function fish_prompt --description 'Write out the prompt'
         __fish_prompt_hostname
     end
 
-    # If we're inside a docker container display the hostname as well
-    if test -e /proc/self/cgroup
-        __fish_prompt_hostname
-    end
-
     __fish_prompt_pwd
 
     set -l git_working_tree (command git rev-parse --show-toplevel 2>/dev/null)
