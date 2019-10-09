@@ -39,3 +39,4 @@ Since Fish does not have a built in history search function I've decided to use 
 ## Greets
 * [@zgracem](https://github.com/zgracem) for the [modular prompt idea](https://github.com/zgracem/dotconfig/tree/master/fish). It changed the entire way of how I think about building a prompt!
 * [@MaxMilton](https://github.com/MaxMilton) for creating an [async prompt](https://github.com/MaxMilton/pure/blob/master/functions/__pure_run_async.fish) that works with my setup! I tried different configs for months before finding their ideas.
+* [@matchi](https://github.com/matchai] for creating [spacefish](https://github.com/matchai/spacefish) that inspired the look of my prompt, and some ideas around it's modularity.
