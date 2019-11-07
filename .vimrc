@@ -240,6 +240,10 @@ nnoremap <leader>l >>
 nnoremap : q:
 nnoremap / q/
 nnoremap ? q?
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
+
 
 " Save a file as sudo
 cnoremap w!! w !sudo tee > /dev/null %<CR>
@@ -332,14 +336,8 @@ if has("autocmd")
     augroup RememberLastView
         au!
         set viewoptions-=options
-        autocmd VimLeave,BufLeave *
-                    \   if expand('%') != '' && &buftype !~ 'nofile'
-                    \|      mkview
-                    \|  endif
-        autocmd BufRead *
-                    \   if expand('%') != '' && &buftype !~ 'nofile'
-                    \|      silent loadview
-                    \|  endif
+        autocmd VimLeave,BufLeave if expand("%") != "" | mkview | endif
+        autocmd BufRead if expand("%") != "" | loadview | endif
     augroup END
 endif
 
@@ -364,7 +362,10 @@ set viminfo='50,\"5000,h,/0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
-autocmd VimEnter * echo "<^.^>"
+augroup hellocat
+    au!
+    autocmd VimEnter * echo "<^.^>"
+augroup END
 
 
 " ========================================================================= }}}
