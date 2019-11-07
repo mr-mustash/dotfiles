@@ -60,6 +60,6 @@ dotfiles_test:
 		--exclude 'Darwin' \
 		. ~/.homedirtest/
 
-homedir: mac_app_store dotfiles darwin brew npm pip pre_commit
+homedir:  brew npm pip pre_commit
 
 .PHONY: dotfiles dotfiles_test mac_app_store brew pre_commit npm pip darwin
