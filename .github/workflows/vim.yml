@@ -1,0 +1,14 @@
+name:  Vim Linting
+on: [push, pull_request]
+
+jobs:
+  darwin:
+    runs-on: [macOS-latest]
+    steps:
+    - uses: uses: reviewdog/action-vint@v1.0.1
+    - name: Darwin Vim Lint
+  ubuntu:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: uses: reviewdog/action-vint@v1.0.1
+      - name: Linux Vim Lint
