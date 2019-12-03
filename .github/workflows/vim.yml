@@ -2,13 +2,8 @@ name:  Vim Linting
 on: [push, pull_request]
 
 jobs:
-  darwin:
-    runs-on: [macOS-latest]
-    steps:
-    - name: Darwin Vim Lint
-      uses: reviewdog/action-vint@v1.0.1
-  ubuntu:
+  Vim Lint:
     runs-on: [ubuntu-latest]
     steps:
-    - name: Darwin Vim Lint
+    - name: Ubuntu Vim Lint
       uses: reviewdog/action-vint@v1.0.1
