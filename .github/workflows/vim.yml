@@ -2,7 +2,7 @@ name:  Vim Linting
 on: [push, pull_request]
 
 jobs:
-  Vim Lint:
+  vint:
     runs-on: [ubuntu-latest]
     steps:
     - name: Ubuntu Vim Lint
