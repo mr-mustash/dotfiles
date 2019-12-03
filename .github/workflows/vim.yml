@@ -6,4 +6,4 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
     - name: Vim Lint
-      uses: mr-mustash/vim-linting-action@v0.0.4
+      uses: mr-mustash/vim-linting-action@v0.0.5
