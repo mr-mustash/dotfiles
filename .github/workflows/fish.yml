@@ -2,7 +2,7 @@ name:  Fish Linting
 on: [push]
 
 jobs:
-  vint:
+  fish-n:
     runs-on: [ubuntu-latest]
     steps:
     - name: Checkout repo
