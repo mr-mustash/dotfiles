@@ -1,5 +1,5 @@
 name:  Sub Modules
-on: [push, pull_request]
+on: [push]
 
 jobs:
   Submodules:
