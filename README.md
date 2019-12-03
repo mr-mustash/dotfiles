@@ -1,4 +1,4 @@
-[![Vim Status](https://github.com/mr-mustash/dotfiles/workflows/vim/badge.svg)](https://github.com/mr-mustash/dotfiles/actions)
+[![Vim Status](https://github.com/mr-mustash/dotfiles/workflows/Vim%20Linting/badge.svg)](https://github.com/mr-mustash/dotfiles/actions)
 
 # dotfiles
 Welcome to Patrick King's dotfiles repo.
