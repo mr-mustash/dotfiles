@@ -5,10 +5,10 @@ jobs:
   darwin:
     runs-on: [macOS-latest]
     steps:
-    - uses: reviewdog/action-vint@v1.0.1
     - name: Darwin Vim Lint
+      uses: reviewdog/action-vint@v1.0.1
   ubuntu:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: reviewdog/action-vint@v1.0.1
-      - name: Linux Vim Lint
+    - name: Darwin Vim Lint
+      uses: reviewdog/action-vint@v1.0.1
