@@ -5,5 +5,7 @@ jobs:
   vint:
     runs-on: [ubuntu-latest]
     steps:
+    - name: Checkout repo
+      uses: actions/checkout@v1
     - name: Vim Lint
       uses: mr-mustash/vim-linting-action@v0.0.5
