@@ -8,3 +8,7 @@ repos:
     -   id: check-merge-conflict
     -   id: check-yaml
     -   id: detect-private-key
+-   repo: https://github.com/Kuniwak/vint
+    rev: v0.4a1
+    hooks:
+    -   id: vint
