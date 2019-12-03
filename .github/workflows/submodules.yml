@@ -1,0 +1,10 @@
+name: CI
+
+on: [issue_comment]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Bump Submodules
+      uses: domdere/git-submodule-action@master
