@@ -21,13 +21,13 @@ set -x  MANPAGER "vim -c MANPAGER -"
 set -gx GPG_TTY (tty)
 
 # Paths!
-set -gx fish_user_paths  "~/bin" $fish_user_paths
+set -gx fish_user_paths  "$HOME/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
 
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making
 # each shell (and vim for some reason?) take over a second to load.
-if test (command -sq brew)
+ if test (command -sq brew)
     if status is-interactive
         if set -q __brew_coreutils_path
             if test "$__brew_coreutils_path" != ""
@@ -67,8 +67,10 @@ end
 
 #FZF
 if test -e $HOME/.config/fish/functions/fzf_env.fish
-    source $HOME/.config/fish/functions/fzf_env.fish
-    fzf_env
+    if which fzf >/dev/null 2>/dev/null
+        source $HOME/.config/fish/functions/fzf_env.fish
+        fzf_env
+    end
 end
 
 # rbenv
