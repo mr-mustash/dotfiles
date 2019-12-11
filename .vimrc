@@ -14,8 +14,9 @@
 " 1 important ============================================================= {{{
 
 set nocompatible
-if has ("autocmd")
+if has ('autocmd')
     augroup setNoPasteAfterPaste
+        au!
         autocmd InsertLeave * set nopaste
     augroup END
 endif
@@ -48,7 +49,7 @@ set relativenumber
 
 set background=dark
 
-if has ("autocmd")
+if has ('autocmd')
     filetype plugin indent on
 endif
 
@@ -84,7 +85,7 @@ if has('termguicolors') && $COLORTERM ==? 'truecolor'
 endif
 
 " Only display the cursorline on the active buffer.
-if has ("autocmd")
+if has ('autocmd')
     if exists('+cursorline')
         augroup cursorLine
             autocmd!
@@ -152,11 +153,11 @@ set showmatch
 if exists('&undodir')
     set undodir=~/.vim/local/undo
     if !isdirectory(expand(&undodir))
-        call mkdir(expand(&undodir), "p")
+        call mkdir(expand(&undodir), 'p')
     endif
 endif
 
-if has("autocmd")
+if has('autocmd')
     " Don't create undofiles for files in the following folders.
     augroup noundofolders
         au!
@@ -276,7 +277,7 @@ set wildmode=list:longest
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
 
-if has("autocmd")
+if has('autocmd')
     augroup cmdwinSettings
         au!
         " No line numbers in the command line window.
@@ -284,9 +285,10 @@ if has("autocmd")
         " This is a hack to get airline to display correctly when
         " entering the cmd window in insert mode. The first time this is run
         " there will be a brief error that appears, but it will clear quickly.
-        autocmd CmdwinEnter *
-                    \   silent call airline#add_statusline_func('airline#cmdwinenter')
-                    \ | silent call airline#update_statusline()
+        "autocmd CmdwinEnter *
+        "            \   silent call airline#add_statusline_func('airline#cmdwinenter')
+        "            \ | silent call airline#update_statusline()
+        autocmd CmdwinEnter * silent call airline#update_statusline()
         " Automatically enter insert mode when entering the command window
         autocmd CmdwinEnter * startinsert
         " I only want to have to press <C-c> once to exit
@@ -332,13 +334,44 @@ set termencoding=utf-8
 " ========================================================================= }}}
 " 26 various ============================================================== {{{
 
-if has("autocmd")
-    augroup RememberLastView
-        au!
-        set viewoptions-=options
-        autocmd VimLeave,BufLeave if expand("%") != "" | mkview | endif
-        autocmd BufRead if expand("%") != "" | loadview | endif
-    augroup END
+if has('autocmd')
+    let g:skipview_files = [
+            \ '[Command Line]'
+            \ ]
+    function! MakeViewCheck()
+        if has('quickfix') && &buftype =~# 'nofile'
+            " Buffer is marked as not a file
+            return 0
+        endif
+        if &buftype ==# 'nofile' && &filetype ==# 'vim'
+            " Buffer is marked as not a file
+            return 0
+        endif
+        if empty(glob(expand('%:p')))
+            " File does not exist on disk
+            return 0
+        endif
+        if len($TEMP) && expand('%:p:h') == $TEMP
+            " We're in a temp dir
+            return 0
+        endif
+        if len($TMP) && expand('%:p:h') == $TMP
+            " Also in temp dir
+            return 0
+        endif
+        if index(g:skipview_files, expand('%')) >= 0
+            " File is in skip list
+            return 0
+        endif
+        return 1
+    endfunction
+
+    augroup vimrcAutoView
+        autocmd!
+        " Autosave & Load Views.
+        autocmd BufWritePost,BufLeave ?* if MakeViewCheck() | silent! mkview | endif
+        autocmd BufWinEnter ?* if MakeViewCheck() | silent! loadview | endif
+    augroup end
 endif
 
 set sessionoptions-=blank sessionoptions-=options sessionoptions+=tabpages sessionoptions-=buffers
@@ -346,13 +379,13 @@ set sessionoptions-=blank sessionoptions-=options sessionoptions+=tabpages sessi
 if exists('&viewdir')
     set viewdir=~/.vim/local/view/
     if !isdirectory(expand(&viewdir))
-        call mkdir(expand(&viewdir), "p")
+        call mkdir(expand(&viewdir), 'p')
     endif
 endif
 
 if exists('g:ctrlp_cache_dir')
     if !isdirectory(expand(g:ctrlp_cache_dir))
-        call mkdir(expand(g:ctrlp_cache_dir), "p")
+        call mkdir(expand(g:ctrlp_cache_dir), 'p')
     endif
 endif
 
