@@ -15,11 +15,20 @@ home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/king.png")
 
 --------------------------------------------
 -- Config reloading
-hs.hotkey.bind(hyper, "R", function()
-    notification("Config Reloaded")
-    hs.reload()
-end)
 
+function reloadConfig(files)
+    doReload = false
+    for _,file in pairs(files) do
+        if file:sub(-4) == ".lua" then
+            doReload = true
+        end
+    end
+    if doReload then
+        hs.reload()
+        notification("Config Reloaded")
+    end
+end
+myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
 -- WiFi
 wifiWatcher = nil
@@ -45,17 +54,7 @@ function ssidChangedCallback()
 end
 
 wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
-
--- Use the caffenaite watcher to turn the WiFi watcher on and off.
-cwatcher = hs.caffeinate.watcher.new(function(state)
-   if state == hs.caffeinate.watcher.systemDidWake then
-      wifiWatcher:start()
-   elseif state == hs.caffeinate.watcher.systemWillSleep then
-       wifiWatcher:stop()
-   end
-end)
-cwatcher:start()
-
+wifiWatcher:start()
 
 function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
@@ -77,7 +76,11 @@ end
 
 -- Proxy
 function restartProxy()
-    hs.execute("killall autossh ; autossh -M 8887 -f -D localhost:8888 -N -i ~/.ssh/proxy.pem ubuntu@34.220.210.10", true)
+    hs.execute("killall autossh ; autossh -M 18887 -f -D localhost:18888 -N ubuntu@34.220.194.173", true)
+end
+
+function restartProxyCompressed()
+    hs.execute("killall autossh ; autossh -M 18887 -f -D localhost:18888 -N -C ubuntu@34.220.194.173", true)
 end
 
 -- Any Complete
