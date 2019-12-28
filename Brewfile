@@ -10,7 +10,6 @@ brew "gdbm"
 brew "libyaml"
 brew "openssl"
 brew "sqlite"
-brew "python@2"
 brew "python"
 brew "ansible"
 brew "autojump"
@@ -123,7 +122,6 @@ mas "GarageBand", id: 682658836
 mas "HazeOver", id: 430798174
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
-mas "LastPass", id: 926036361
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Todoist", id: 585829637

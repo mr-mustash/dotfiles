@@ -6,10 +6,7 @@
 [core]
 	editor=vim
 	whitespace=all
-	excludefile=~/.global_gitignore
-[hub]
-	protocol = https
-	host = source.datanerd.us
+	excludesfile = ~/.global_gitignore
 [web]
 	browser = google-chrome
 [commit]
