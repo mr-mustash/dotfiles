@@ -12,7 +12,7 @@
                     -webkit-box-sizing: border-box;
                     box-sizing: border-box;
                 }
-            
+
             html,
             body {
                 background-color: #111;
@@ -20,7 +20,7 @@
                 height: 100%;
                 overflow: hidden;
             }
-            
+
             /* Hide only visually, but have it available for screenreaders & for SEO purposes. See h5bp.com/v */
             .visuallyhidden {
                 border: 0;
@@ -32,13 +32,13 @@
                 position: absolute;
                 width: 1px;
             }
-            
+
             .clearfix:before,
             .clearfix:after {
                 content: " ";
                 display: table;
             }
-            
+
             .clearfix:after {
                 clear: both;
             }
@@ -54,7 +54,7 @@
                 height: 64px;
                 background-image: url('data:image/gif;base64,R0lGODlhQABAAKIGAP/MZsyZM5lmAGYzAMxmAP//mTMzMwAAACH5BAEAAAYALAAAAABAAEAAAAP/aLrc/jDKSau9OOvNu/9gKI5kaZ5oqq5s675wLM/0Atx1de97/hQFXgAw7PkMu6GSeCviZknmctk0voJVZWC7lfKsKSCWqBVwzVym92kCfsncLTpdpIJB4qQ2bu4H5nRTdxtuX3tnf38CfnFdVE4dY2RSe4t+l2iAdoMWklN8mH2iiY5eTmydQqZyioqWr4mapW8YWHVwpK+6urmOs18XnpSIoruLsY1rbwAWA7aryMXGx42Cp6gSBM6qjdJyltHWk8sFFQPaz5+xsMfg1ePLN+UU2uhjh6zhyMrxOwUCFQjUO3dvUjVWstL0IwJkAEB6As8RVLOnCSlEv24xCVJguYDDhxPORdQ2kWIWPoHUkOvo0SPIkPUGSjI1zJeTUxxbflyEQSJJAoWiwBnGT15DnQI+ZhDpc1sXbjTfHNW58+UFpjJVQb0GYCpSSx4EDiQZdKFRllRfhcCKtaxJeVQduuQ5QmTEpkGdTE36cScKu2OdSTqatHDVFR7FNgUqxrDcwnRdAL77ky/kyDBaih2ZlMAivz7s+jSMObRikkqPNEg8cIDqCDpfy55Nu7bt27hz697Nu7fvBwkAADs=');
             }
-            
+
             /**
              * Toaster Animations
              *
@@ -167,7 +167,7 @@
                 -o-animation: fly 24s 12s linear infinite;
                 animation: fly 24s 12s linear infinite;
             }
-            
+
             /**
              * Starting positions of objects (both toast & toasters).
              *  - There is a different position for each object to prevent overlapping.
@@ -190,7 +190,7 @@
             .p15 { right: -17%; top: 30%; }
             .p16 { right: -15%; top: 50%; }
             .p17 { right: -20%; top: 70%; }
-            
+
             /* Batch 2 (-20% to -40%) */
             /* Top edge, from right to left */
             .p18 { right: 0%; top: -26%; }
@@ -203,7 +203,7 @@
             .p24 { right: -26%; top: 10%; }
             .p25 { right: -36%; top: 30%; }
             .p26 { right: -29%; top: 50%; }
-            
+
             /* Batch 3 (-40% to -60%)*/
             /* Top edge, from right to left */
             .p27 { right: 0; top: -46%; }
@@ -214,7 +214,7 @@
             .p31 { right: -46%; top: 10%; }
             .p32 { right: -56%; top: 20%; }
             .p33 { right: -49%; top: 30%; }
-            
+
             /* Flapping animation */
             @-webkit-keyframes flap {
                 from { background-position:    0px; }
@@ -232,7 +232,7 @@
                 from { background-position:    0px; }
                 to { background-position: -256px; }
             }
-            
+
             /* Gliding animation using translate */
             /* Moving 1600px, to accomodate for large screens */
             @-webkit-keyframes fly {
@@ -299,13 +299,13 @@
                     transform: translate(-1600px, 1600px);
                 }
             }
-            
+
                 </style>
     </head>
     <body>
         <h1 class="visuallyhidden">Flying Toasters - After Dark in CSS</h1>
-        
-        <!-- First group of objects -->  
+
+        <!-- First group of objects -->
         <div class="toaster t1 p6"></div>
         <div class="toaster t3 p7"></div>
         <div class="toast tst1 p8"></div>
@@ -320,32 +320,32 @@
         <div class="toast tst3 p20"></div>
         <div class="toaster t2 p21"></div>
         <div class="toast tst1 p24"></div>
-        <div class="toaster t1 p22"></div>  
+        <div class="toaster t1 p22"></div>
         <div class="toast tst2 p26"></div>
         <div class="toaster t1 p28"></div>
         <div class="toast tst2 p30"></div>
         <div class="toaster t2 p31"></div>
         <div class="toaster t1 p32"></div>
         <div class="toast tst3 p33"></div>
-        
+
         <!-- wave 1 of (fast delayed) objects -->
-        <div class="toaster t4 p27"></div>  
+        <div class="toaster t4 p27"></div>
         <div class="toaster t4 p10"></div>
         <div class="toaster t4 p25"></div>
         <div class="toaster t4 p29"></div>
-        
-        <!-- wave 2 of (delayed) objects -->  
+
+        <!-- wave 2 of (delayed) objects -->
         <div class="toaster t5 p15"></div>
         <div class="toaster t5 p18"></div>
         <div class="toaster t5 p22"></div>
-        
+
         <!-- wave 3 of (delayed) objects -->
         <div class="toaster t6 p6"></div>
         <div class="toaster t6 p11"></div>
         <div class="toaster t6 p15"></div>
         <div class="toaster t6 p19"></div>
         <div class="toaster t6 p23"></div>
-        
+
         <!-- wave 5 of (delayed) objects -->
         <div class="toast tst4 p10"></div>
         <div class="toast tst4 p23"></div>
@@ -355,18 +355,18 @@
         <div class="toaster t7 p16"></div>
         <div class="toaster t7 p20"></div>
         <div class="toaster t7 p24"></div>
-        
+
         <!-- wave 6 of (delayed) objects -->
         <div class="toaster t8 p8"></div>
         <div class="toaster t8 p13"></div>
         <div class="toaster t8 p17"></div>
         <div class="toaster t8 p25"></div>
-        
+
         <!-- wave 7 of (delayed) objects -->
         <div class="toaster t9 p14"></div>
         <div class="toaster t9 p18"></div>
         <div class="toaster t9 p21"></div>
-        <div class="toaster t9 p26"></div> 
-        
+        <div class="toaster t9 p26"></div>
+
     </body>
 </html>

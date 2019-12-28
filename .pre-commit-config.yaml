@@ -2,13 +2,13 @@ exclude: '^$'
 fail_fast: false
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.0.0
+    rev: v2.4.0
     hooks:
     -   id: trailing-whitespace
     -   id: check-merge-conflict
     -   id: check-yaml
     -   id: detect-private-key
 -   repo: https://github.com/Kuniwak/vint
-    rev: v0.4a1
+    rev: bcd6562a3d74898a179a9a542ded3c4086f5c57c
     hooks:
     -   id: vint
