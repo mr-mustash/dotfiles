@@ -1,7 +1,6 @@
 # Automatically update the repo
 update_submodules:
 	git submodule update --remote
-	git commit -am "Updating submodules"
 
 update_brewfile:
 	rm -rf Brewfile
@@ -10,7 +9,7 @@ update_brewfile:
 	git commit Brewfile "Updating Brewfile"
 
 # Building my homedir, one piece at a time.
-brew:
+brew: mac_app_store
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew update
 	brew upgrade
@@ -26,20 +25,14 @@ pre_commit:
 	pre-commit install
 
 darwin:
-	./Darwin/darwin_setup.sh
+	./Darwin/defaults.sh
 
 dotfiles:
 	#MAKEFILE_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 	git submodule init
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress \
-		--exclude '.git' \
-		--exclude '.gitmodules' \
-		--exclude 'Makefile' \
-		--exclude 'Brewfile' \
-		--exclude 'README.md'  \
-		--exclude 'Darwin' \
-		. ~/
+		./tilde/ ~/
 
 npm:
 	npm install sign-bunny
@@ -52,13 +45,7 @@ dotfiles_test:
 	git submodule init
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress \
-		--exclude '.git' \
-		--exclude '.gitmodules' \
-		--exclude 'Makefile' \
-		--exclude 'Brewfile' \
-		--exclude 'README.md'  \
-		--exclude 'Darwin' \
-		. ~/.homedirtest/
+		./tilde/ ~/.homedirtest/
 
 homedir:  brew npm pip pre_commit dotfiles
 

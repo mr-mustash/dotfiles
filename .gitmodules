@@ -1,99 +1,99 @@
 [submodule ".vim/pack/plugins/start/vim-repeat"]
-	path = .vim/pack/plugins/start/vim-repeat
+	path = tilde/.vim/pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
 [submodule ".vim/pack/plugins/start/vim-surround"]
-	path = .vim/pack/plugins/start/vim-surround
+	path = tilde/.vim/pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule ".vim/pack/plugins/start/vim-commentary"]
-	path = .vim/pack/plugins/start/vim-commentary
+	path = tilde/.vim/pack/plugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule ".vim/pack/plugins/start/committia.vim"]
-	path = .vim/pack/plugins/start/committia.vim
+	path = tilde/.vim/pack/plugins/start/committia.vim
 	url = https://github.com/rhysd/committia.vim.git
 [submodule ".vim/pack/plugins/start/vim-airline"]
-	path = .vim/pack/plugins/start/vim-airline
+	path = tilde/.vim/pack/plugins/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
 [submodule ".vim/pack/plugins/start/vim-airline-themes"]
-	path = .vim/pack/plugins/start/vim-airline-themes
+	path = tilde/.vim/pack/plugins/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule ".vim/pack/plugins/start/vim-fugitive"]
-	path = .vim/pack/plugins/start/vim-fugitive
+	path = tilde/.vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/pack/plugins/start/vim-gitgutter"]
-	path = .vim/pack/plugins/start/vim-gitgutter
+	path = tilde/.vim/pack/plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
 [submodule ".vim/pack/plugins/opt/ctrlp-py-matcher"]
-	path = .vim/pack/plugins/opt/ctrlp-py-matcher
+	path = tilde/.vim/pack/plugins/opt/ctrlp-py-matcher
 	url = https://github.com/FelikZ/ctrlp-py-matcher.git
 [submodule ".vim/pack/plugins/opt/ctrlp.vim"]
-	path = .vim/pack/plugins/opt/ctrlp.vim
+	path = tilde/.vim/pack/plugins/opt/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
 [submodule ".vim/pack/plugins/opt/vim-fish"]
-	path = .vim/pack/plugins/opt/vim-fish
+	path = tilde/.vim/pack/plugins/opt/vim-fish
 	url = https://github.com/dag/vim-fish.git
 [submodule ".vim/pack/plugins/opt/vim-go"]
-	path = .vim/pack/plugins/opt/vim-go
+	path = tilde/.vim/pack/plugins/opt/vim-go
 	url = https://github.com/fatih/vim-go.git
 [submodule ".vim/pack/plugins/opt/vim-manpager"]
-	path = .vim/pack/plugins/opt/vim-manpager
+	path = tilde/.vim/pack/plugins/opt/vim-manpager
 	url = https://github.com/lambdalisue/vim-manpager.git
 [submodule ".vim/pack/plugins/opt/vim-markdown"]
-	path = .vim/pack/plugins/opt/vim-markdown
+	path = tilde/.vim/pack/plugins/opt/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
 [submodule ".vim/pack/plugins/opt/vim-mundo"]
-	path = .vim/pack/plugins/opt/vim-mundo
+	path = tilde/.vim/pack/plugins/opt/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
 [submodule ".vim/pack/plugins/opt/vim-obsession"]
-	path = .vim/pack/plugins/opt/vim-obsession
+	path = tilde/.vim/pack/plugins/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
 [submodule ".vim/pack/plugins/opt/vim-pencil"]
-	path = .vim/pack/plugins/opt/vim-pencil
+	path = tilde/.vim/pack/plugins/opt/vim-pencil
 	url = https://github.com/reedes/vim-pencil.git
 [submodule ".vim/pack/plugins/opt/vim-plist"]
-	path = .vim/pack/plugins/opt/vim-plist
+	path = tilde/.vim/pack/plugins/opt/vim-plist
 	url = git://github.com/darfink/vim-plist.git
 [submodule ".vim/pack/plugins/opt/vim-puppet"]
-	path = .vim/pack/plugins/opt/vim-puppet
+	path = tilde/.vim/pack/plugins/opt/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
 [submodule ".vim/pack/plugins/opt/vim-quickhl"]
-	path = .vim/pack/plugins/opt/vim-quickhl
+	path = tilde/.vim/pack/plugins/opt/vim-quickhl
 	url = https://github.com/t9md/vim-quickhl
 [submodule ".vim/pack/plugins/opt/vim-terraform"]
-	path = .vim/pack/plugins/opt/vim-terraform
+	path = tilde/.vim/pack/plugins/opt/vim-terraform
 	url = https://github.com/hashivim/vim-terraform.git
 [submodule ".vim/pack/plugins/opt/vim-wordy"]
-	path = .vim/pack/plugins/opt/vim-wordy
+	path = tilde/.vim/pack/plugins/opt/vim-wordy
 	url = https://github.com/reedes/vim-wordy.git
 [submodule ".vim/pack/colors/opt/vim-colors-solarized"]
-	path = .vim/pack/colors/opt/vim-colors-solarized
+	path = tilde/.vim/pack/colors/opt/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule ".vim/pack/colors/opt/vim-solarized8"]
-	path = .vim/pack/colors/opt/vim-solarized8
+	path = tilde/.vim/pack/colors/opt/vim-solarized8
 	url = https://github.com/lifepillar/vim-solarized8.git
 [submodule ".hammerspoon/Anycomplete"]
 	path = .hammerspoon/Anycomplete
 	url = https://github.com/nathancahill/Anycomplete.git
 [submodule ".vim/pack/plugins/opt/vim-docker-tools"]
-	path = .vim/pack/plugins/opt/vim-docker-tools
+	path = tilde/.vim/pack/plugins/opt/vim-docker-tools
 	url = https://github.com/kevinhui/vim-docker-tools.git
 [submodule ".vim/pack/plugins/start/match-count-statusline"]
-	path = .vim/pack/plugins/start/match-count-statusline
+	path = tilde/.vim/pack/plugins/start/match-count-statusline
 	url = https://github.com/emilyst/match-count-statusline.git
 [submodule ".vim/pack/plugins/opt/ansible-vim"]
-	path = .vim/pack/plugins/opt/ansible-vim
+	path = tilde/.vim/pack/plugins/opt/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim.git
 [submodule ".vim/pack/plugins/opt/nuake"]
-	path = .vim/pack/plugins/opt/nuake
+	path = tilde/.vim/pack/plugins/opt/nuake
 	url = https://github.com/Lenovsky/nuake.git
 [submodule ".vim/pack/plugins/opt/vim-slime"]
-	path = .vim/pack/plugins/opt/vim-slime
+	path = tilde/.vim/pack/plugins/opt/vim-slime
 	url = https://github.com/jpalardy/vim-slime
 [submodule ".vim/pack/plugins/start/vim-illuminate"]
-	path = .vim/pack/plugins/start/vim-illuminate
+	path = tilde/.vim/pack/plugins/start/vim-illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
 [submodule ".vim/pack/plugins/start/vim-qf"]
-	path = .vim/pack/plugins/start/vim-qf
+	path = tilde/.vim/pack/plugins/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
 [submodule ".vim/pack/plugins/start/ale"]
-	path = .vim/pack/plugins/start/ale
+	path = tilde/.vim/pack/plugins/start/ale
 	url = https://github.com/w0rp/ale.git
