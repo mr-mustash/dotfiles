@@ -5,7 +5,6 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "jmhobbs/parrot"
 brew "adns"
-brew "xy"
 brew "gdbm"
 brew "libyaml"
 brew "openssl"
@@ -43,7 +42,6 @@ brew "gnutls"
 brew "go"
 brew "gource"
 brew "gpg2"
-brew "gpg-agent"
 brew "grc"
 brew "gzip"
 brew "htop"
@@ -105,17 +103,19 @@ cask "alfred"
 cask "amethyst"
 cask "bartender"
 cask "dropbox"
+cask "daisydisk"
 cask "flux"
 cask "firefox"
 cask "google-chrome"
+cask "hazel"
 cask "hammerspoon"
 cask "java"
 cask "keybase"
 cask "macupdater"
+cask "menumeters"
 cask "postman"
 cask "prime95"
 cask "vlc"
-cask "yujitach-menumeters"
 mas "Cinebench", id: 1438772273
 mas "Day One", id: 1055511498
 mas "GarageBand", id: 682658836
@@ -125,3 +125,5 @@ mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Todoist", id: 585829637
+mas "ToothFairy", id: 1191449274
+mas "Xcode", id: 497799835
