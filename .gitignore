@@ -2,6 +2,9 @@
 Session.vim
 .swp
 
+# Test files for homemaker
+./test/
+
 # OS Files
 .DS_Store
 .DS_Store?
