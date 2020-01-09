@@ -6,7 +6,8 @@
         [".config/terminal"],
         [".config/tmux"],
         [".global_gitignore"],
-        [".gnupg"],
+        [".gnupg/gpg-agent.conf"],
+        [".gnupg/gpg.conf"],
         [".hammerspoon"],
         [".mytop"],
         [".psqlrc"],
@@ -21,6 +22,12 @@
 [tasks.submodules]
     cmds = [
         ["git", "submodule", "update", "--init", "--remote"],
+    ]
+
+[tasks.secrets]
+    cmds = [
+        ["mkdir", "~/.secrets"],
+        ["chmod", "0700", "~/.secrets"],
     ]
 
 [tasks.pip]

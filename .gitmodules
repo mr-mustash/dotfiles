@@ -97,3 +97,12 @@
 [submodule ".vim/pack/plugins/start/ale"]
 	path = tilde/.vim/pack/plugins/start/ale
 	url = https://github.com/w0rp/ale.git
+[submodule "tilde/.vim/pack/plugins/start/vim-obsession"]
+	path = tilde/.vim/pack/plugins/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule "tilde/.vim/pack/plugins/opt/vim-toml"]
+	path = tilde/.vim/pack/plugins/opt/vim-toml
+	url = https://github.com/cespare/vim-toml.git
+[submodule "tilde/.vim/pack/plugins/opt/vim-toml-enhance"]
+	path = tilde/.vim/pack/plugins/opt/vim-toml-enhance
+	url = https://github.com/maralla/vim-toml-enhance
