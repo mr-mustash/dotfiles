@@ -32,6 +32,7 @@ dotfiles:
 	git submodule init
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress \
+		--exclude='.git' \
 		./tilde/ ~/
 
 npm:
@@ -45,6 +46,7 @@ dotfiles_test:
 	git submodule init
 	git submodule update --remote
 	rsync -rupE --copy-links --update --progress \
+		--exclude='.git' \
 		./tilde/ ~/.homedirtest/
 
 homedir:  brew npm pip pre_commit dotfiles

@@ -1,0 +1,84 @@
+# common ================================================================== {{{
+[tasks.common]
+    deps = ["submodules"]
+    links = [
+        [".config/fish"],
+        [".config/terminal"],
+        [".config/tmux"],
+        [".global_gitignore"],
+        [".gnupg/gpg-agent.conf"],
+        [".gnupg/gpg.conf"],
+        [".hammerspoon"],
+        [".mytop"],
+        [".psqlrc"],
+        [".tmux.conf"],
+        [".vim"],
+        [".vimrc"],
+    ]
+    templates = [
+        [".gitconfig"]
+    ]
+
+[tasks.submodules]
+    cmds = [
+        ["git", "submodule", "update", "--init", "--remote"],
+    ]
+
+[tasks.secrets]
+    cmds = [
+        ["mkdir", "~/.secrets"],
+        ["chmod", "0700", "~/.secrets"],
+    ]
+
+[tasks.pip]
+    accepts = [["which", "pip3"]]
+    cmds = [
+        ["pip3", "install", "vim-vint", "gmail-yaml-filters"],
+    ]
+
+[tasks.fishinstalled]
+    rejects = [["which", "fish"]]
+    cmds = [["@install", "fish"]]
+
+[tasks.fish]
+    deps = ["fishinstalled"]
+    rejects = [["echo", "$SHELL", "|", "grep", "fish"]]
+    cmds = [["chsh", "-s", "/usr/bin/fish"]]
+
+[tasks.iterm2]
+    rejects = [["functions", "imgcat"]]
+    cmds = [
+        ["curl", "-L", "//iterm2.com/shell_integration/install_shell_integration_and_utilities.sh", "|", "bash"],
+        ["rm -f", "~/.iterm_shell_integration.fish"],
+    ]
+
+# ========================================================================= }}}
+# meta ==================================================================== {{{
+[tasks.default]
+    deps = ["common", "bininstall", "systemconfig", "pip", "fish", "iterm2"]
+# ========================================================================= }}}
+# macOS =================================================================== {{{
+[tasks.installbrew__macos]
+    rejects = [["which", "brew"]]
+    cmds = [
+        ["/usr/bin/ruby", "-e", '"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'],
+        ["brew", "update"],
+    ]
+
+[tasks.bininstall__macos]
+    deps = ["installbrew"]
+    cmds = [
+        ["brew", "bundle", "install", "--file=$HM_SRC/../Brewfile"],
+        ["brew", "cleanup"],
+    ]
+
+[tasks.systemconfig__macos]
+    cmds = [
+        ["./Darwin/defaults.sh"],
+    ]
+
+[macros.install__macos]
+    deps = ["installbrew"]
+    prefix = ["brew", "install"]
+
+# ========================================================================= }}}
