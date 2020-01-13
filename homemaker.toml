@@ -45,10 +45,17 @@
     rejects = [["echo", "$SHELL", "|", "grep", "fish"]]
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
 
+[tasks.iterm2]
+    rejects = [["functions", "imgcat"]]
+    cmds = [
+        ["curl", "-L", "//iterm2.com/shell_integration/install_shell_integration_and_utilities.sh", "|", "bash"],
+        ["rm -f", "~/.iterm_shell_integration.fish"],
+    ]
+
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "bininstall", "systemconfig", "pip", "fish"]
+    deps = ["common", "bininstall", "systemconfig", "pip", "fish", "iterm2"]
 # ========================================================================= }}}
 # macOS =================================================================== {{{
 [tasks.installbrew__macos]
