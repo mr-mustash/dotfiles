@@ -1,7 +1,10 @@
 function fish_prompt --description 'Write out the prompt'
     __fish_prompt_username
-    if test "$SSH_CONNECTION" != "" || test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
-        __fish_prompt_hostname
+
+    if test "$SSH_CONNECTION" != "" || test -f /proc/self/cgroup
+        if test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
+            __fish_prompt_hostname
+        end
     end
 
     __fish_prompt_pwd
