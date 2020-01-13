@@ -2,12 +2,12 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
 # of the License, or (at your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -79,15 +79,15 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
   end
 
   # If hostname -f is slow for you, set iterm2_hostname before sourcing this script
-  if not set -q iterm2_hostname
-    set iterm2_hostname (hostname -f 2>/dev/null)
+  if not set -q -g iterm2_hostname
+    set -g iterm2_hostname (hostname -f 2>/dev/null)
     # some flavors of BSD (i.e. NetBSD and OpenBSD) don't have the -f option
     if test $status -ne 0
-      set iterm2_hostname (hostname)
+      set -g iterm2_hostname (hostname)
     end
   end
 
   iterm2_write_remotehost_currentdir_uservars
-  printf "\033]1337;ShellIntegrationVersion=9;shell=fish\007"
+  printf "\033]1337;ShellIntegrationVersion=10;shell=fish\007"
 end
-alias imgcat=~/.iterm2/imgcat;alias imgls=~/.iterm2/imgls;alias it2attention=~/.iterm2/it2attention;alias it2check=~/.iterm2/it2check;alias it2copy=~/.iterm2/it2copy;alias it2dl=~/.iterm2/it2dl;alias it2getvar=~/.iterm2/it2getvar;alias it2git=~/.iterm2/it2git;alias it2setcolor=~/.iterm2/it2setcolor;alias it2setkeylabel=~/.iterm2/it2setkeylabel;alias it2ul=~/.iterm2/it2ul;alias it2universion=~/.iterm2/it2universion
+alias imgcat=~/.iterm2/imgcat;alias imgls=~/.iterm2/imgls;alias it2api=~/.iterm2/it2api;alias it2attention=~/.iterm2/it2attention;alias it2check=~/.iterm2/it2check;alias it2copy=~/.iterm2/it2copy;alias it2dl=~/.iterm2/it2dl;alias it2getvar=~/.iterm2/it2getvar;alias it2git=~/.iterm2/it2git;alias it2setcolor=~/.iterm2/it2setcolor;alias it2setkeylabel=~/.iterm2/it2setkeylabel;alias it2ul=~/.iterm2/it2ul;alias it2universion=~/.iterm2/it2universion
