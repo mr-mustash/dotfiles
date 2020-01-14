@@ -106,3 +106,6 @@
 [submodule "tilde/.vim/pack/plugins/opt/vim-toml-enhance"]
 	path = tilde/.vim/pack/plugins/opt/vim-toml-enhance
 	url = https://github.com/maralla/vim-toml-enhance
+[submodule "tilde/.vim/pack/plugins/opt/vim-markdown-runner"]
+	path = tilde/.vim/pack/plugins/opt/vim-markdown-runner
+	url = https://github.com/dbridges/vim-markdown-runner
