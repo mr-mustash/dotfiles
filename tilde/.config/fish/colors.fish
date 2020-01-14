@@ -70,7 +70,9 @@
 # LS_COLORS
 # -----------------------------------------------------------------------------
 set -gx CLICOLOR 1
-set -gx LSCOLORS 'ExfxcxdxbxegedhbegXcXd'
+if test (uname | psub) = "Darwin"
+    set -lx LSCOLORS "ExFxCxDxBxegedabagaced"
+end
 
 # -----------------------------------------------------------------------------
 # iTerm2 Colors

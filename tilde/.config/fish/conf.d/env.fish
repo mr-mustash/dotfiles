@@ -10,10 +10,6 @@ set -x HOMEBREW_NO_ANALYTICS 1
 set -x LC_ALL "en_US.UTF-8"
 set -x TZ America/Los_Angeles
 
-# LS
-set -x CLICOLOR 1
-set -x LSCOLORS exfxcxdxbxexexabagacad
-
 # Don't judge me, I just like VIM, OK?!
 set -x  MANPAGER "vim -c MANPAGER -"
 
