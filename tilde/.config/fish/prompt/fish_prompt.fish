@@ -1,12 +1,7 @@
 function fish_prompt --description 'Write out the prompt'
+    __fish_prompt_in_docker #Check first to see if we're in a docker container
     __fish_prompt_username
-
-    if test "$SSH_CONNECTION" != "" || test -f /proc/self/cgroup
-        if test (awk -F/ '$2 == "docker"' /proc/self/cgroup | read) != ""
-            __fish_prompt_hostname
-        end
-    end
-
+    __fish_prompt_hostname
     __fish_prompt_pwd
 
     set -l git_working_tree (command git rev-parse --show-toplevel 2>/dev/null)
