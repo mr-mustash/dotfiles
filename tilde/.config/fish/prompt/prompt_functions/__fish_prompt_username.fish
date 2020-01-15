@@ -2,7 +2,8 @@ function __fish_prompt_username --description 'Display username on remost host o
     if test "$LOGNAME" != "$USER" \
     -o "$UID" = "0" \
     -o "$USER" = "root" \
-    -o "$SSH_CONNECTION" != ""
+    -o "$SSH_CONNECTION" != "" \
+    -o "$in_docker" != ""
 
         set -l _local_user $USER
 
@@ -20,7 +21,8 @@ function __fish_prompt_username --description 'Display username on remost host o
             echo -ns (set_color $user_color) "$_local_user" (set_color normal)
         else
             echo -ns (set_color $user_color) "$_local_user " (set_color normal)
-            echo -ns (set_color --bold) "on " (set_color normal)
+            #TODO: Make this a switch for "in" if no hostname or "via" if hostname is showing
+            echo -ns (set_color --bold) "in " (set_color normal)
         end
 
     end
