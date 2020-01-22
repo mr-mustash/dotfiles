@@ -36,7 +36,7 @@ dotfiles:
 		./tilde/ ~/
 
 npm:
-	npm install sign-bunny
+	npm install sign-bunny markcat
 
 pip:
 	pip3 install vim-vint gmail-yaml-filters
