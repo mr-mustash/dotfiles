@@ -17,6 +17,15 @@ function fish_right_prompt --description 'Display the right side of the interact
         end
     end
 
+    if test $COLUMNS -gt 132
+        set -lx __date (date +%s)
+        if set -q __aws_run
+            if test (math "$__date - $__aws_run") -lt 300
+                __fish_right_prompt_aws_profile
+            end
+        end
+    end
+
     # Display the time if we're wide enough
     if test $COLUMNS -gt 132
         set_color $fish_prompt_color_clock

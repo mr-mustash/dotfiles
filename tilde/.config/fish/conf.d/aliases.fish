@@ -60,10 +60,4 @@ if status --is-interactive
     abbr --add gdm 'git diff master'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
-
-    # Kubernetes
-    function k
-        set -gx __kubectl_run (date '+%s')
-        kubectl $argv
-    end
 end

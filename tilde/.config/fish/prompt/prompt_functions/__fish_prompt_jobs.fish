@@ -3,7 +3,9 @@ function __fish_prompt_jobs --description 'Helper function for fish_prompt'
 
     set job_count (jobs | egrep -v 'autojump|__fish_prompt_git_status|-WINCH' | wc -l)
 
+    set job_count (echo $job_count | sed -E "s/[[:space:]]+//g" )
+
     if test "$job_count" != "0"
-        echo -n (set_color $fish_prompt_color_jobs) "$job_count"
+        echo -ns (set_color $fish_prompt_color_jobs) " $job_count"
     end
 end
