@@ -166,6 +166,8 @@ if has('autocmd')
     augroup END
 endif
 
+set completeopt=menu,menuone,popup,noselect,noinsert
+
 " ========================================================================= }}}
 " 15 tabs and indenting =================================================== {{{
 

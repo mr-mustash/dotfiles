@@ -11,8 +11,8 @@ function __fish_prompt_git_dirty_callback
         set -l icon_stashed "\$"
         set -l icon_unmerged "<>"
         set -l icon_diverged "↕"
-        set -l icon_ahead "↑"
-        set -l icon_behind "↓"
+        set -l icon_ahead "⇡"
+        set -l icon_behind "⇣"
 
         set -l icon_clean "√"
 

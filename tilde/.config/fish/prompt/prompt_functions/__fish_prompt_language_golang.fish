@@ -11,13 +11,15 @@ function __fish_prompt_language_golang -d "Print out the golang version"
         return 0
     end
 
-    set -l go_version (go version | string split ' ')
-    # Go version is either the commit hash and date (devel +5efe9a8f11 Web Jan 9 07:21:16 2019 +0000)
-    # at the time of the build or a release tag (go1.11.4)
-    if test (string match 'devel*' $go_version[3])
-        set go_version $go_version[3]":"(string sub -s 2 $go_version[4])
-    else
-        set go_version "v"(string sub -s 3 $go_version[3])
+    if ! set -q go_version
+        set -l go_version_local (go version | string split ' ')
+        # Go version is either the commit hash and date (devel +5efe9a8f11 Web Jan 9 07:21:16 2019 +0000)
+        # at the time of the build or a release tag (go1.11.4)
+        if test (string match 'devel*' $go_version[3])
+            set -gx go_version $go_version_local[3]":"(string sub -s 2 $go_version_local[4])
+        else
+            set -gx go_version "v"(string sub -s 3 $go_version_local[3])
+        end
     end
 
     echo -ns (set_color $fish_prompt_color_golang_icon) " ﳑ" (set_color normal)

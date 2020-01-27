@@ -24,9 +24,16 @@
         ["git", "submodule", "update", "--init", "--remote"],
     ]
 
-[tasks.secrets]
+[tasks.keybase]
     cmds = [
-        ["mkdir", "~/.secrets"],
+        ["@install", "keybase"],
+        ["keybase", "login"],
+    ]
+
+[tasks.secrets]
+    accepts = [["keybase", "login"]]
+    cmds = [
+        ["git", "clone", "keybase://private/king/dotfiles-secrets", "~/.secrets/"],
         ["chmod", "0700", "~/.secrets"],
     ]
 
@@ -36,14 +43,26 @@
         ["pip3", "install", "vim-vint", "gmail-yaml-filters"],
     ]
 
-[tasks.fishinstalled]
-    rejects = [["which", "fish"]]
-    cmds = [["@install", "fish"]]
-
 [tasks.fish]
-    deps = ["fishinstalled"]
-    rejects = [["echo", "$SHELL", "|", "grep", "fish"]]
+    rejects = [
+            ["which", "fish"],
+            ["echo", "$SHELL", "|", "grep", "fish"],
+        ]
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
+
+[tasks.fish_completions]
+    accepts = [
+            ["which", "fish"],
+            ["echo", "$SHELL", "|", "grep", "fish"],
+    ]
+    envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
+    cmds = [
+         ["mkdir", "-p", "$CHECKOUT"],
+         ["git", "clone", "https://github.com/evanlucas/fish-kubectl-completions", "$CHECKOUT/fkc"],
+         ["cp", "-fp", "$CHECKOUT/fkc/completions/kubectl.fish", "$HOME/.config/fish/completions"],
+         ["ln", "-s", "/Applications/Docker.app/Contents/Resources/etc/docker.fish-completion", "$HOME/.config/fish/completions/docker.fish"],
+         ["rm", "-rf", "$CHECKOUT"],
+    ]
 
 [tasks.iterm2]
     rejects = [["functions", "imgcat"]]
