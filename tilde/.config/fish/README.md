@@ -7,7 +7,6 @@
 Hello, and welcome to my overly complicated Fish config. This has been evolving over many years and it's now in a place where it's easily extensible and I'm very happy with it. Please see the individual sections below for more detail about how it all works.
 
 ## Prompt
-
 ### Dynamic Elements
 The main aspect of my prompt is that it dynamically changes based on current conditions and folder contents. Out of the gate in my homedir it'll look pretty simplistic:
 ![](https://i.imgur.com/rrLsmoC.png)
@@ -30,6 +29,10 @@ The aspect of my prompt that I'm most proud of is making the longest running bit
 Using the async features above I automatically `git fetch` if it's been more than 10 minutes since it's happened on any given repo. This works great with the `git status` party of my prompt as it'll display a `↓` symbol when I'm behind from origin.
 
 ## Functions
+
+## Completions
+All of these completions are managed by homemaker and symlinked into the completions directory.
+
 ## Vim Integration
 Most of my day-to-day works occurs inside of Vim, so I thought I would make my terminal function like Vim as well. I have Fish's wonderful vi-mode turned on, as well as many aliases that'll open Vim on different conditions.
 

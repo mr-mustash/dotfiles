@@ -1,4 +1,3 @@
-
 function __fish_right_prompt_timer -a ms
   set -l time
 

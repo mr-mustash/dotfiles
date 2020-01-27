@@ -62,16 +62,17 @@
 
     # Misc
     set -U fish_prompt_color_k8s 3158E5 --bold
+    set -U fish_prompt_color_aws FF9900 --bold
 
     set -gx __pking_init_colours ✓
     #end
 
-# -----------------------------------------------------------------------------
-# LS_COLORS
-# -----------------------------------------------------------------------------
-set -gx CLICOLOR 1
-if test (uname | psub) = "Darwin"
-    set -lx LSCOLORS "ExFxCxDxBxegedabagaced"
+    # -----------------------------------------------------------------------------
+    # LS_COLORS
+    # -----------------------------------------------------------------------------
+    set -gx CLICOLOR 1
+    if test (uname | psub) = "Darwin"
+        set -lx LSCOLORS "ExFxCxDxBxegedabagaced"
 end
 
 # -----------------------------------------------------------------------------
@@ -90,25 +91,25 @@ end
 # First test to see if we're connected to a linux machine
 if test $uname = 'Linux'
     if set -q "$environment" == "" ; set -gx environment (hostname -s | awk -F '-' '{print $2}') ; end
-    # (These Colors based on Solarized)
-    if set -q "$environment" != ""
-        switch $environment
-        case dev  # Green
-            echo -e "\033]6;1;bg;red;brightness;103\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;green;brightness;137\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;blue;brightness;30\a" | tr -d '\n'
-        case staging # Blue
-            echo -e "\033]6;1;bg;red;brightness;44\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;green;brightness;129\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;blue;brightness;168\a" | tr -d '\n'
-        case prod # Red
-            echo -e "\033]6;1;bg;red;brightness;172\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;green;brightness;47\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;blue;brightness;53\a" | tr -d '\n'
-        case '*' #Magenta
-            echo -e "\033]6;1;bg;red;brightness;211\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;green;brightness;54\a" | tr -d '\n'
-            echo -e "\033]6;1;bg;blue;brightness;130\a" | tr -d '\n'
-        end
+        # (These Colors based on Solarized)
+        if set -q "$environment" != ""
+            switch $environment
+    case dev  # Green
+        echo -e "\033]6;1;bg;red;brightness;103\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;137\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;30\a" | tr -d '\n'
+    case staging # Blue
+        echo -e "\033]6;1;bg;red;brightness;44\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;129\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;168\a" | tr -d '\n'
+    case prod # Red
+        echo -e "\033]6;1;bg;red;brightness;172\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;47\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;53\a" | tr -d '\n'
+    case '*' #Magenta
+        echo -e "\033]6;1;bg;red;brightness;211\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;green;brightness;54\a" | tr -d '\n'
+        echo -e "\033]6;1;bg;blue;brightness;130\a" | tr -d '\n'
     end
+end
 end

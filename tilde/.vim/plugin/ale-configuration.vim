@@ -3,8 +3,12 @@ let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_open_list = 1
-let g:ale_keep_list_window_open = 1
+let g:ale_keep_list_window_open = 0
 
+let g:ale_lint_delay = 500
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 1
 
 " Leader shortcuts
 nnoremap <silent> <Leader>agd :ALEGoToDefinition<CR>
