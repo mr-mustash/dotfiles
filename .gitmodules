@@ -109,3 +109,9 @@
 [submodule "tilde/.vim/pack/plugins/opt/vim-markdown-runner"]
 	path = tilde/.vim/pack/plugins/opt/vim-markdown-runner
 	url = https://github.com/dbridges/vim-markdown-runner
+[submodule "tilde/.vim/pack/plugins/start/fzf"]
+	path = tilde/.vim/pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "tilde/.vim/pack/plugins/start/fzf.vim"]
+	path = tilde/.vim/pack/plugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
