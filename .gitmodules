@@ -22,12 +22,6 @@
 [submodule ".vim/pack/plugins/start/vim-gitgutter"]
 	path = tilde/.vim/pack/plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
-[submodule ".vim/pack/plugins/opt/ctrlp-py-matcher"]
-	path = tilde/.vim/pack/plugins/opt/ctrlp-py-matcher
-	url = https://github.com/FelikZ/ctrlp-py-matcher.git
-[submodule ".vim/pack/plugins/opt/ctrlp.vim"]
-	path = tilde/.vim/pack/plugins/opt/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim.git
 [submodule ".vim/pack/plugins/opt/vim-fish"]
 	path = tilde/.vim/pack/plugins/opt/vim-fish
 	url = https://github.com/dag/vim-fish.git
