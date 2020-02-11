@@ -25,9 +25,6 @@
 [submodule ".vim/pack/plugins/opt/vim-fish"]
 	path = tilde/.vim/pack/plugins/opt/vim-fish
 	url = https://github.com/dag/vim-fish.git
-[submodule ".vim/pack/plugins/opt/vim-go"]
-	path = tilde/.vim/pack/plugins/opt/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule ".vim/pack/plugins/opt/vim-manpager"]
 	path = tilde/.vim/pack/plugins/opt/vim-manpager
 	url = https://github.com/lambdalisue/vim-manpager.git
@@ -109,3 +106,6 @@
 [submodule "tilde/.vim/pack/plugins/start/fzf.vim"]
 	path = tilde/.vim/pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule "tilde/.vim/pack/plugins/start/vim-go"]
+	path = tilde/.vim/pack/plugins/start/vim-go
+	url = https://github.com/fatih/vim-go.git
