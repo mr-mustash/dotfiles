@@ -109,3 +109,6 @@
 [submodule "tilde/.vim/pack/plugins/start/vim-go"]
 	path = tilde/.vim/pack/plugins/start/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "tilde/.vim/pack/plugins/opt/vim-asm_ca65"]
+	path = tilde/.vim/pack/plugins/opt/vim-asm_ca65
+	url = https://github.com/maxbane/vim-asm_ca65.git
