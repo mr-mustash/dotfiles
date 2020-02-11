@@ -1,5 +1,6 @@
 " Configuration
 let g:ale_completion_enabled = 1
+let g:ale_completion_delay = 750
 let g:ale_set_balloons = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_open_list = 1
@@ -15,7 +16,7 @@ nnoremap <silent> <Leader>agd :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>afr :ALEFindReferences<CR>
 
 let g:ale_linters = {
-            \   'go':   ['gopls', 'gofmt'],
+            \   'go':   ['gopls',],
             \   'sh':   ['shfmt', 'shellcheck'],
             \   'vim':  ['vint'],
             \   'yaml': [],
