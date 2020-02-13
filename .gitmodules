@@ -112,3 +112,6 @@
 [submodule "tilde/.vim/pack/plugins/opt/vim-asm_ca65"]
 	path = tilde/.vim/pack/plugins/opt/vim-asm_ca65
 	url = https://github.com/maxbane/vim-asm_ca65.git
+[submodule "tilde/.vim/pack/plugins/start/ale"]
+	path = tilde/.vim/pack/plugins/start/ale
+	url = https://github.com/dense-analysis/ale.git
