@@ -67,9 +67,6 @@
 [submodule ".vim/pack/plugins/opt/vim-docker-tools"]
 	path = tilde/.vim/pack/plugins/opt/vim-docker-tools
 	url = https://github.com/kevinhui/vim-docker-tools.git
-[submodule ".vim/pack/plugins/start/match-count-statusline"]
-	path = tilde/.vim/pack/plugins/start/match-count-statusline
-	url = https://github.com/emilyst/match-count-statusline.git
 [submodule ".vim/pack/plugins/opt/ansible-vim"]
 	path = tilde/.vim/pack/plugins/opt/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim.git
