@@ -6,7 +6,7 @@ if status --is-interactive
     abbr --add moshdev mosh pking@dev6-uswest1cdevc
 
     # Moving around
-    alias l1="ls -1"
+    alias l1="exa --group-directories-first --icons -1"
     alias more="less"
     alias cd..="cd .."
     alias cp="cp -i"
@@ -14,7 +14,7 @@ if status --is-interactive
 
     function ll
         pwd
-        ls -laF $argv
+        exa --group-directories-first --icons -laF $argv
     end
 
     # Colorized and better syntax for diff.
