@@ -1,12 +1,9 @@
 if status --is-interactive
     set -g fish_user_abbreviations
 
-    # So many dev servers, so little time
-    abbr --add sshdev ssh pking@dev6-uswest1cdevc
-    abbr --add moshdev mosh pking@dev6-uswest1cdevc
-
     # Moving around
-    alias l1="ls -1"
+    alias ls='ls --color=auto'
+    alias l1="ls --color=auto -1"
     alias more="less"
     alias cd..="cd .."
     alias cp="cp -i"
@@ -14,7 +11,7 @@ if status --is-interactive
 
     function ll
         pwd
-        ls -laF $argv
+        ls --color=auto -laF $argv
     end
 
     # Colorized and better syntax for diff.
