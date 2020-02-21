@@ -112,3 +112,6 @@
 [submodule "tilde/.vim/pack/plugins/start/ale"]
 	path = tilde/.vim/pack/plugins/start/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "tilde/.config/terminal/dircolors/dircolors-solarized"]
+	path = tilde/.config/terminal/dircolors/dircolors-solarized
+	url = https://github.com/huyz/dircolors-solarized.git

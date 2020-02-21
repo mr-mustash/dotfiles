@@ -1,5 +1,5 @@
-# Check to see if custom colos are already set
-#if not set -q __pking_init_colors
+# Check  see if custom colos are already set
+if not set -q __pking_init_colors
     # -----------------------------------------------------------------------------
     # universals
     # -----------------------------------------------------------------------------
@@ -19,7 +19,7 @@
     set -U fish_color_param 00afff
     set -U fish_color_quote 999900
     set -U fish_color_redirection 00afff
-    set -U fish_color_search_match bryellow --background=brblack
+    set -U fish_color_search_match --bold --background=magenta
     set -U fish_color_selection white --bold --background=brblack
     set -U fish_color_user green --bold
     set -U fish_color_valid_path --underline
@@ -65,15 +65,13 @@
     set -U fish_prompt_color_aws FF9900 --bold
 
     set -gx __pking_init_colours ✓
-    #end
-
-    # -----------------------------------------------------------------------------
-    # LS_COLORS
-    # -----------------------------------------------------------------------------
-    set -gx CLICOLOR 1
-    if test (uname | psub) = "Darwin"
-        set -lx LSCOLORS "ExFxCxDxBxegedabagaced"
 end
+
+# -----------------------------------------------------------------------------
+# LS_COLORS
+# -----------------------------------------------------------------------------
+set -gx CLICOLOR 1
+eval (gdircolors -c /Users/pking/.config/terminal/dircolors/dircolors-solarized/dircolors.ansi-dark)
 
 # -----------------------------------------------------------------------------
 # iTerm2 Colors
@@ -91,25 +89,25 @@ end
 # First test to see if we're connected to a linux machine
 if test $uname = 'Linux'
     if set -q "$environment" == "" ; set -gx environment (hostname -s | awk -F '-' '{print $2}') ; end
-        # (These Colors based on Solarized)
-        if set -q "$environment" != ""
-            switch $environment
-    case dev  # Green
-        echo -e "\033]6;1;bg;red;brightness;103\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;green;brightness;137\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;blue;brightness;30\a" | tr -d '\n'
-    case staging # Blue
-        echo -e "\033]6;1;bg;red;brightness;44\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;green;brightness;129\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;blue;brightness;168\a" | tr -d '\n'
-    case prod # Red
-        echo -e "\033]6;1;bg;red;brightness;172\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;green;brightness;47\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;blue;brightness;53\a" | tr -d '\n'
-    case '*' #Magenta
-        echo -e "\033]6;1;bg;red;brightness;211\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;green;brightness;54\a" | tr -d '\n'
-        echo -e "\033]6;1;bg;blue;brightness;130\a" | tr -d '\n'
+    # (These Colors based on Solarized)
+    if set -q "$environment" != ""
+        switch $environment
+        case dev  # Green
+            echo -e "\033]6;1;bg;red;brightness;103\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;green;brightness;137\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;blue;brightness;30\a" | tr -d '\n'
+        case staging # Blue
+            echo -e "\033]6;1;bg;red;brightness;44\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;green;brightness;129\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;blue;brightness;168\a" | tr -d '\n'
+        case prod # Red
+            echo -e "\033]6;1;bg;red;brightness;172\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;green;brightness;47\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;blue;brightness;53\a" | tr -d '\n'
+        case '*' #Magenta
+            echo -e "\033]6;1;bg;red;brightness;211\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;green;brightness;54\a" | tr -d '\n'
+            echo -e "\033]6;1;bg;blue;brightness;130\a" | tr -d '\n'
+        end
     end
-end
 end

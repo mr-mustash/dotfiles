@@ -6,7 +6,7 @@ function __fish_prompt_git_autofetch
     set -l git_fetch_required 0
 
     if test -e .git/FETCH_HEAD
-        set -l last_fetch_timestamp (command stat -f "%m" .git/FETCH_HEAD)
+        set -l last_fetch_timestamp (command stat -c "%Y" .git/FETCH_HEAD)
         set -l current_timestamp (date +%s)
         set -l time_since_last_fetch (math "$current_timestamp - $last_fetch_timestamp")
 
