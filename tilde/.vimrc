@@ -77,7 +77,7 @@ augroup MyColors
     autocmd ColorScheme * call MyHighlights()
 augroup END
 
-colorscheme solarized
+colorscheme Solarized
 
 if has('termguicolors') && $COLORTERM ==? 'truecolor'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -196,12 +196,6 @@ let mapleader = "\<Space>"
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
-" No more arrow keys for you mister.
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
 " Lets save our hands and use jk to leave insert and visual mode.
 inoremap <esc> <nop>
 inoremap jk <esc>
@@ -232,6 +226,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Resize windwos with Animate.vim
+nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
+nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(10)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(-10)<CR>
 
 " Move lines with leader-{j,k}, indent with leader-{h,l}
 nnoremap <leader>k :m-2<CR>==
@@ -382,12 +382,6 @@ if exists('&viewdir')
     set viewdir=~/.vim/local/view/
     if !isdirectory(expand(&viewdir))
         call mkdir(expand(&viewdir), 'p')
-    endif
-endif
-
-if exists('g:ctrlp_cache_dir')
-    if !isdirectory(expand(g:ctrlp_cache_dir))
-        call mkdir(expand(g:ctrlp_cache_dir), 'p')
     endif
 endif
 
