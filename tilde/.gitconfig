@@ -1,3 +1,6 @@
+# DO NOT EDIT!
+# This file is managed by Homemaker and is
+# automatically created from a teamplate file.
 [user]
 	name  = Patrick King
 {{if eq .Env.USER "pking"}}
