@@ -1,7 +1,13 @@
 " === KEY BINDINGS ===
+nnoremap <silent><leader>ff :Files<cr>
+nnoremap <silent><leader>p  :Files<CR>
 nnoremap <silent><leader>fh :Helptags<CR>
-nnoremap <silent><leader>p :Files<CR>
 nnoremap <silent><leader>fr :RG<CR>
+nnoremap <silent><leader>fb :Buffers<cr>
+nnoremap <silent><leader>fc :Commands<cr>
+nnoremap <silent><leader>fm :Maps<cr>
+nnoremap <silent><leader>f: :History:<cr>
+nnoremap <silent><leader>ft :Filetypes<cr>
 
 " === CONFIGURATION ===
 if isdirectory('/usr/local/opt/fzf/')
@@ -25,6 +31,10 @@ augroup END
 
 " Run FZF in a vim Window
 "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+let g:fzf_layout = {
+ \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
+\ }
 
 " === FUNCTIONS ===
 function! RipgrepFzf(query, fullscreen)

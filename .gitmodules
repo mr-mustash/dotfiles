@@ -115,3 +115,6 @@
 [submodule "tilde/.config/terminal/dircolors/dircolors-solarized"]
 	path = tilde/.config/terminal/dircolors/dircolors-solarized
 	url = https://github.com/huyz/dircolors-solarized.git
+[submodule "tilde/.vim/pack/plugins/start/animate.vim"]
+	path = tilde/.vim/pack/plugins/start/animate.vim
+	url = https://github.com/camspiers/animate.vim.git
