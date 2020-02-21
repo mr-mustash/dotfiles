@@ -3,7 +3,7 @@
 " === CONFIGURATION ===
 let g:airline_theme                      = 'solarized'
 let g:airline_powerline_fonts            = 1
-let g:airline_skip_empty_sections        = 0
+let g:airline_skip_empty_sections        = 1
 
 let g:airline#extensions#branch#enabled  = '1'
 let g:airline#extensions#branch#format   = '2'
