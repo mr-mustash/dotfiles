@@ -14,6 +14,7 @@
         [".tmux.conf"],
         [".vim"],
         [".vimrc"],
+        [".yamllint"],
     ]
     templates = [
         [".gitconfig"]
