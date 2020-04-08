@@ -66,18 +66,3 @@ if test -e $HOME/.config/fish/functions/fzf_env.fish
         fzf_env
     end
 end
-
-# rbenv
-#status --is-interactive; and source (rbenv init -|psub)
-
-# Async prompt
-set -gx async_prompt_functions 'fish_prompt fish_right_prompt __fish_prompt_jobs __fish_prompt_git_status __fish_prompt_git_branch __fish_right_prompt_k8s_context'
-set -gx async_prompt_inherit_variables 'all'
-
-# AWS Completion
-set -e aws_profile
-
-if not set -q aws_completer_path
-  set -gx aws_completer_path (type -P aws_completer 2> /dev/null)
-    or echo "aws: unable to find aws_completer, completions unavaliable"
-end
