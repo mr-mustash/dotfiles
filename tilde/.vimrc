@@ -77,7 +77,8 @@ augroup MyColors
     autocmd ColorScheme * call MyHighlights()
 augroup END
 
-colorscheme Solarized
+set termguicolors
+colorscheme solarized8_flat
 
 if has('termguicolors') && $COLORTERM ==? 'truecolor'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
