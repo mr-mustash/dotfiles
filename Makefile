@@ -13,7 +13,7 @@ brew: mac_app_store
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew update
 	brew upgrade
-	brew bundle install
+	brew bundle --file=Darwin/Brewfile install
 	brew cleanup
 	brew cask cleanup
 
