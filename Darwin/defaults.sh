@@ -85,7 +85,7 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 chflags nohidden ~/Library
 
 # Show the /Volumes folder
-sudo chflags nohidden /Volumes
+printf "%s\n" "$szPassword" | sudo --stdin chflags nohidden /Volumes
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -139,6 +139,9 @@ defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Set tab width to 4 instead of the default 8
 defaults write com.apple.TextEdit "TabWidth" '4'
+
+# Bring back the startup chime!
+printf "%s\n" "$szPassword" | sudo --stdin nvram StartupMute=%00
 
 # Add message to login screen.
 printf "%s\n" "$szPassword" | sudo --stdin defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "This computer is attached to an iCloud account and permanently locked. Please return by calling 503-805-4667. Reward included, and no questions asked."
