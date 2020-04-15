@@ -60,16 +60,21 @@ set hlsearch
 function! MyHighlights() abort
     " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
     " Only highlight the 81st character when it's visable on the screen.
-    highlight ColorColumn ctermbg=170 ctermfg=234
+    highlight ColorColumn guibg=#e75480 guifg=#FFFFFF
     call matchadd('ColorColumn', '\%81v', 100)
 
     " Other highlights
-    highlight PmenuSel ctermbg=15 ctermfg=197
-    highlight Pmenu ctermbg=15 ctermfg=217
+    highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
+    highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
     highlight SearchHighlight ctermfg=3
     highlight SpellBad ctermbg=7 ctermfg=none
-    highlight CursorLineNR cterm=bold ctermfg=3 ctermbg=0
-    highlight CursorLine cterm=none ctermbg=0 ctermfg=NONE
+    highlight CursorLineNR cterm=bold guifg=#b58900
+    highlight CursorLine cterm=none ctermbg=0 ctermfg=none
+    highlight SignColumn guibg=#073642
+
+    highlight GitGutterAdd    guifg=#859900 guibg=#073642
+    highlight GitGutterChange guifg=#b58900 guibg=#073642
+    highlight GitGutterDelete guifg=#dc322f guibg=#073642
 endfunction
 
 augroup MyColors
@@ -78,7 +83,11 @@ augroup MyColors
 augroup END
 
 set termguicolors
-colorscheme solarized8_flat
+
+let g:neosolarized_vertSplitBgTrans = 0
+let g:neosolarized_italic = 1
+let g:neosolarized_termBoldAsBright = 0
+colorscheme NeoSolarized
 
 if has('termguicolors') && $COLORTERM ==? 'truecolor'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -372,8 +381,8 @@ if has('autocmd')
     augroup vimrcAutoView
         autocmd!
         " Autosave & Load Views.
-        autocmd BufWritePost,BufLeave ?* if MakeViewCheck() | silent! mkview | endif
-        autocmd BufWinEnter ?* if MakeViewCheck() | silent! loadview | endif
+        autocmd BufWritePost,BufLeave ?* nested if MakeViewCheck() | silent! mkview | endif
+        autocmd BufWinEnter ?* nested if MakeViewCheck() | silent! loadview | endif
     augroup end
 endif
 

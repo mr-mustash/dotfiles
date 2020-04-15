@@ -118,3 +118,6 @@
 [submodule "tilde/.vim/pack/plugins/start/animate.vim"]
 	path = tilde/.vim/pack/plugins/start/animate.vim
 	url = https://github.com/camspiers/animate.vim.git
+[submodule "tilde/.vim/pack/colors/opt/NeoSolarized"]
+	path = tilde/.vim/pack/colors/opt/NeoSolarized
+	url = https://github.com/icymind/NeoSolarized.git
