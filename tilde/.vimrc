@@ -58,10 +58,14 @@ set synmaxcol=120
 set hlsearch
 
 function! MyHighlights() abort
-    " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
+    " Why this exists: https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
+
     " Only highlight the 81st character when it's visable on the screen.
     highlight ColorColumn guibg=#e75480 guifg=#FFFFFF
-    call matchadd('ColorColumn', '\%81v', 100)
+    augroup NoColorColInMan
+        autocmd!
+        autocmd Filetype * if &ft!="man" | call matchadd('ColorColumn', '\%81v',100) | endif
+    augroup END
 
     " Other highlights
     highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
