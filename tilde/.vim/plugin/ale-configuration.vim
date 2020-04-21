@@ -16,8 +16,9 @@ nnoremap <silent> <Leader>agd :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>afr :ALEFindReferences<CR>
 
 let g:ale_linters = {
-            \   'go':   ['gopls',],
-            \   'sh':   ['shfmt', 'shellcheck'],
-            \   'vim':  ['vint'],
-            \   'yaml': [],
+            \   'go':        ['gopls'],
+            \   'sh':        ['shfmt', 'shellcheck'],
+            \   'terraform': ['terraform-lsp'],
+            \   'vim':       ['vint',],
+            \   'yaml':      [],
             \}

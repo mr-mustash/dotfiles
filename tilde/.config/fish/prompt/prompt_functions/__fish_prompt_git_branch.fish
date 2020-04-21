@@ -1,7 +1,7 @@
 function __fish_prompt_git_branch --description "Display git the git branch name"
     # Fail if we don't have git installed
-    in-path git
-    or return 0
+    #in-path git
+    #or return 0
 
     # Fail if we're not inside a git repo
     set -l git_dir (command git rev-parse --git-dir 2>/dev/null)

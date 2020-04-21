@@ -1,4 +1,3 @@
-#!/usr/local/opt/coreutils/libexec/gnubin/env fish
 function __fish_prompt_git_status --description 'Display git info in the fish prompt'
     if not set -q __git_last_dirty_check
         set -g __git_last_dirty_check 0
