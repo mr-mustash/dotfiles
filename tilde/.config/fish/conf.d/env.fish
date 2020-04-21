@@ -17,8 +17,8 @@ set -x  MANPAGER "vim -c MANPAGER -"
 set -gx GPG_TTY (tty)
 
 # Paths!
-set -gx fish_user_paths  "$HOME/bin" $fish_user_paths
-set -gx fish_user_paths "/usr/local/sbin" $fish_user_paths
+set -a fish_user_paths  "$HOME/bin"
+set -a fish_user_paths "/usr/local/sbin"
 
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making
@@ -27,15 +27,15 @@ if status is-interactive
     if which brew >/dev/null
         if set -q __brew_coreutils_path
             if test "$__brew_coreutils_path" != ""
-                set -Ux fish_user_paths $__brew_coreutils_path $fish_user_paths
+                set -a fish_user_paths $__brew_coreutils_path
             else
                 set -Ux __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-                set -Ux fish_user_paths $__brew_coreutils_path $fish_user_paths
+                set -a fish_user_paths $__brew_coreutils_path
             end
         else
             if test -e (brew --prefix coreutils)/libexec/gnubin
                 set -Ux __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-                set -Ux fish_user_paths $__brew_coreutils_path $fish_user_paths
+                set -a fish_user_paths $__brew_coreutils_path
             end
         end
     end
@@ -48,7 +48,7 @@ end
 if test -d $HOME/go
     set -gx GOPATH "$HOME/go"
     if test -d $GOPATH/bin
-        set -gx fish_user_paths "$GOPATH/bin" $fish_user_paths
+        set -a fish_user_paths "$GOPATH/bin"
     end
 end
 
