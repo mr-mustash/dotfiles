@@ -29,6 +29,7 @@ augroup fzf_layout
     endif
 augroup END
 
+" Run FZF in a vim Window
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 " === FUNCTIONS ===
