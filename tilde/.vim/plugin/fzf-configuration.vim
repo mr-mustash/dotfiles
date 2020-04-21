@@ -30,11 +30,11 @@ augroup fzf_layout
 augroup END
 
 " Run FZF in a vim Window
-"let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
-let g:fzf_layout = {
- \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
-\ }
+"let g:fzf_layout = {
+" \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
+"\ }
 
 " === FUNCTIONS ===
 function! RipgrepFzf(query, fullscreen)
