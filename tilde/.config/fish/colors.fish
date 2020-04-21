@@ -71,7 +71,7 @@ end
 # LS_COLORS
 # -----------------------------------------------------------------------------
 set -gx CLICOLOR 1
-eval (gdircolors -c $HOME/.config/terminal/dircolors/dircolors-solarized/dircolors.ansi-dark)
+eval (dircolors -c /Users/pking/.config/terminal/dircolors/dircolors-solarized/dircolors.ansi-dark)
 
 # -----------------------------------------------------------------------------
 # iTerm2 Colors
