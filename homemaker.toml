@@ -11,6 +11,7 @@
         [".hammerspoon"],
         [".mytop"],
         [".psqlrc"],
+        [".terminfo"],
         [".tmux.conf"],
         [".vim"],
         [".vimrc"],
@@ -70,6 +71,13 @@
     cmds = [
         ["curl", "-L", "//iterm2.com/shell_integration/install_shell_integration_and_utilities.sh", "|", "bash"],
         ["rm -f", "~/.iterm_shell_integration.fish"],
+    ]
+[tasks.terminfo]
+    accepts = ["which", "tic"]
+    cmds = [
+        ["tic", "-o", "$HOME/terminfo","tmux.terminfo"],
+        ["tic", "-o", "$HOME/terminfo","tmux-256color.terminfo"],
+        ["tic", "-o", "$HOME/terminfo","xterm-256color.terminfo"],
     ]
 
 # ========================================================================= }}}
