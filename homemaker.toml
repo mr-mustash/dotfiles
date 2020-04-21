@@ -73,11 +73,11 @@
         ["rm -f", "~/.iterm_shell_integration.fish"],
     ]
 [tasks.terminfo]
-    accepts = ["which", "tic"]
+    accepts = [["which", "tic"]]
     cmds = [
-        ["tic", "-o", "$HOME/terminfo","tmux.terminfo"],
-        ["tic", "-o", "$HOME/terminfo","tmux-256color.terminfo"],
-        ["tic", "-o", "$HOME/terminfo","xterm-256color.terminfo"],
+        ["tic", "$HOME/.terminfo/tmux.terminfo"],
+        ["tic", "$HOME/.terminfo/tmux-256color.terminfo"],
+        ["tic", "$HOME/.terminfo/xterm-256color.terminfo"],
     ]
 
 # ========================================================================= }}}
