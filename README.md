@@ -1,5 +1,5 @@
 # Dotfiles
-[![Vim Status](https://github.com/mr-mustash/dotfiles/workflows/Vim%20Linting/badge.svg)](https://github.com/mr-mustash/dotfiles/actions) [![Fish Status](https://github.com/mr-mustash/dotfiles/workflows/Fish%20Linting/badge.svg)](https://github.com/mr-mustash/dotfiles/actions)
+[![Vim Status](https://github.com/mr-mustash/dotfiles/workflows/Vim%20Linting/badge.svg)](https://github.com/mr-mustash/dotfiles/actions) [![Fish Status](https://github.com/mr-mustash/dotfiles/workflows/Fish%20Linting/badge.svg)](https://github.com/mr-mustash/dotfiles/actions) [![Docker Build](https://img.shields.io/docker/cloud/build/mrmustash/homedir)](https://hub.docker.com/repository/docker/mrmustash/homedir)
 
 Welcome to Patrick King's dotfiles repo.
 
