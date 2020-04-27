@@ -14,7 +14,7 @@ function __fish_prompt_username --description 'Display username on remost host o
 
         if test "$SSH_CONNECTION" != "" -o "$in_docker" != ""
             echo -ns (set_color $user_color) "$USER " (set_color normal)
-            echo -ns (set_color --bold) "on " (set_color normal)
+            echo -ns (set_color --bold) "at " (set_color normal)
         else
             echo -ns (set_color $user_color) "$USER " (set_color normal)
             echo -ns (set_color --bold) "in " (set_color normal)
