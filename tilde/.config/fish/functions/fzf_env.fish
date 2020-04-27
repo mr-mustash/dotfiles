@@ -23,6 +23,6 @@ function fzf_env
     set -gx FZF_CTRL_T_OPTS "--preview-window right:60% --preview='highlight -O ansi --style=solarized-dark -l {} 2>/dev/null' "
 
     set -gx FZF_DEFAULT_COMMAND 'rg --files --no-messages --no-ignore --hidden --follow --glob "!.git/*"'
-    set -gx FZF_CTRL_T_COMMAND  'eval $FZF_DEFAULT_COMMAND'
+    set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
 end
