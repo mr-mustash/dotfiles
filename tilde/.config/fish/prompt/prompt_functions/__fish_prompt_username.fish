@@ -5,8 +5,6 @@ function __fish_prompt_username --description 'Display username on remost host o
     -o "$SSH_CONNECTION" != "" \
     -o "$in_docker" != ""
 
-        set -l _local_user $USER
-
         set -l user_color
         if test "$USER" = "root"
             set user_color $fish_color_user_root
@@ -15,13 +13,10 @@ function __fish_prompt_username --description 'Display username on remost host o
         end
 
         if test "$SSH_CONNECTION" != "" -o "$in_docker" != ""
-            # Only need "@" if we're connected remotely
-            set _local_user (echo -ns "$USER" ; set_color normal ; set_color --bold ; echo -ns " via ")
-            # Don't display "via" since this will be taken care of by __fish_prompt_hostname when remote
-            echo -ns (set_color $user_color) "$_local_user" (set_color normal)
+            echo -ns (set_color $user_color) "$USER " (set_color normal)
+            echo -ns (set_color --bold) "on " (set_color normal)
         else
-            echo -ns (set_color $user_color) "$_local_user " (set_color normal)
-            #TODO: Make this a switch for "in" if no hostname or "via" if hostname is showing
+            echo -ns (set_color $user_color) "$USER " (set_color normal)
             echo -ns (set_color --bold) "in " (set_color normal)
         end
 
