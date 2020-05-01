@@ -14,7 +14,7 @@ There are a few things you should know about these dotfiles:
 ## Docker
 I have provided a Dockerfile so that anyone can try out my environment without modifying theirs. It is also [available on Dockerhub](https://hub.docker.com/repository/docker/mrmustash/homedir/) for a convenient way to run it.
 
-Just run `docker run -it -e TERM=xterm-256color --net host mrmustash/homedir:latest` to my homedir out!
+Just run `docker run -it -e TERM=xterm-256color --net host mrmustash/homedir:latest` to try my homedir out!
 
 ## Terminal Settings
 
