@@ -58,29 +58,17 @@ wifiWatcher:start()
 
 function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    restartProxy()
     notification("Welcome home!", home_logo)
 end
 
 function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    restartProxy()
     notification("Welcome back to the office!", newrelic_logo)
 end
 
 function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    restartProxy()
     notification("Unknown WiFi Network")
-end
-
--- Proxy
-function restartProxy()
-    hs.execute("killall autossh ; autossh -M 18887 -f -D localhost:18888 -N ubuntu@34.220.194.173", true)
-end
-
-function restartProxyCompressed()
-    hs.execute("killall autossh ; autossh -M 18887 -f -D localhost:18888 -N -C ubuntu@34.220.194.173", true)
 end
 
 -- Any Complete
