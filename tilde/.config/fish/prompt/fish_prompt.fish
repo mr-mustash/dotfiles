@@ -1,4 +1,6 @@
 function fish_prompt --description 'Write out the prompt'
+    iterm2_prompt_mark
+
     __fish_prompt_in_docker #Check first to see if we're in a docker container
     __fish_prompt_username
     __fish_prompt_hostname
@@ -27,7 +29,8 @@ function fish_prompt --description 'Write out the prompt'
             set fish_color_prompt magenta --bold
     end
 
-    #set -l glyph "➜"
     set -l glyph "❯"
     echo -ns (set_color $fish_color_prompt) " $glyph " (set_color normal)
+
+    iterm2_prompt_end
 end
