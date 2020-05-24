@@ -134,6 +134,7 @@ cask "macupdater"
 cask "menumeters"
 cask "plex"
 cask "postman"
+cast "steam"
 cask "vlc"
 cask "yujitach-menumeters"
 mas "Backtrack", id: 1477089520
