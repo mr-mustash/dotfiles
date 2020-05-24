@@ -21,7 +21,5 @@ function __fish_prompt_git_autofetch
       return 0
     end
 
-    set -l cmd "env GIT_TERMINAL_PROMPT=0 git -c gc.auto=0 fetch > /dev/null 2>&1 && touch .git/FETCH_HEAD"
-    __run_async "__git_fetching" __update_prompt $cmd
-
+    env GIT_TERMINAL_PROMPT=0 git -c gc.auto=0 fetch > /dev/null 2>&1 && touch .git/FETCH_HEAD
 end
