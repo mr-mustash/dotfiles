@@ -8,4 +8,4 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v1
     - name: Vim Lint
-      uses: mr-mustash/vim-linting-action@v0.0.6
+      uses: mr-mustash/vim-linting-action@v0.0.7
