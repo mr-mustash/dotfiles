@@ -42,8 +42,7 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Enable subpixel font rendering on non-Apple LCDs
-defaults -currentHost write -globalDomain AppleFontSmoothing -int 0
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
 
 # Enable HiDPI display modes (requires restart)
 printf "%s\n" "$szPassword" | sudo --stdin defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true

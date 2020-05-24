@@ -13,6 +13,7 @@
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
+"vint: next-line -ProhibitSetNoCompatible
 set nocompatible
 if has ('autocmd')
     augroup setNoPasteAfterPaste
@@ -37,6 +38,7 @@ set regexpengine=1
 " 4 displaying text ======================================================= {{{
 
 set wrap
+"vint: next-line -ProhibitUnnecessaryDoubleQuote
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
 set numberwidth=2
@@ -205,7 +207,7 @@ set autoindent
 " ========================================================================= }}}
 " 18 mapping ============================================================== {{{
 
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
@@ -299,11 +301,7 @@ if has('autocmd')
         " No line numbers in the command line window.
         autocmd CmdwinEnter * setlocal nonumber norelativenumber
         " This is a hack to get airline to display correctly when
-        " entering the cmd window in insert mode. The first time this is run
-        " there will be a brief error that appears, but it will clear quickly.
-        "autocmd CmdwinEnter *
-        "            \   silent call airline#add_statusline_func('airline#cmdwinenter')
-        "            \ | silent call airline#update_statusline()
+        " entering the cmd window in insert mode.
         autocmd CmdwinEnter * silent call airline#update_statusline()
         " Automatically enter insert mode when entering the command window
         autocmd CmdwinEnter * startinsert
