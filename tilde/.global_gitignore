@@ -1,6 +1,6 @@
 # Vim files
 Session.vim
-.swp
+*.swp
 
 ### macOS ###
 # General

@@ -1,6 +1,5 @@
 # common ================================================================== {{{
 [tasks.common]
-    deps = ["submodules"]
     links = [
         [".config/fish"],
         [".config/terminal"],
@@ -21,19 +20,14 @@
         [".gitconfig"]
     ]
 
-[tasks.submodules]
-    cmds = [
-        ["git", "submodule", "update", "--init", "--remote"],
-    ]
-
 [tasks.keybase]
+    accepts = [["which", "keybase"]]
     cmds = [
-        ["@install", "keybase"],
         ["keybase", "login"],
     ]
 
 [tasks.secrets]
-    accepts = [["keybase", "login"]]
+    deps = ["keybase"]
     cmds = [
         ["git", "clone", "keybase://private/king/dotfiles-secrets", "~/.secrets/"],
         ["chmod", "0700", "~/.secrets"],
@@ -45,6 +39,12 @@
         ["pip3", "install", "vim-vint", "gmail-yaml-filters"],
     ]
 
+[tasks.npm]
+accepts = [["which", "npm"]]
+    cmds = [
+        ["npm", "install", "sign-bunny", "markcat"],
+    ]
+
 [tasks.fish]
     rejects = [
             ["which", "fish"],
@@ -53,25 +53,16 @@
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
 
 [tasks.fish_completions]
-    accepts = [
-            ["which", "fish"],
-            ["echo", "$SHELL", "|", "grep", "fish"],
-    ]
     envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
     cmds = [
          ["mkdir", "-p", "$CHECKOUT"],
+         ["mkdir", "-p", "$HOME/.config/fish/completions/"],
          ["git", "clone", "https://github.com/evanlucas/fish-kubectl-completions", "$CHECKOUT/fkc"],
-         ["cp", "-fp", "$CHECKOUT/fkc/completions/kubectl.fish", "$HOME/.config/fish/completions"],
+         ["cp", "-fp", "$CHECKOUT/fkc/completions/kubectl.fish", "$HOME/.config/fish/completions/"],
          ["ln", "-s", "/Applications/Docker.app/Contents/Resources/etc/docker.fish-completion", "$HOME/.config/fish/completions/docker.fish"],
          ["rm", "-rf", "$CHECKOUT"],
     ]
 
-[tasks.iterm2]
-    rejects = [["functions", "imgcat"]]
-    cmds = [
-        ["curl", "-L", "//iterm2.com/shell_integration/install_shell_integration_and_utilities.sh", "|", "bash"],
-        ["rm -f", "~/.iterm_shell_integration.fish"],
-    ]
 [tasks.terminfo]
     accepts = [["which", "tic"]]
     cmds = [
@@ -83,30 +74,16 @@
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "bininstall", "systemconfig", "pip", "fish", "iterm2"]
+    deps = ["common", "systemconfig", "pip", "npm", "fish", "fish_completions"]
+
 # ========================================================================= }}}
 # macOS =================================================================== {{{
-[tasks.installbrew__macos]
-    rejects = [["which", "brew"]]
+[tasks.systemconfig__darwin]
     cmds = [
-        ["/usr/bin/ruby", "-e", '"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'],
-        ["brew", "update"],
+        ["$HM_SRC/../Darwin/defaults.sh"],
     ]
 
-[tasks.bininstall__macos]
-    deps = ["installbrew"]
-    cmds = [
-        ["brew", "bundle", "install", "--file=$HM_SRC/../Brewfile"],
-        ["brew", "cleanup"],
-    ]
-
-[tasks.systemconfig__macos]
-    cmds = [
-        ["./Darwin/defaults.sh"],
-    ]
-
-[macros.install__macos]
-    deps = ["installbrew"]
+[macros.install__darwin]
     prefix = ["brew", "install"]
 
 # ========================================================================= }}}
