@@ -40,7 +40,7 @@ submodules:
 	git submodule update --init --remote
 
 homemaker: homemaker_install submodules ## Run homemaker to build homedir
-	homemaker --variant macos --verbose homemaker.toml tilde/
+	homemaker --variant darwin --verbose homemaker.toml tilde/
 
 setup: bundle homemaker ## Full computer setup with homedir and binaries
 
