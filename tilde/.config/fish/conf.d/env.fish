@@ -6,6 +6,9 @@ set -x LESSCHARSET utf-8
 # Homebrew
 set -x HOMEBREW_NO_ANALYTICS 1
 
+# Docker
+set -x DOCKER_BUILDKIT "1"
+
 # Location
 set -x LC_ALL "en_US.UTF-8"
 set -x TZ America/Los_Angeles
