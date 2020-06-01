@@ -39,7 +39,6 @@ brew "gnupg", link: false
 brew "gnutls"
 brew "go"
 brew "gource"
-brew "gpg-agent"
 brew "grc"
 brew "gzip"
 brew "helm"
@@ -81,14 +80,11 @@ brew "postgresql", restart_service: true
 brew "pre-commit"
 brew "pyenv"
 brew "python"
-brew "python@2"
 brew "rbenv"
 brew "redis", restart_service: true
 brew "repo"
 brew "ripgrep"
 brew "ruby"
-brew "ruby@1.8"
-brew "ruby@2.2"
 brew "s3cmd"
 brew "screenfetch"
 brew "shellcheck"
@@ -134,9 +130,8 @@ cask "macupdater"
 cask "menumeters"
 cask "plex"
 cask "postman"
-cast "steam"
+caskpip3 "steam"
 cask "vlc"
-cask "yujitach-menumeters"
 mas "Backtrack", id: 1477089520
 mas "Cinebench", id: 1438772273
 mas "Day One", id: 1055511498
