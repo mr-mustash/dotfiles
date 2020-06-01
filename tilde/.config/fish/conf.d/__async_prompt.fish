@@ -26,7 +26,7 @@ if status is-interactive
         end
 
         function __async_prompt_post_prompt --on-event fish_prompt
-            sh -c "for i in \$(seq 3); do sleep 0.1 ; kill -WINCH $fish_pid; sleep 0.5; done" &
+            sh -c "for i in \$(seq 3); do sleep 0.3 ; kill -WINCH $fish_pid; sleep 0.5; done" &
             disown
         end
         __async_prompt_post_prompt
@@ -72,7 +72,7 @@ if status is-interactive
             __async_prompt_config_inherit_variables | __async_prompt_spawn $st $func' | read -z prompt; set -U __async_prompt_'$func'_text_'(__async_prompt_pid)' "$prompt"'
             function '__async_prompt_'$func'_handler' --on-job-exit (jobs -lp | tail -n1)
                 kill -WINCH (__async_prompt_pid)
-                sleep 0.1
+                sleep 0.3
                 kill -WINCH (__async_prompt_pid)
             end
         end
