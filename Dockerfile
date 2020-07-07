@@ -12,7 +12,7 @@ RUN apt-add-repository ppa:jonathonf/vim
 RUN apt update
 RUN apt-get install -y git fish mysql-client postgresql redis vim docker.io \
                        curl wget golang build-essential file sudo rsync dstat \
-                       jq less percona-toolkit mysql-utilities mytop sysstat \
+                       jq less percona-toolkit mytop sysstat \
                        fzf highlight python3 python3-pip
 
 RUN adduser --disabled-password --gecos '' --uid 20454 pking
