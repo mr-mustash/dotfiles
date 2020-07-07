@@ -212,6 +212,9 @@ let g:mapleader = "\<Space>"
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
+" make Y consistent with C and D.
+nnoremap Y y$
+
 " Lets save our hands and use jk to leave insert and visual mode.
 inoremap <esc> <nop>
 inoremap jk <esc>
@@ -243,6 +246,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" make J, K, L, and H move the cursor MORE.
+nnoremap J }
+nnoremap K {
+nnoremap L g_
+nnoremap H ^
+
 " Resize windwos with Animate.vim
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
 nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
@@ -273,6 +282,9 @@ nnoremap <silent> <Leader>nn :set invnumber invrelativenumber<CR>
 " Use C-t to create a new tab and C-g to close it
 nnoremap <silent> <C-t> :tabnew<CR>
 nnoremap <silent> <C-g> :tabclose<CR>
+
+
+
 
 
 " ========================================================================= }}}
