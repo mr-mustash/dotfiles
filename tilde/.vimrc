@@ -15,12 +15,10 @@
 
 "vint: next-line -ProhibitSetNoCompatible
 set nocompatible
-if has ('autocmd')
-    augroup setNoPasteAfterPaste
-        au!
-        autocmd InsertLeave * set nopaste
-    augroup END
-endif
+augroup setNoPasteAfterPaste
+    au!
+    autocmd InsertLeave * set nopaste
+augroup END
 set pastetoggle=<F12>
 
 " ========================================================================= }}}
@@ -51,9 +49,7 @@ set relativenumber
 
 set background=dark
 
-if has ('autocmd')
-    filetype plugin indent on
-endif
+filetype plugin indent on
 
 syntax enable
 set synmaxcol=120
@@ -101,14 +97,12 @@ if has('termguicolors') && $COLORTERM ==? 'truecolor'
 endif
 
 " Only display the cursorline on the active buffer.
-if has ('autocmd')
-    if exists('+cursorline')
-        augroup cursorLine
-            autocmd!
-            autocmd VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal cursorline
-            autocmd WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
-        augroup END
-    endif
+if exists('+cursorline')
+    augroup cursorLine
+        autocmd!
+        autocmd VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal cursorline
+        autocmd WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
+    augroup END
 endif
 
 
