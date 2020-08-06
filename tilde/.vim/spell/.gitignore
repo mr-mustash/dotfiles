@@ -1,0 +1,2 @@
+# Ignore binary spell files as they're generated on startup
+*.spl
