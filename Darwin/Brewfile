@@ -130,7 +130,7 @@ cask "macupdater"
 cask "menumeters"
 cask "plex"
 cask "postman"
-caskpip3 "steam"
+cask "steam"
 cask "vlc"
 mas "Backtrack", id: 1477089520
 mas "Cinebench", id: 1438772273
