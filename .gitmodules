@@ -121,3 +121,6 @@
 [submodule "tilde/.vim/pack/colors/opt/NeoSolarized"]
 	path = tilde/.vim/pack/colors/opt/NeoSolarized
 	url = https://github.com/icymind/NeoSolarized.git
+[submodule "tilde/.vim/pack/plugins/start/coc.nvim"]
+	path = tilde/.vim/pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git

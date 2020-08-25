@@ -70,8 +70,8 @@ function! MyHighlights() abort
     augroup END
 
     " Other highlights
-    highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
-    highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
+    "highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
+    "highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
     highlight SearchHighlight ctermfg=3
     highlight SpellBad ctermbg=7 ctermfg=none
     highlight CursorLineNR cterm=bold guifg=#b58900
@@ -246,12 +246,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" make J, K, L, and H move the cursor MORE.
-nnoremap J }
-nnoremap K {
-nnoremap L g_
-nnoremap H ^
-
 " Resize windwos with Animate.vim
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
 nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
@@ -415,10 +409,24 @@ set viminfo='50,\"5000,h,/0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
+" Recent vim can merge signcolumn and number column into one
+set signcolumn=number
+
 augroup hellocat
     au!
     autocmd VimEnter * echo "<^.^>"
 augroup END
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 " ========================================================================= }}}
