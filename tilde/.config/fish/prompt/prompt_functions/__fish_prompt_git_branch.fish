@@ -15,7 +15,7 @@ function __fish_prompt_git_branch --description "Display git the git branch name
     set -l git_branch_length (string length $git_branch)
 
     if test $git_branch_length -gt $max
-        set git_branch (echo $git_branch | sed -e 's/u\/[a-zA-Z0-9]*\///')
+        set git_branch (echo $git_branch | sed -e 's/u\/[a-zA-Z0-9\.]*\///')
         set git_branch (echo "../$git_branch")
     end
 
