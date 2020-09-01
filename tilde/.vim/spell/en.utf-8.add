@@ -1,7 +1,9 @@
+config
 hostname
 hostnames
 mysql
 onepeloton
+peloton
 pelotoncycle
 postgres
 redis
