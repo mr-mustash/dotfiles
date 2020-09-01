@@ -81,7 +81,7 @@
 	url = https://github.com/romainl/vim-qf.git
 [submodule ".vim/pack/plugins/start/ale"]
 	path = tilde/.vim/pack/plugins/start/ale
-	url = https://github.com/w0rp/ale.git
+	url = https://github.com/dense-analysis/ale.git
 [submodule "tilde/.vim/pack/plugins/start/vim-obsession"]
 	path = tilde/.vim/pack/plugins/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
