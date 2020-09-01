@@ -2,6 +2,7 @@
 [tasks.common]
     links = [
         [".config/fish"],
+        [".config/flake8"],
         [".config/terminal"],
         [".config/tmux"],
         [".global_gitignore"],
