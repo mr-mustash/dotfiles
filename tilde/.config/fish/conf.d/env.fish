@@ -58,12 +58,6 @@ end
 # Autojump
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 
-# New Relic Paths
-if test -e $HOME/.config/fish/functions/new_relic_env.fish
-    source $HOME/.config/fish/functions/new_relic_env.fish
-    new_relic_env
-end
-
 #FZF
 if test -e $HOME/.config/fish/functions/fzf_env.fish
     if which fzf >/dev/null 2>/dev/null
