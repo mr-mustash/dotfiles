@@ -22,6 +22,8 @@ set -gx GPG_TTY (tty)
 # Paths!
 set -a fish_user_paths  "$HOME/bin"
 set -a fish_user_paths "/usr/local/sbin"
+set -a fish_user_paths "$HOME/.yarn/bin"
+set -a fish_user_paths "$HOME/.config/yarn/global/node_modules/.bin"
 
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making

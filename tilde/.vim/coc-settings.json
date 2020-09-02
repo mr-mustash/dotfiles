@@ -1,0 +1,10 @@
+{
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    }
+  }
+}
