@@ -4,3 +4,7 @@
 " menas that laoding it in a custom ftdetect does not work.
 " https://github.com/fatih/vim-go/issues/2144
 set nolist
+
+augroup golang
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+augroup end

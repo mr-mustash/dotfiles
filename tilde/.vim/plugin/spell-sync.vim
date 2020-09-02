@@ -1,6 +1,6 @@
 " Taken from emilyst/home - https://github.com/emilyst/home/blob/b041fe5228f05cb2352b052b4d4f25284deab1cf/.vim/plugin/spell-sync.vim
 function! s:RegenerateSpellfiles() abort
-  for l:dir in split(globpath(&rtp, 'spell'), '\n')
+  for l:dir in split(globpath(&runtimepath, 'spell'), '\n')
     for l:wordlist in uniq(split(globpath(l:dir, '*.add'), '\n') + split(&l:spellfile, ','))
       if !filewritable(l:wordlist) | continue | endif
 
