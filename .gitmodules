@@ -22,9 +22,6 @@
 [submodule ".vim/pack/plugins/start/vim-gitgutter"]
 	path = tilde/.vim/pack/plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
-[submodule ".vim/pack/plugins/opt/vim-fish"]
-	path = tilde/.vim/pack/plugins/opt/vim-fish
-	url = https://github.com/dag/vim-fish.git
 [submodule ".vim/pack/plugins/opt/vim-manpager"]
 	path = tilde/.vim/pack/plugins/opt/vim-manpager
 	url = https://github.com/lambdalisue/vim-manpager.git
@@ -79,9 +76,6 @@
 [submodule ".vim/pack/plugins/start/vim-qf"]
 	path = tilde/.vim/pack/plugins/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
-[submodule ".vim/pack/plugins/start/ale"]
-	path = tilde/.vim/pack/plugins/start/ale
-	url = https://github.com/dense-analysis/ale.git
 [submodule "tilde/.vim/pack/plugins/start/vim-obsession"]
 	path = tilde/.vim/pack/plugins/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
@@ -106,9 +100,6 @@
 [submodule "tilde/.vim/pack/plugins/opt/vim-asm_ca65"]
 	path = tilde/.vim/pack/plugins/opt/vim-asm_ca65
 	url = https://github.com/maxbane/vim-asm_ca65.git
-[submodule "tilde/.vim/pack/plugins/start/ale"]
-	path = tilde/.vim/pack/plugins/start/ale
-	url = https://github.com/dense-analysis/ale.git
 [submodule "tilde/.config/terminal/dircolors/dircolors-solarized"]
 	path = tilde/.config/terminal/dircolors/dircolors-solarized
 	url = https://github.com/huyz/dircolors-solarized.git
@@ -124,6 +115,15 @@
 [submodule "tilde/.vim/pack/plugins/opt/python-syntax"]
 	path = tilde/.vim/pack/plugins/opt/python-syntax
 	url = https://github.com/vim-python/python-syntax.git
+[submodule "tilde/.vim/pack/plugins/opt/neco-vim"]
+	path = tilde/.vim/pack/plugins/opt/neco-vim
+	url = https://github.com/Shougo/neco-vim.git
+[submodule "tilde/.vim/pack/plugins/opt/coc-neco"]
+	path = tilde/.vim/pack/plugins/opt/coc-neco
+	url = https://github.com/neoclide/coc-neco.git
+[submodule "tilde/.vim/pack/plugins/start/vim-fish"]
+	path = tilde/.vim/pack/plugins/start/vim-fish
+	url = https://github.com/mk12/vim-fish.git
 [submodule "tilde/.vim/pack/plugins/start/coc.nvim"]
 	path = tilde/.vim/pack/plugins/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git

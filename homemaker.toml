@@ -1,6 +1,7 @@
 # common ================================================================== {{{
 [tasks.common]
     links = [
+        ["/.config/coc/extensions/package.json"],
         [".config/fish"],
         [".config/flake8"],
         [".config/terminal"],
@@ -43,7 +44,13 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "sign-bunny", "markcat"],
+        ["npm", "install", "sign-bunny", "markcat", "bash-language-server"],
+    ]
+
+[tasks.go]
+accepts = [["which", "go"]]
+    cmds = [
+        ["GO111MODULE=on", "go", "get", "golang.org/x/tools/gopls@latest"],
     ]
 
 [tasks.fish]
@@ -75,7 +82,7 @@ accepts = [["which", "npm"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "systemconfig", "pip", "npm", "fish", "fish_completions"]
+    deps = ["common", "systemconfig", "pip", "npm", "go", "fish", "fish_completions"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
