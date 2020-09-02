@@ -17,7 +17,7 @@ nnoremap <silent> <Leader>afr :ALEFindReferences<CR>
 
 let g:ale_linters = {
             \   'go':        ['gopls'],
-            \   'python':    ['flake8'],
+            \   'python':    ['pyls', 'flake8'],
             \   'sh':        ['shfmt', 'shellcheck'],
             \   'terraform': ['terraform-lsp'],
             \   'vim':       ['vint',],
