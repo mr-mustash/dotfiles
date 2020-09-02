@@ -33,7 +33,7 @@ bundle: brew mas ## Install brew and then brew bundle install
 homemaker_install:
 WHICH_HOMEMAKER := $(shell which homemaker > /dev/null; echo $$?)
 	ifeq ($(WHICH_HOMEMAKER),1)
-		go get github.com/FooSoft/homemaker
+		GO111MODULE=on go get github.com/FooSoft/homemaker
 	endif
 
 submodules:
