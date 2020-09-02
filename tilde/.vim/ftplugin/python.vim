@@ -9,3 +9,11 @@ set shiftwidth=4
 set expandtab
 set autoindent
 set fileformat=unix
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
