@@ -124,3 +124,6 @@
 [submodule "tilde/.vim/pack/plugins/opt/python-syntax"]
 	path = tilde/.vim/pack/plugins/opt/python-syntax
 	url = https://github.com/vim-python/python-syntax.git
+[submodule "tilde/.vim/pack/plugins/start/coc.nvim"]
+	path = tilde/.vim/pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
