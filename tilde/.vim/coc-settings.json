@@ -1,4 +1,9 @@
 {
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.enableSign": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
