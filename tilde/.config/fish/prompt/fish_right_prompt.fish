@@ -15,6 +15,7 @@ function fish_right_prompt --description 'Display the right side of the interact
                  __fish_right_prompt_k8s_context
             end
         end
+        __fish_right_prompt_saml2aws
     end
 
     # Display the time if we're wide enough

@@ -14,8 +14,10 @@ function __fish_prompt_language_docker -d "Display docker version"
         set -gx docker_version (docker version -f "{{.Server.Version}}" 2>/dev/null)
     end
     # if docker daemon isn't running you'll get an error like 'Bad response from Docker engine'
+    if string match daemon $docker_version ; return ; end
+
     if test "$docker_version" = ""
-        return 0
+        return
     end
 
 
