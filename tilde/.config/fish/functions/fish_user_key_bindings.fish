@@ -24,6 +24,10 @@ function user_misc_key_bindings
 
     # Use ctrl-p to go to previous directory
     bind -M insert -m insert \cp 'prevd | commandline -f repaint'
+
+    # Trap EOF and call cowboy.fish
+    bind -M insert \cd cowboy
+    bind -M default \cd cowboy
 end
 
 # For some reason my vim man pager doesn't work with __fish_man_page.

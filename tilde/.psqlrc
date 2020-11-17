@@ -1,16 +1,25 @@
-\pset null 'NULL'
+\set QUIET 1
+
 \set AUTOCOMMIT off
-\set ON_ERROR_ROLLBACK on
-\set ON_ERROR_STOP on
+\set COMP_KEYWORD_CASE upper
 \set HISTFILE ~/.local/psql_history/.psql_history- :DBNAME
 \set HISTSIZE 500000
+\set ON_ERROR_ROLLBACK on
+\set ON_ERROR_STOP on
+\set VERBOSITY verbose
+
+\pset null '[NULL]'
+\pset linestyle unicode
+
 \timing
 \encoding unicode
-\pset linestyle unicode
--- \set ECHO_HIDDEN 1
--- red prompt for live
---\set PROMPT1 '%n@%m:%> [%/]%x=%# '
+
+
 \set PROMPT1 '%[%033[0;32m%]%n%[%033[0m%]@%[%033[0;34m%]%m%[%033[0m%]:%[%033[0;35m%]%>%[%033[0m%] [%[%033[0;31m%]%/%[%033[0m%]]%[%033[0;33m%]%x%[%033[0m%]=%# '
---\set PROMPT2 '%n@%m:%> [%/]%x%R# '
 \set PROMPT2 '%[%033[0;32m%]%n%[%033[0m%]@%[%033[0;34m%]%m%[%033[0m%]:%[%033[0;35m%]%>%[%033[0m%] [%[%033[0;31m%]%/%[%033[0m%]]%[%033[0;33m%]%x%[%033[0m%]%R%# '
+
+--\set PROMPT1 '%n at %M:%> in %/%x %# '
+--\set PROMPT2 '%n at %M:%> in %/%x%R%# '
+
+\set QUITE 0
 

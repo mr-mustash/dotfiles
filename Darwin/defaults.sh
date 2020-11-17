@@ -2,8 +2,12 @@
 # Get updates in background.
 softwareupdate --download > /dev/null
 
-# Need password for some defaults commands
-read -rp "Password: " -s szPassword
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `osx.sh` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 
 # App Store
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -45,7 +49,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
 
 # Enable HiDPI display modes (requires restart)
-printf "%s\n" "$szPassword" | sudo --stdin defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+sudo --stdin defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 # Show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -140,7 +144,7 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 defaults write com.apple.TextEdit "TabWidth" '4'
 
 # Bring back the startup chime!
-printf "%s\n" "$szPassword" | sudo --stdin nvram StartupMute=%00
+sudo nvram StartupMute=%00
 
 # Add message to login screen.
-printf "%s\n" "$szPassword" | sudo --stdin defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "This computer is attached to an iCloud account and permanently locked. Please return by calling 503-805-4667. Reward included, and no questions asked."
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "This computer is attached to an iCloud account and permanently locked. Please return by calling 503-805-4667. Reward included, and no questions asked."
