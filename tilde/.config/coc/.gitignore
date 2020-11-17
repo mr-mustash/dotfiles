@@ -1,0 +1,6 @@
+*
+!extensions
+extensions/*
+!extensions/package.json
+!extensions/yarn.lock
+
