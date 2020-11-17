@@ -1,4 +1,9 @@
 {
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.enableSign": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -7,17 +12,20 @@
       "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true
-      }
+      },
     },
     "terraform": {
       "command": "terraform-lsp",
-      "filetypes": ["terraform"],
-      "initializationOptions": {}
-    }
+      "initializationOptions": {},
+      "filetypes": [
+          "terraform",
+          "tf"
+      ],
+    },
   },
   "go.enable": true,
   "python.formatting.provider": "autopep8",
   "python.jediEnabled": false,
   "python.setLinter": "flake8",
-  "python.setInterpreter": "/usr/local/bin/python3"
+  "python.setInterpreter": "/usr/local/bin/python3",
 }
