@@ -3,9 +3,9 @@
 # automatically created from a teamplate file.
 [user]
 	name  = Patrick King
-{{if eq .Env.USER "pking"}}
-	email = pking@newrelic.com
-	username = pking
+{{if eq .Env.USER "patrick.king"}}
+	email = patrick.king@onepeloton.com
+	username = patrick.king
 {{else}}
 	email = patrick@patrickcking.com
 	username = mr-mustash
