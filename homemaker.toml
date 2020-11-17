@@ -20,6 +20,7 @@
     ]
     templates = [
         [".gitconfig"]
+        [".ssh/config"]
     ]
 
 [tasks.keybase]
@@ -82,7 +83,7 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "systemconfig", "pip", "npm", "go", "fish", "fish_completions"]
+    deps = ["common", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{

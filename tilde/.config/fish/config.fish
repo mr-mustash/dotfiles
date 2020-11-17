@@ -3,8 +3,6 @@ if status is-interactive
     source "$__fish_config_dir/colors.fish"
 
     # Adding my prompt configs first
-
-    #source $HOME/.config/fish/functions/__update_prompt.fish
     set -gx fish_function_path $HOME/.config/fish/prompt/prompt_functions/ $fish_function_path
     set -gx fish_function_path $HOME/.config/fish/prompt/ $fish_function_path
 
@@ -16,6 +14,9 @@ if status is-interactive
 
     # Load iTerm 2 shell integration
     test -e {$HOME}/.config/fish/functions/iterm_shell_integration.fish; and source {$HOME}/.config/fish/functions/iterm_shell_integration.fish
+
+    # Add work script to the funciton path
+    set -gx fish_function_path $HOME/.config/fish/work/ $fish_function_path
 else
     set -gx fish_function_path $HOME/.config/fish/prompt/prompt_functions/ $fish_function_path
     set -gx fish_function_path $HOME/.config/fish/prompt/ $fish_function_path
