@@ -127,3 +127,6 @@
 [submodule "tilde/.vim/pack/plugins/start/coc.nvim"]
 	path = tilde/.vim/pack/plugins/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
+[submodule "tilde/.vim/pack/plugins/start/vim-highlightedyank"]
+	path = tilde/.vim/pack/plugins/start/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank.git
