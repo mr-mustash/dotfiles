@@ -19,7 +19,7 @@
         [".yamllint"],
     ]
     templates = [
-        [".gitconfig"]
+        [".gitconfig"],
         [".ssh/config"]
     ]
 
