@@ -67,9 +67,6 @@
 [submodule ".vim/pack/plugins/opt/nuake"]
 	path = tilde/.vim/pack/plugins/opt/nuake
 	url = https://github.com/Lenovsky/nuake.git
-[submodule ".vim/pack/plugins/opt/vim-slime"]
-	path = tilde/.vim/pack/plugins/opt/vim-slime
-	url = https://github.com/jpalardy/vim-slime
 [submodule ".vim/pack/plugins/start/vim-illuminate"]
 	path = tilde/.vim/pack/plugins/start/vim-illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
