@@ -8,6 +8,7 @@ function fish_prompt --description 'Write out the prompt'
 
     __fish_prompt_languages
     __fish_prompt_jobs
+    __fish_prompt_hooked
 
     # Change the color of the glyph based on vi mode
     switch $fish_bind_mode

@@ -48,6 +48,12 @@ accepts = [["which", "npm"]]
         ["npm", "install", "sign-bunny", "markcat", "bash-language-server"],
     ]
 
+[tasks.npm]
+accepts = [["which", "gem"]]
+    cmds = [
+        ["gem", "install", "--user-install", "hookapp"],
+    ]
+
 [tasks.go]
 accepts = [["which", "go"]]
     cmds = [
@@ -83,7 +89,7 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
+    deps = ["common", "systemconfig", "pip", "npm", "gem", "go", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
