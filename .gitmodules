@@ -115,15 +115,9 @@
 [submodule "tilde/.vim/pack/plugins/opt/neco-vim"]
 	path = tilde/.vim/pack/plugins/opt/neco-vim
 	url = https://github.com/Shougo/neco-vim.git
-[submodule "tilde/.vim/pack/plugins/opt/coc-neco"]
-	path = tilde/.vim/pack/plugins/opt/coc-neco
-	url = https://github.com/neoclide/coc-neco.git
 [submodule "tilde/.vim/pack/plugins/start/vim-fish"]
 	path = tilde/.vim/pack/plugins/start/vim-fish
 	url = https://github.com/mk12/vim-fish.git
-[submodule "tilde/.vim/pack/plugins/start/coc.nvim"]
-	path = tilde/.vim/pack/plugins/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
 [submodule "tilde/.vim/pack/plugins/start/vim-highlightedyank"]
 	path = tilde/.vim/pack/plugins/start/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank.git
