@@ -403,7 +403,6 @@ set viminfo='50,\"5000,h,/0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
-" Recent vim can merge signcolumn and number column into one
 set signcolumn=number
 
 augroup hellocat
