@@ -1,7 +1,4 @@
 function! pking#plugins#prose#Prose()
-    " Disable coc.nvim for text
-    silent! CocDisable
-
     set spell
 
     packadd vim-wordy
