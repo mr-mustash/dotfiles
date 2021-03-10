@@ -112,9 +112,6 @@
 [submodule "tilde/.vim/pack/plugins/opt/python-syntax"]
 	path = tilde/.vim/pack/plugins/opt/python-syntax
 	url = https://github.com/vim-python/python-syntax.git
-[submodule "tilde/.vim/pack/plugins/opt/neco-vim"]
-	path = tilde/.vim/pack/plugins/opt/neco-vim
-	url = https://github.com/Shougo/neco-vim.git
 [submodule "tilde/.vim/pack/plugins/start/vim-fish"]
 	path = tilde/.vim/pack/plugins/start/vim-fish
 	url = https://github.com/mk12/vim-fish.git
