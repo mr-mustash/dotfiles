@@ -117,6 +117,39 @@ end
 usbWatcher = hs.usb.watcher.new(usbkWatcherCallback)
 usbWatcher:start()
 
+-- Pause Docker on Battery
+local PreviousPowerSource = hs.battery.powerSource()
+
+function powerStateChanged()
+    CurrentPowerSource = hs.battery.powerSource()
+    if CurrentPowerSource ~= PreviousPowerSource then
+        if CurrentPowerSource == "Battery Power" then
+            hs.execute("tmutil stopbackup")
+            hs.execute("pgrep -i Dropbox | xargs renice +19")
+            stopDocker()
+        end
+        if CurrentPowerSource == "AC Power" then
+            hs.execute("pgrep -i Dropbox | xargs sudo renice +5")
+            startDocker()
+        end
+        PreviousPowerSource = CurrentPowerSource
+    end
+end
+
+function stopDocker()
+    hs.execute("sudo /usr/bin/renice +19 -p $(/usr/bin/pgrep com.docker.hyperkit)")
+    hs.execute("/usr/local/bin/docker ps -q > ~/.docker_stopped_containers")
+    hs.execute("/usr/local/bin/docker stop $(/usr/local/bin/docker ps -q)")
+end
+
+function startDocker()
+    hs.execute("cat ~/.docker_stopped_containers | xargs /usr/local/bin/docker start")
+    hs.execute("sudo /usr/bin/renice +5 -p $(/usr/bin/pgrep com.docker.hyperkit)")
+end
+
+batteryWatcher = hs.battery.watcher.new(powerStateChanged)
+batteryWatcher:start()
+
 -- Generalized functions
 function notification(notification, image)
     if (image == nil or image == '') then
