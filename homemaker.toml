@@ -50,8 +50,11 @@ accepts = [["which", "npm"]]
 
 [tasks.go]
 accepts = [["which", "go"]]
+    envs = [
+            ["GO111MODULE", "on"],
+        ]
     cmds = [
-        ["GO111MODULE=on", "go", "get", "golang.org/x/tools/gopls@latest"],
+        ["go", "get", "golang.org/x/tools/gopls@latest"],
     ]
 
 [tasks.fish]
