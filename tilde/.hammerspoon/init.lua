@@ -82,6 +82,7 @@ anycomplete.registerDefaultBindings()
 -- Docked/Undocked
 function dockChangedState(state)
     if state == "removed" then
+        print("Undocked")
         hs.wifi.setPower(true)
 
         for _,screen in pairs(hs.screen.allScreens()) do
@@ -90,6 +91,7 @@ function dockChangedState(state)
     end
 
     if state == "added" then
+        print("Docked")
         for _,screen in pairs(hs.screen.allScreens()) do
             screen:setBrightness(100)
         end
@@ -124,11 +126,13 @@ function powerStateChanged()
     CurrentPowerSource = hs.battery.powerSource()
     if CurrentPowerSource ~= PreviousPowerSource then
         if CurrentPowerSource == "Battery Power" then
+            print("On battery power")
             hs.execute("tmutil stopbackup")
             hs.execute("pgrep -i Dropbox | xargs renice +19")
             stopDocker()
         end
         if CurrentPowerSource == "AC Power" then
+            print("On AC power")
             hs.execute("pgrep -i Dropbox | xargs sudo renice +5")
             startDocker()
         end

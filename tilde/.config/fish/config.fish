@@ -12,8 +12,8 @@ if status is-interactive
     # Key bindings
     test -e $HOME/.config/fish/function/fish_user_key_bindings.fish; and set fish_key_bindings fish_user_key_bindings
 
-    # Add work script to the funciton path
-    set -gx fish_function_path $HOME/.config/fish/work/ $fish_function_path
+    # Add private scripts to the funciton path
+    set -gx fish_function_path $HOME/.config/fish/private/ $fish_function_path
 else
     set -gx fish_function_path $HOME/.config/fish/prompt/prompt_functions/ $fish_function_path
     set -gx fish_function_path $HOME/.config/fish/prompt/ $fish_function_path
