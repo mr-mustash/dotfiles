@@ -1,7 +1,6 @@
 # common ================================================================== {{{
 [tasks.common]
     links = [
-        [".config/coc"],
         [".config/fish"],
         [".config/flake8"],
         [".config/terminal"],
