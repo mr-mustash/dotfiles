@@ -21,7 +21,7 @@ function fish_right_prompt --description 'Display the right side of the interact
     # Display the time if we're wide enough
     if test $COLUMNS -gt 132
         set_color $fish_prompt_color_clock
-        printf "%s " (date +%T)
+        date +%T
         set_color normal
     end
 

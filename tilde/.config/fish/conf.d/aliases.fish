@@ -45,16 +45,16 @@ if status --is-interactive
 
     # Git expansions
     abbr --add gco 'git checkout'
-    abbr --add gpom 'git pull origin master'
+    abbr --add gpom 'git pull origin master || git pull origin main'
     abbr --add gcub 'git checkout -b u/(whoami)/'
     abbr --add gpib 'git push origin HEAD:i/(whoami)/'
     abbr --add gcam 'git commit -a -m'
     abbr --add gs 'git status'
     abbr --add gd 'git diff'
-    abbr --add gcm 'git checkout master'
+    abbr --add gcm 'git checkout master || git checkout main'
     abbr --add gb 'git branch'
     abbr --add ga 'git add'
-    abbr --add gdm 'git diff master'
+    abbr --add gdm 'git diff master || git diff main'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
 end
