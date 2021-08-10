@@ -32,10 +32,6 @@ if status --is-interactive
     abbr --add tt 'tmux_for_ticket'
     abbr --add tls 'tmux list-sessions'
 
-    # Review Board
-    abbr --add rb 'review-branch'
-    abbr --add rbr 'review-branch -r '
-
     # Sensu expansion
     abbr --add silence '/nail/sys/bin/downtime (hostname --fqdn)'
     abbr --add unsilence 'sensu-cli stash delete silence/(hostname --fqdn)'

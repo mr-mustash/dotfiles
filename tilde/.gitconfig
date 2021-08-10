@@ -3,14 +3,14 @@
 # automatically created from a teamplate file.
 [user]
 	name  = Patrick King
-{{if eq .Env.USER "patrick.king"}}
+{{if (eq .Env.USER "patrick.king")}}
 	email = patrick.king@onepeloton.com
 	username = patrick.king
 {{else}}
 	email = patrick@patrickcking.com
 	username = mr-mustash
+	signingkey = 0x944E36F397047609
 {{end}}
-	signingkey = 35F55DB1
 [core]
 	editor=vim
 	whitespace=all
@@ -20,7 +20,11 @@
 [commit]
 	gpgsign = true
 [gpg]
+{{ if eq (.Env.OSTYPE | printf "%.6s") "darwin"}}
 	program = /usr/local/bin/gpg
+{{else}}
+	program = /usr/bin/qubes-gpg-client-wrapper
+{{end}}
 [push]
 	default = current
 [log]
@@ -32,3 +36,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[diff]
+»»»»tool = vimdiff
+[difftool]
+»»»»prompt = 0
