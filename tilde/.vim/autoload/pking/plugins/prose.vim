@@ -3,11 +3,17 @@ function! pking#plugins#prose#Prose()
 
     packadd vim-wordy
     packadd vim-pencil
+    packadd limelight.vim
 
-    call pencil#init({'wrap': 'soft', 'autoformat': 1})
-
-    " Airline Status
+    " vim-pencil settings
+    let g:pencil#wrapModeDefault = 'soft'
     let g:airline_section_x = '%{PencilMode()}'
+    call pencil#init()
+
+    " Limelight Settings
+    let g:limelight_default_coefficient = 0.5
+    let g:limelight_priority = -1
+    :Limelight
 
     " manual reformatting shortcuts
     nnoremap <buffer> <silent> Q gqap
@@ -19,8 +25,4 @@ function! pking#plugins#prose#Prose()
 
     " open most folds
     setlocal foldlevel=6
-
-    " highlight words (reedes/vim-wordy)
-    nnoremap <Leader>W :NextWordy<cr>
-
 endfunction

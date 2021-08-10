@@ -49,9 +49,6 @@
 [submodule ".vim/pack/plugins/opt/vim-terraform"]
 	path = tilde/.vim/pack/plugins/opt/vim-terraform
 	url = https://github.com/hashivim/vim-terraform.git
-[submodule ".vim/pack/plugins/opt/vim-wordy"]
-	path = tilde/.vim/pack/plugins/opt/vim-wordy
-	url = https://github.com/reedes/vim-wordy.git
 [submodule ".vim/pack/colors/opt/vim-colors-solarized"]
 	path = tilde/.vim/pack/colors/opt/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
@@ -118,3 +115,9 @@
 [submodule "tilde/.vim/pack/plugins/start/vim-highlightedyank"]
 	path = tilde/.vim/pack/plugins/start/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank.git
+[submodule "tilde/.vim/pack/plugins/opt/limelight.vim"]
+	path = tilde/.vim/pack/plugins/opt/limelight.vim
+	url = https://github.com/junegunn/limelight.vim.git
+[submodule "tilde/.vim/pack/plugins/start/footprints"]
+	path = tilde/.vim/pack/plugins/start/footprints
+	url = https://github.com/axlebedev/footprints.git
