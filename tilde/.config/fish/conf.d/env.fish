@@ -18,6 +18,7 @@ set -x  MANPAGER "vim -c MANPAGER -"
 
 # GPG
 set -gx GPG_TTY (tty)
+set -gx QUBES_GPG_DOMAIN "gpg"
 
 # Paths!
 set -a fish_user_paths  "$HOME/bin"

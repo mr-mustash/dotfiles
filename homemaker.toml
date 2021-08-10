@@ -102,9 +102,16 @@ envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
     prefix = ["brew", "install"]
 # ========================================================================= }}}
 # *nix =-================================================================== {{{
-[tasks.keybase__nixc]
+[tasks.keybase__nix]
     accepts = [["which", "keybase"]]
         cmds = [
         ["keybase", "login"],
         ["keybase", "config", "set", "gpg.command", "/usr/bin/qubes-gpg-client-wrapper"],
-  ========================================================================= }}}
+    ]
+
+[tasks.systemconfig__nix]
+    cmds = [["true"]]
+
+[tasks.fish_completions__nix]
+    cmds = [["true"]]
+# ========================================================================= }}}
