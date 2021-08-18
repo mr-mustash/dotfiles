@@ -31,6 +31,7 @@ end
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
 -- WiFi
+wifiWatcher = nil
 homeSSID = "FBI Work Van"
 workSSID = "Peloton"
 lastSSID = hs.wifi.currentNetwork()
@@ -38,9 +39,7 @@ lastSSID = hs.wifi.currentNetwork()
 function ssidChangedCallback()
     newSSID = hs.wifi.currentNetwork()
 
-    if newSSID == nil then
-        return
-    else
+    if newSSID ~= nil then
         if newSSID == homeSSID and lastSSID ~= homeSSID then
             -- We just joined our home WiFi network
             homeWifiConnected()
@@ -51,6 +50,8 @@ function ssidChangedCallback()
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
+    else
+        return
     end
 
     lastSSID = newSSID
@@ -84,6 +85,7 @@ function unknownWifiNetwork()
 end
 
 function reconnectProxy()
+    sleep(10)
     hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
     sleep(1)
     hs.execute("/usr/bin/screen -dmS proxy /usr/local/bin/autossh -M 0 -N -v -i /Users/patrick.king/.ssh/id_ed25519_digitalocean -D localhost:18888 proxy")
@@ -167,6 +169,58 @@ end
 
 batteryWatcher = hs.battery.watcher.new(powerStateChanged)
 batteryWatcher:start()
+
+-- ZOOM CONTROL --
+-- This lets you click on the menu bar item to toggle the mute state
+zoomStatus = hs.menubar.new()
+
+function zoomClicked()
+    spoon.Zoom:toggleMute()
+end
+
+if zoomStatus then
+    zoomStatus:setClickCallback(zoomClicked)
+end
+
+updateZoomStatus = function(event)
+    print("Status changed")
+    hs.printf("updateZoomStatus(%s)", event)
+    if (event == "from-running-to-meeting") then
+        zoomStatus:returnToMenuBar()
+        zoomStart()
+    elseif (event == "muted") then
+        zoomStatus:setTitle("🔴")
+    elseif (event == "unmuted") then
+        zoomStatus:setTitle("🟢")
+    elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
+        zoomStatus:removeFromMenuBar()
+        zoomEnd()
+    end
+end
+
+function zoomStart()
+    hs.application.launchOrFocus("OBS")
+    sleep(5)
+    --local sceneJSON=[[{ "scene-name": "Webcam Only" }]]
+    --local command=("/usr/local/bin/obs-cli SetCurrentScene=" .. sceneJSON .. " >> ~/Desktop/obsout.txt 2>&1")
+    --hs.execute(command, with_user_env)
+    hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
+    hs.execut("/usr/local/bin/do-not-disturb on")
+end
+
+function zoomEnd()
+    hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
+    hs.execut("/usr/local/bin/do-not-disturb off")
+    sleep(1)
+    local appOBS = hs.application.find("OBS")
+    if(appOBS ~= nil) then
+        appOBS.kill(appOBS)
+    end
+end
+
+hs.loadSpoon("Zoom")
+spoon.Zoom:setStatusCallback(updateZoomStatus)
+spoon.Zoom:start()
 
 -- Generalized functions
 function notification(notification, image)
