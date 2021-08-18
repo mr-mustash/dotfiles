@@ -6,7 +6,7 @@ function __fish_prompt_language_docker -d "Display docker version"
         return
     end
 
-    if not type -q docker
+    if not in-path docker
         return
     end
 

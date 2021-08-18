@@ -43,7 +43,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "sign-bunny", "markcat", "bash-language-server"],
+        ["npm", "install", "sign-bunny", "markcat", "bash-language-server", "obs-cli", "do-not-disturb-cli"],
     ]
 
 [tasks.go]
