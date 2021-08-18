@@ -30,7 +30,7 @@ RUN go get github.com/FooSoft/homemaker
 # Get my homedir
 RUN git clone https://github.com/mr-mustash/dotfiles.git /tmp/dotfiles/
 RUN cd /tmp/dotfiles && git submodule init && git submodule update --remote
-RUN cd /tmp/dotfiles && yes "c" | /home/pking/go/bin/homemaker -clobber -task common ./homemaker.toml ./tilde/
+RUN cd /tmp/dotfiles && yes "c" | /home/pking/go/bin/homemaker -clobber -variant nix -task default ./homemaker.toml ./tilde/
 
 # Properly set the local
 RUN sudo sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \

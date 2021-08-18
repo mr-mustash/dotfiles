@@ -121,3 +121,6 @@
 [submodule "tilde/.vim/pack/plugins/start/footprints"]
 	path = tilde/.vim/pack/plugins/start/footprints
 	url = https://github.com/axlebedev/footprints.git
+[submodule "tilde/.hammerspoon/Spoons/Zoom.spoon"]
+	path = tilde/.hammerspoon/Spoons/Zoom.spoon
+	url = https://github.com/jpf/Zoom.spoon.git
