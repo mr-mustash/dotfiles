@@ -129,11 +129,13 @@ function powerStateChanged()
             print("On battery power")
             hs.execute("tmutil stopbackup")
             hs.execute("pgrep -i Dropbox | xargs renice +19")
+            hs.execute("pgrep -i protonmail | xargs renice +19")
             stopDocker()
         end
         if CurrentPowerSource == "AC Power" then
             print("On AC power")
             hs.execute("pgrep -i Dropbox | xargs sudo renice +5")
+            hs.execute("pgrep -i protonmail | xargs renice +5")
             startDocker()
         end
         PreviousPowerSource = CurrentPowerSource
