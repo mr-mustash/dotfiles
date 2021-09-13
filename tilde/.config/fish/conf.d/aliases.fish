@@ -53,4 +53,5 @@ if status --is-interactive
     abbr --add gdm 'git diff master || git diff main'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
+    abbr --add gbf 'fuzzy_git_branch'
 end

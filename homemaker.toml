@@ -18,7 +18,6 @@
     templates = [
         [".gitconfig"],
         [".gnupg/gpg-agent.conf"],
-        [".ssh/config"],
     ]
 
 [tasks.keybase]

@@ -144,12 +144,12 @@ function powerStateChanged()
         if CurrentPowerSource == "Battery Power" then
             print("On battery power")
             hs.execute("tmutil stopbackup")
-            hs.execute("pgrep -i Dropbox | xargs renice +19")
+            hs.execute("pgrep -i Dropbox | xargs renice 19")
             stopDocker()
         end
         if CurrentPowerSource == "AC Power" then
             print("On AC power")
-            hs.execute("pgrep -i Dropbox | xargs sudo renice +5")
+            hs.execute("pgrep -i Dropbox | xargs sudo renice 5")
             startDocker()
         end
         PreviousPowerSource = CurrentPowerSource
@@ -199,23 +199,23 @@ updateZoomStatus = function(event)
 end
 
 function zoomStart()
-    hs.application.launchOrFocus("OBS")
-    sleep(5)
+    --hs.application.launchOrFocus("OBS")
+    --sleep(5)
     --local sceneJSON=[[{ "scene-name": "Webcam Only" }]]
     --local command=("/usr/local/bin/obs-cli SetCurrentScene=" .. sceneJSON .. " >> ~/Desktop/obsout.txt 2>&1")
     --hs.execute(command, with_user_env)
-    hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
-    hs.execut("/usr/local/bin/do-not-disturb on")
+    --hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
+    hs.execute("/usr/local/bin/do-not-disturb on")
 end
 
 function zoomEnd()
-    hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
-    hs.execut("/usr/local/bin/do-not-disturb off")
-    sleep(1)
-    local appOBS = hs.application.find("OBS")
-    if(appOBS ~= nil) then
-        appOBS.kill(appOBS)
-    end
+    --hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
+    hs.execute("/usr/local/bin/do-not-disturb off")
+    --sleep(1)
+    --local appOBS = hs.application.find("OBS")
+    --if(appOBS ~= nil) then
+    --    appOBS.kill(appOBS)
+    --end
 end
 
 hs.loadSpoon("Zoom")
