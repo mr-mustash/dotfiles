@@ -25,22 +25,21 @@ function reloadConfig(files)
     end
     if doReload then
         hs.reload()
-        --notification("Config Reloaded")
+        notification("Config Reloaded")
     end
 end
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
 -- WiFi
-homeSSID = "FBI Party Van"
-workSSID = "NEWR"
+wifiWatcher = nil
+homeSSID = "FBI Work Van"
+workSSID = "Peloton"
 lastSSID = hs.wifi.currentNetwork()
 
 function ssidChangedCallback()
     newSSID = hs.wifi.currentNetwork()
 
-    if newSSID == nil then
-        return
-    else
+    if newSSID ~= nil then
         if newSSID == homeSSID and lastSSID ~= homeSSID then
             -- We just joined our home WiFi network
             homeWifiConnected()
@@ -51,6 +50,8 @@ function ssidChangedCallback()
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
+    else
+        return
     end
 
     lastSSID = newSSID
@@ -61,33 +62,46 @@ wifiWatcher:start()
 
 function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
+    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 10.13.36.1")
     notification("Welcome home!", home_logo)
+    -- Leave at the end because it's blocking
+    reconnectProxy()
 end
 
 function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Welcome back to the office!", newrelic_logo)
+    -- Leave at the end because it's blocking
+    reconnectProxy()
 end
 
 function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Unknown WiFi Network")
+    -- Leave at the end because it's blocking
+    reconnectProxy()
 end
 
--- Any Complete
-local anycomplete = require "anycomplete/anycomplete"
-anycomplete.registerDefaultBindings()
-
+function reconnectProxy()
+    sleep(10)
+    hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
+    sleep(1)
+    hs.execute("/usr/bin/screen -dmS proxy /usr/local/bin/autossh -M 0 -N -v -i /Users/patrick.king/.ssh/id_ed25519_digitalocean -D localhost:18888 proxy")
+    print("Proxy restarted")
+end
 
 -- Docked/Undocked
 function dockChangedState(state)
     if state == "removed" then
         print("Undocked")
         hs.wifi.setPower(true)
-
         for _,screen in pairs(hs.screen.allScreens()) do
             screen:setBrightness(75)
         end
+        -- Leave at the end because it's blocking
+        reconnectProxy()
     end
 
     if state == "added" then
@@ -96,8 +110,10 @@ function dockChangedState(state)
             screen:setBrightness(100)
         end
 
-        -- Leave at end since this is blocking
+        hs.execute("sudo networksetup -setdnsservers 'Akito Dock 10Gbps' 10.13.36.1")
+        -- Leave these end since they're blocking
         disableWifiSlowly()
+        reconnectProxy()
 
     end
 end
@@ -128,14 +144,14 @@ function powerStateChanged()
         if CurrentPowerSource == "Battery Power" then
             print("On battery power")
             hs.execute("tmutil stopbackup")
-            hs.execute("pgrep -i Dropbox | xargs renice +19")
-            hs.execute("pgrep -i protonmail | xargs renice +19")
+            hs.execute("pgrep -i Dropbox | xargs renice 19")
+            hs.execute("pgrep -i protonmail | xargs renice 19")
             stopDocker()
         end
         if CurrentPowerSource == "AC Power" then
             print("On AC power")
-            hs.execute("pgrep -i Dropbox | xargs sudo renice +5")
-            hs.execute("pgrep -i protonmail | xargs renice +5")
+            hs.execute("pgrep -i Dropbox | xargs sudo renice 5")
+            hs.execute("pgrep -i protonmail | xargs renice 5")
             startDocker()
         end
         PreviousPowerSource = CurrentPowerSource
@@ -155,6 +171,58 @@ end
 
 batteryWatcher = hs.battery.watcher.new(powerStateChanged)
 batteryWatcher:start()
+
+-- ZOOM CONTROL --
+-- This lets you click on the menu bar item to toggle the mute state
+zoomStatus = hs.menubar.new()
+
+function zoomClicked()
+    spoon.Zoom:toggleMute()
+end
+
+if zoomStatus then
+    zoomStatus:setClickCallback(zoomClicked)
+end
+
+updateZoomStatus = function(event)
+    print("Status changed")
+    hs.printf("updateZoomStatus(%s)", event)
+    if (event == "from-running-to-meeting") then
+        zoomStatus:returnToMenuBar()
+        zoomStart()
+    elseif (event == "muted") then
+        zoomStatus:setTitle("🔴")
+    elseif (event == "unmuted") then
+        zoomStatus:setTitle("🟢")
+    elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
+        zoomStatus:removeFromMenuBar()
+        zoomEnd()
+    end
+end
+
+function zoomStart()
+    --hs.application.launchOrFocus("OBS")
+    --sleep(5)
+    --local sceneJSON=[[{ "scene-name": "Webcam Only" }]]
+    --local command=("/usr/local/bin/obs-cli SetCurrentScene=" .. sceneJSON .. " >> ~/Desktop/obsout.txt 2>&1")
+    --hs.execute(command, with_user_env)
+    --hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
+    hs.execute("/usr/local/bin/do-not-disturb on")
+end
+
+function zoomEnd()
+    --hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
+    hs.execute("/usr/local/bin/do-not-disturb off")
+    --sleep(1)
+    --local appOBS = hs.application.find("OBS")
+    --if(appOBS ~= nil) then
+    --    appOBS.kill(appOBS)
+    --end
+end
+
+hs.loadSpoon("Zoom")
+spoon.Zoom:setStatusCallback(updateZoomStatus)
+spoon.Zoom:start()
 
 -- Generalized functions
 function notification(notification, image)

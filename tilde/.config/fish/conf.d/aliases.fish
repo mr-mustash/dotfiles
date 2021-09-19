@@ -32,10 +32,6 @@ if status --is-interactive
     abbr --add tt 'tmux_for_ticket'
     abbr --add tls 'tmux list-sessions'
 
-    # Review Board
-    abbr --add rb 'review-branch'
-    abbr --add rbr 'review-branch -r '
-
     # Sensu expansion
     abbr --add silence '/nail/sys/bin/downtime (hostname --fqdn)'
     abbr --add unsilence 'sensu-cli stash delete silence/(hostname --fqdn)'
@@ -45,16 +41,17 @@ if status --is-interactive
 
     # Git expansions
     abbr --add gco 'git checkout'
-    abbr --add gpom 'git pull origin master'
+    abbr --add gpom 'git pull origin master || git pull origin main'
     abbr --add gcub 'git checkout -b u/(whoami)/'
     abbr --add gpib 'git push origin HEAD:i/(whoami)/'
     abbr --add gcam 'git commit -a -m'
     abbr --add gs 'git status'
     abbr --add gd 'git diff'
-    abbr --add gcm 'git checkout master'
+    abbr --add gcm 'git checkout master || git checkout main'
     abbr --add gb 'git branch'
     abbr --add ga 'git add'
-    abbr --add gdm 'git diff master'
+    abbr --add gdm 'git diff master || git diff main'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
+    abbr --add gbf 'fuzzy_git_branch'
 end

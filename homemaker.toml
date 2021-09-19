@@ -1,14 +1,12 @@
 # common ================================================================== {{{
-[tasks.common]
+[tasks.links]
     links = [
         [".config/fish"],
         [".config/flake8"],
         [".config/terminal"],
         [".config/tmux"],
         [".global_gitignore"],
-        [".gnupg/gpg-agent.conf"],
         [".gnupg/gpg.conf"],
-        [".hammerspoon"],
         [".mytop"],
         [".psqlrc"],
         [".terminfo"],
@@ -19,7 +17,7 @@
     ]
     templates = [
         [".gitconfig"],
-        [".ssh/config"]
+        [".gnupg/gpg-agent.conf"],
     ]
 
 [tasks.keybase]
@@ -44,7 +42,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "sign-bunny", "markcat", "bash-language-server"],
+        ["npm", "install", "sign-bunny", "markcat", "bash-language-server", "obs-cli", "do-not-disturb-cli"],
     ]
 
 [tasks.go]
@@ -63,16 +61,6 @@ accepts = [["which", "go"]]
         ]
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
 
-[tasks.fish_completions]
-    envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
-    cmds = [
-         ["mkdir", "-p", "$CHECKOUT"],
-         ["mkdir", "-p", "$HOME/.config/fish/completions/"],
-         ["git", "clone", "https://github.com/evanlucas/fish-kubectl-completions", "$CHECKOUT/fkc"],
-         ["cp", "-fp", "$CHECKOUT/fkc/completions/kubectl.fish", "$HOME/.config/fish/completions/"],
-         ["ln", "-s", "/Applications/Docker.app/Contents/Resources/etc/docker.fish-completion", "$HOME/.config/fish/completions/docker.fish"],
-         ["rm", "-rf", "$CHECKOUT"],
-    ]
 
 [tasks.terminfo]
     accepts = [["which", "tic"]]
@@ -85,16 +73,44 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["common", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
+    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
+[tasks.links__darwin]
+    links = [
+        [".hammerspoon"],
+    ]
 [tasks.systemconfig__darwin]
     cmds = [
         ["$HM_SRC/../Darwin/defaults.sh"],
     ]
 
+[tasks.fish_completions__darwin]
+envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
+    cmds = [
+        ["mkdir", "-p", "$CHECKOUT"],
+        ["mkdir", "-p", "$HOME/.config/fish/completions/"],
+        ["git", "clone", "https://github.com/evanlucas/fish-kubectl-completions", "$CHECKOUT/fkc"],
+        ["cp", "-fp", "$CHECKOUT/fkc/completions/kubectl.fish", "$HOME/.config/fish/completions/"],
+        ["ln", "-s", "/Applications/Docker.app/Contents/Resources/etc/docker.fish-completion", "$HOME/.config/fish/completions/docker.fish"],
+        ["rm", "-rf", "$CHECKOUT"],
+    ]
+
 [macros.install__darwin]
     prefix = ["brew", "install"]
+# ========================================================================= }}}
+# *nix =-================================================================== {{{
+[tasks.keybase__nix]
+    accepts = [["which", "keybase"]]
+        cmds = [
+        ["keybase", "login"],
+        ["keybase", "config", "set", "gpg.command", "/usr/bin/qubes-gpg-client-wrapper"],
+    ]
 
+[tasks.systemconfig__nix]
+    cmds = [["true"]]
+
+[tasks.fish_completions__nix]
+    cmds = [["true"]]
 # ========================================================================= }}}
