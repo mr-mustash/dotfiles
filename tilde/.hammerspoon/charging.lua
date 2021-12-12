@@ -16,12 +16,15 @@ local function startDocker()
 end
 
 local function whenBatteryAbove50()
-    if hs.battery.percentage() >= 50.0 and hs.battery.isCharging() and batteryAbove == false then
+    batPercent = math.floor(hs.battery.percentage())
+    if batPercent >= 50 and hs.battery.isCharging() and batteryAbove == false then
         print("Battery above 50 percent.")
         batteryAbove = true -- Set this we only run this once
         hs.brightness.set(90)
         hs.execute("sudo /sbin/kextunload /Applications/tbswitcher_resources/DisableTurboBoost.64bits.kext")
         startDocker()
+    elseif batPercent < 50 and batteryAbove == false then
+        print("Battery currently at " .. string.format("%s", batPercent) .. "%")
     end
 end
 
