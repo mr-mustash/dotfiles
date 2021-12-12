@@ -31,7 +31,6 @@ set regexpengine=1
 " 3 tags ================================================================== {{{
 
 
-
 " ========================================================================= }}}
 " 4 displaying text ======================================================= {{{
 
@@ -91,11 +90,6 @@ let g:neosolarized_italic = 1
 let g:neosolarized_termBoldAsBright = 0
 colorscheme NeoSolarized
 
-if has('termguicolors') && $COLORTERM ==? 'truecolor'
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 " Only display the cursorline on the active buffer.
 if exists('+cursorline')
     augroup cursorLine
@@ -125,6 +119,15 @@ set splitright
 " 8 terminal ============================================================== {{{
 " https://www.reddit.com/r/vim/comments/7fqpny/slow_vim_scrolling_and_cursor_moving_in_iterm_and/
 set ttyfast
+
+if has('termguicolors') && $COLORTERM ==? 'truecolor'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+if has('termguicolors')
+    set t_Co=256
+endif
 
 
 " ========================================================================= }}}
@@ -176,7 +179,11 @@ if has('autocmd')
     augroup END
 endif
 
-set completeopt=menu,menuone,popup,noselect,noinsert
+if has('nvim')
+    set completeopt=menu,menuone,noselect,noinsert
+else
+    set completeopt=menu,menuone,popup,noselect,noinsert
+endif
 
 " ========================================================================= }}}
 " 15 tabs and indenting =================================================== {{{
@@ -271,20 +278,17 @@ nnoremap <silent> <Leader>nn :set invnumber invrelativenumber<CR>
 nnoremap <silent> <C-t> :tabnew<CR>
 nnoremap <silent> <C-g> :tabclose<CR>
 
-
-
-
-
 " ========================================================================= }}}
 " 19 reading and writing files ============================================ {{{
-
 set fsync
 
 
 " ========================================================================= }}}
 " 20 the swap file ======================================================== {{{
-
-set swapsync=fsync
+"
+if !has('nvim')
+    set swapsync=fsync
+endif
 set updatetime=750
 
 " ========================================================================= }}}
@@ -411,4 +415,8 @@ augroup hellocat
 augroup END
 
 " ========================================================================= }}}
+" 26 neovim  ============================================================== {{{
+set guicursor=
+" ========================================================================= }}}
+
 " vim: set fdm=marker fdl=1 :
