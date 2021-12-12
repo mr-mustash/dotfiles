@@ -119,7 +119,7 @@
 	path = tilde/.vim/pack/plugins/opt/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
 [submodule "tilde/.vim/pack/plugins/start/footprints"]
-	path = tilde/.vim/pack/plugins/start/footprints
+	path = tilde/.vim/pack/plugins/opt/footprints
 	url = https://github.com/axlebedev/footprints.git
 [submodule "tilde/.hammerspoon/Spoons/Zoom.spoon"]
 	path = tilde/.hammerspoon/Spoons/Zoom.spoon
