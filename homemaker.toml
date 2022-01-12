@@ -3,6 +3,7 @@
     links = [
         [".config/fish"],
         [".config/flake8"],
+        [".config/nvim"],
         [".config/terminal"],
         [".config/tmux"],
         [".global_gitignore"],
@@ -11,8 +12,7 @@
         [".psqlrc"],
         [".terminfo"],
         [".tmux.conf"],
-        [".vim"],
-        [".vimrc"],
+        [".vintrc.yaml"],
         [".yamllint"],
     ]
     templates = [
@@ -36,13 +36,13 @@
 [tasks.pip]
     accepts = [["which", "pip3"]]
     cmds = [
-        ["pip3", "install", "vim-vint", "gmail-yaml-filters"],
+        ["pip3", "install", "vim-vint", "gmail-yaml-filters", "pynvim"],
     ]
 
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "sign-bunny", "markcat", "bash-language-server", "obs-cli", "do-not-disturb-cli"],
+        ["npm", "install", "sign-bunny", "markcat", "bash-language-server", "obs-cli", "do-not-disturb-cli", "ipfs-deploy", "vim-language-server", ],
     ]
 
 [tasks.go]
@@ -62,6 +62,24 @@ accepts = [["which", "go"]]
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
 
 
+[tasks.nvim2vim]
+    cmds = [
+        ["mkdir", "-p", "$HOME/.vim"],
+        ["ln", "-s", "$HOME/.config/nvim/init.vim", "$HOME/.vimrc"],
+        ["ln", "-s", "$HOME/.config/nvim/autoload", "$HOME/.vim/autoload"],
+        ["ln", "-s", "$HOME/.config/nvim/ftdetect", "$HOME/.vim/ftdetect"],
+        ["ln", "-s", "$HOME/.config/nvim/ftplugin", "$HOME/.vim/ftplugin"],
+        ["ln", "-s", "$HOME/.config/nvim/plug.vim", "$HOME/.vim/plug.vim"],
+        ["ln", "-s", "$HOME/.config/nvim/plugin",   "$HOME/.vim/plugin"],
+        ["ln", "-s", "$HOME/.config/nvim/spell",    "$HOME/.vim/spell"],
+    ]
+
+[tasks.vimplug]
+    cmds = [
+        ["vim", "-es", "-u", "vimrc", "-i", "NONE", "-c" , "\"PlugInstall\"", "-c", "\"qa\"],
+        ["nvim", "-es", "-u", "init.vim", "-i", "NONE", "-c" , "\"PlugInstall\"", "-c", "\"qa\"],
+    ]
+
 [tasks.terminfo]
     accepts = [["which", "tic"]]
     cmds = [
@@ -73,7 +91,7 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
+    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo", "nvim2vim", "vimplug"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
