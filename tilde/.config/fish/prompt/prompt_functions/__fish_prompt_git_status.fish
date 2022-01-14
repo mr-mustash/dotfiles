@@ -5,7 +5,7 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         set -l icon_added "+"
         set -l icon_modified "~"
         set -l icon_renamed "»"
-        set -l icon_deleted "-"
+        set -l icon_deleted -
         set -l icon_stashed "\$"
         set -l icon_unmerged "<>"
         set -l icon_diverged "↕"
@@ -58,11 +58,11 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         end
 
         # Check whether the branch has diverged
-        if test "$is_ahead" = "true" -a "$is_behind" = "true"
+        if test "$is_ahead" = true -a "$is_behind" = true
             set git_status diverged $git_status
-        else if test "$is_ahead" = "true"
+        else if test "$is_ahead" = true
             set git_status ahead $git_status
-        else if test "$is_behind" = "true"
+        else if test "$is_behind" = true
             set git_status behind $git_status
         end
 

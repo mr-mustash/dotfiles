@@ -24,4 +24,3 @@ function __run_async
         set -e $async_job_result
     end
 end
-

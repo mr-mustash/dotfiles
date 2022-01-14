@@ -13,7 +13,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " ===== FUTURE IDEAS =====
-" I don't like the basic Obsession extention, lets make it better...
+" I don't like the basic Obsession extension, lets make it better...
 "let g:airline#extensions#obsession#enabled = 0
 " ... by building the whole status line ourselves.
 "function! CustomStatusline(...)

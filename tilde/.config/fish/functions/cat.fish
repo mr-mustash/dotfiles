@@ -2,7 +2,7 @@ function cat --argument-names cmd --wraps cat -d "Use bat instead of cat unless 
     if status is-interactive
         switch "$cmd"
             # I want to still be able to use the real cat when I need to.
-            case '-p'
+            case -p
                 if not test -f $argv[2]
                     echo "File not found: $argv"
                     return 1
@@ -21,12 +21,12 @@ function cat --argument-names cmd --wraps cat -d "Use bat instead of cat unless 
 
                 if contains ( __get_extension $argv ) $exts
                     markcat --smartypants -s $argv
-                    if test $status -ne "0"
+                    if test $status -ne 0
                         /bin/cat $argv
                     end
                 else
                     highlight -O ansi --style=solarized-dark --force $argv
-                    if test $status -ne "0"
+                    if test $status -ne 0
                         /bin/cat $argv
                     end
                 end

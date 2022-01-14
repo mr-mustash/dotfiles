@@ -1,11 +1,11 @@
 function fish_breakpoint_prompt --description 'A prompt to be used when `breakpoint` is executed'
     set -l last_exit $status
-    set -l glyph 'Ϟ'
+    set -l glyph Ϟ
 
     set -l function (status -L0 function)
 
     if test -z "$function" -o "$function" = 'Not a function'
-        set function 'main'
+        set function main
     end
 
     if test $last_exit -ne 0
@@ -20,4 +20,3 @@ function fish_breakpoint_prompt --description 'A prompt to be used when `breakpo
 
     echo -ns (set_color $fish_color_status) "»" (set_color normal) " "
 end
-

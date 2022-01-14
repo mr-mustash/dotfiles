@@ -4,7 +4,7 @@
 " come with Vim and are enumerated by the :options command. The .vim
 " directory contains everything else.
 " 1) External plugins are managed by vim8's built in package manager
-" 2) Custom plugins and external plugin configuraiton are found in the
+" 2) Custom plugins and external plugin configuration are found in the
 " plugin directory
 " 3) Most of my custom functions are found in the autoload directory
 " 4) Anything pertaining to the behavior of a specific filetype, will be
@@ -65,10 +65,10 @@ syntax enable
 set synmaxcol=120
 set hlsearch
 
-" Load custome highlights after colorscheme is loaded
+" Load custom highlights after colorscheme is loaded
 " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
 function! MyHighlights() abort
-    " Only highlight the 81st character when it's visable on the screen.
+    " Only highlight the 81st character when it's visible on the screen.
     highlight ColorColumn guibg=#e75480 guifg=#b58900
     autocmd customaugroup Filetype * if &ft!="man" | call matchadd('ColorColumn', '\%81v',100) | endif
 

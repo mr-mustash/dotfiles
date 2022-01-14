@@ -5,7 +5,7 @@ function __fish_prompt_jobs --description 'Helper function for fish_prompt'
 
     set job_count (echo $job_count | sed -E "s/[[:space:]]+//g" )
 
-    if test "$job_count" != "0"
+    if test "$job_count" != 0
         echo -ns (set_color $fish_prompt_color_jobs) " $job_count"
     end
 end

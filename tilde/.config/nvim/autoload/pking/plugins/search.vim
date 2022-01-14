@@ -1,16 +1,16 @@
 " From https://www.reddit.com/r/vim/comments/8bguck/tip_search_suggestions_auto_complete/
-function! pking#plugins#search#search_mode_start()
+function! pking#plugins#search#search_mode_start() abort
     cnoremap <tab> <c-f>a<c-n>
     let s:old_complete_opt = &completeopt
     set completeopt-=noinsert
 endfunction
 
-function! pking#plugins#search#search_mode_stop()
+function! pking#plugins#search#search_mode_stop() abort
     cunmap <tab>
     let &completeopt = s:old_complete_opt
 endfunction
 
-function! pking#plugins#search#HLNext(blinktime)
+function! pking#plugins#search#HLNext(blinktime) abort
     let c = 1
 
     while c <= 2

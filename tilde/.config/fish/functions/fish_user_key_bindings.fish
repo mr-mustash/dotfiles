@@ -29,9 +29,9 @@ end
 # For some reason my vim man pager doesn't work with __fish_man_page.
 # This is a quick hack so that I can at least use the feature for now.
 function quick_man_page
-    set -x  MANPAGER "less -X"
+    set -x MANPAGER "less -X"
     __fish_man_page
-    set -x  MANPAGER "vim -c MANPAGER -"
+    set -x MANPAGER "vim -c MANPAGER -"
 end
 
 function fish_user_key_bindings
@@ -46,4 +46,3 @@ function fish_user_key_bindings
 
     fzf_key_bindings
 end
-

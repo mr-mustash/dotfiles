@@ -76,8 +76,8 @@ accepts = [["which", "go"]]
 
 [tasks.vimplug]
     cmds = [
-        ["vim", "-es", "-u", "vimrc", "-i", "NONE", "-c" , "\"PlugInstall\"", "-c", "\"qa\"],
-        ["nvim", "-es", "-u", "init.vim", "-i", "NONE", "-c" , "\"PlugInstall\"", "-c", "\"qa\"],
+        ["vim", "-es", "-u", "vimrc", "-i", "NONE", "-c" , "'PlugInstall'", "-c", "'qa'"],
+        ["nvim", "-es", "-u", "init.vim", "-i", "NONE", "-c" , "'PlugInstall'", "-c", "'qa'"],
     ]
 
 [tasks.terminfo]

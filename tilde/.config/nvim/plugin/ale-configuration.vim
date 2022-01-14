@@ -8,7 +8,7 @@ let g:ale_sign_info = ''
 let g:ale_sign_style_error = ''
 let g:ale_sign_style_warning = ''
 
-" Only lint with specific linters and use custome docker container to run them.
+" Only lint with specific linters and use custom docker container to run them.
 " Part of a failed experiment to lint only inside a docker container.
 " Might pick this up again some day, but for now I think it's easier to just
 " use the linters that are already installed on disk.

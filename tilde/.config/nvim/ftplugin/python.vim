@@ -1,4 +1,4 @@
-" Synax Plugins
+" Syntax Plugins
 let g:python_highlight_all = 1
 
 " Nicer tabs and editing for python

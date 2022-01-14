@@ -84,13 +84,13 @@ if status is-interactive
             set st $argv[1]
             while read line
                 switch "$line"
-                case FISH_VERSION PWD _ history 'fish_*' hostname version
-                case status
-                    echo status $st
-                case SHLVL
-                    set envs $envs SHLVL=(math $SHLVL - 1)
-                case '*'
-                    echo $line (string escape -- $$line)
+                    case FISH_VERSION PWD _ history 'fish_*' hostname version
+                    case status
+                        echo status $st
+                    case SHLVL
+                        set envs $envs SHLVL=(math $SHLVL - 1)
+                    case '*'
+                        echo $line (string escape -- $$line)
                 end
             end
         end | read -lz vars
