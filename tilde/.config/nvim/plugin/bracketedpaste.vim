@@ -16,4 +16,3 @@ if &term =~? 'xterm.*'
     cmap <f28> <nop>
     cmap <f29> <nop>
 endif
-

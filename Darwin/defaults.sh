@@ -1,13 +1,16 @@
 #!/bin/bash
 # Get updates in background.
-softwareupdate --download > /dev/null
+softwareupdate --download >/dev/null
 
 # Ask for the administrator password upfront
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `osx.sh` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
+while true; do
+	sudo -n true
+	sleep 60
+	kill -0 "$$" || exit
+done 2>/dev/null &
 
 # App Store
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -49,7 +52,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
 
 # Enable HiDPI display modes (requires restart)
-sudo --stdin defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 # Show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -88,7 +91,7 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 chflags nohidden ~/Library
 
 # Show the /Volumes folder
-printf "%s\n" "$szPassword" | sudo --stdin chflags nohidden /Volumes
+sudo chflags nohidden /Volumes
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -98,9 +101,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-    General -bool true \
-    OpenWith -bool true \
-    Privileges -bool true
+	General -bool true \
+	OpenWith -bool true \
+	Privileges -bool true
 
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
