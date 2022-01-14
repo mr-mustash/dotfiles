@@ -6,6 +6,7 @@
 {{if (eq .Env.USER "patrick.king")}}
 	email = patrick.king@onepeloton.com
 	username = patrick.king
+    signingkey = 0x944E36F397047609
 {{else}}
 	email = patrick@patrickcking.com
 	username = mr-mustash
@@ -21,7 +22,7 @@
 	gpgsign = true
 [gpg]
 {{ if eq (.Env.OSTYPE | printf "%.6s") "darwin"}}
-	program = /usr/local/bin/gpg
+    program = /usr/local/MacGPG2/bin/gpg
 {{else}}
 	program = /usr/bin/qubes-gpg-client-wrapper
 {{end}}
@@ -36,3 +37,12 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+; Override settings when working on work-related projects
+; on a personal machine.
+[includeIf "gitdir:~dev/github.com/pelotoncycle/"]
+    path = ~/.gitconfig.work
+
+; Override machine-specific settings.
+[include]
+    path = ~/.gitconfig.local

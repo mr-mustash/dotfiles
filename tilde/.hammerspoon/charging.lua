@@ -5,12 +5,11 @@ local PreviousPowerSource = hs.battery.powerSource()
 
 local function stopDocker()
     hs.execute("sudo /usr/bin/renice 19 -p $(/usr/bin/pgrep com.docker.hyperkit)")
-    hs.execute("/usr/local/bin/docker ps -q > ~/.docker_stopped_containers")
-    hs.execute("/usr/local/bin/docker stop $(/usr/local/bin/docker ps -q)")
+    hs.execute("/usr/local/bin/docker ps -q | /usr/bin/xargs /usr/local/bin/docker pause ")
 end
 
 local function startDocker()
-    hs.execute("cat ~/.docker_stopped_containers | xargs /usr/local/bin/docker start")
+    hs.execute("/usr/local/bin/docker ps -q | /usr/bin/xargs /usr/local/bin/docker unpause ")
     hs.execute("sudo /usr/bin/renice 5 -p $(/usr/bin/pgrep com.docker.hyperkit)")
     notification("Docker Containers Started", docker_logo)
 end

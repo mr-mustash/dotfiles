@@ -22,6 +22,10 @@ function fish_prompt --description 'Write out the prompt'
             set fish_color_prompt magenta --bold
     end
 
+    function __fish_prompt_git_status_loading_indicator
+        echo (set_color brblack)…(set_color normal)
+    end
+
     set -l glyph "❯"
     echo -ns (set_color $fish_color_prompt) " $glyph " (set_color normal)
 end
