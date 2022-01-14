@@ -1,5 +1,5 @@
-" 0 preamble ============================================================== {{{
-"
+" preamble ============================================================== {{{
+
 " My .vimrc contains the core configurations of those settings which
 " come with Vim and are enumerated by the :options command. The .vim
 " directory contains everything else.
@@ -12,6 +12,7 @@
 
 " ========================================================================= }}}
 " 0 global setup ========================================================== {{{
+
 " Creating an autogroup to add to all of my autocommands. This allows me to
 " add autocmds without having to create a new augroup that wraps each
 " autocommand in an augroup.
@@ -24,6 +25,7 @@ let g:configdir = has('nvim') ? expand(stdpath('config')) : expand('~/.vim')
 let g:datadir = has('nvim') ? expand(stdpath('data')) : expand('~/.vim/local')
 
 :execute 'source '.fnameescape(g:configdir . '/plug.vim')
+
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
@@ -162,17 +164,10 @@ set undofile
 set backspace=2
 set showmatch
 
-if exists('&undodir')
-    " Vim and Neovim have incompatible undo files.
-    if has('nvim')
-        set undodir=~/.local/share/nvim/undo
-    else
-        set undodir=~/.vim/local/undo/vim
-    endif
+let &undodir = g:datadir . '/undo'
 
-    if !isdirectory(expand(&undodir))
-        call mkdir(expand(&undodir), 'p')
-    endif
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), 'p')
 endif
 
 " Don't create undofiles for files in the following folders.
@@ -404,15 +399,10 @@ autocmd customaugroup BufWinEnter           ?* nested if MakeViewCheck() | silen
 
 set sessionoptions-=blank sessionoptions-=options sessionoptions+=tabpages sessionoptions-=buffers
 
-if exists('&viewdir')
-    if has('nvim')
-        set viewdir=~/.local/share/nvim/view
-    else
-        set viewdir=~/.vim/local/view/
-    end
-    if !isdirectory(expand(&viewdir))
-        call mkdir(expand(&viewdir), 'p')
-    endif
+let &viewdir = g:datadir . '/view'
+
+if !isdirectory(expand(&viewdir))
+    call mkdir(expand(&viewdir), 'p')
 endif
 
 set viminfo='50,\"5000,h,/0
@@ -434,4 +424,4 @@ autocmd customaugroup VimEnter * echo "<^.^>"
 set guicursor=
 " ========================================================================= }}}
 
-" vim: set fdm=marker fdl=1 :
+" vim: set foldmethod=marker foldlevel=99 foldlevelstart=99

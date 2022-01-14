@@ -5,6 +5,8 @@ configs
 hostname
 hostnames
 mysql
+neovim
+nvim
 onepeloton
 peloton
 pelotoncycle
@@ -12,3 +14,4 @@ postgres
 redis
 runbook
 runbooks
+submodules
