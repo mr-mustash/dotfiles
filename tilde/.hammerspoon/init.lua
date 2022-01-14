@@ -62,5 +62,8 @@ reload.init()
 spotifyconfig = require "spotifyconfig"
 spotifyconfig.init()
 
+vim = require "vim-anywhere"
+vim.init()
+
 zoomconfig = require "zoomconfig"
 zoomconfig.init()

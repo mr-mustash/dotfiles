@@ -1,13 +1,27 @@
-/*** MY OVERRIDES ***/
 user_pref("_user.js.parrot", "overrides section syntax error");
-user_pref("network.http.referer.XOriginPolicy", 2);
-user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
-user_pref("keyword.enabled", true);
-/*** Below is from https://www.youtube.com/watch?v=xxWXLlfqNAo&t=307s ***/
-user_pref("security.ssl3.rsa_des_ede3_sha", false);
-user_pref("browser.cache.disk_cache_ssl", false);
-user_pref("browser.cache.memory.enable", false);
-user_pref("geo.enabled", false);
-user_pref("plugin.scan.plid.all", false);
-user_pref("security.ssl.enable_false_start", false);
-user_pref("_user.js.parrot", "SUCCESS");
+
+/*** Tuning user.js defaults ***/
+// https://github.com/arkenfox/user.js/wiki/1.3-Implementation
+user_pref("browser.safebrowsing.downloads.remote.enabled", true); // 0401
+user_pref("browser.safebrowsing.downloads.remote.url", "https://sb-ssl.google.com/safebrowsing/clientreport/download?key=%GOOGLE_API_KEY%"); // 0401
+user_pref("privacy.clearOnShutdown.cookies", true); // 2811
+
+/*** Moar security ***/
+user_pref("fission.autostart", true);
+
+/*** Firefox experience ***/
+user_pref("keyword.enabled", true); // 0801
+user_pref("browser.urlbar.suggest.bookmark", false);
+user_pref("browser.urlbar.suggest.engines", false);
+user_pref("browser.urlbar.suggest.openpage", false);
+user_pref("browser.urlbar.suggest.quicksuggest.nonsponsored", false);
+user_pref("browser.urlbar.suggest.quicksuggest.sponsored", false);
+user_pref("browser.urlbar.suggest.searches", false);
+user_pref("browser.urlbar.suggest.topsites", false);
+user_pref("browser.download.forbid_open_with", true); //5009
+user_pref("signon.rememberSignons", false); //5003
+
+/*** For Twitch ***/
+user_pref("gfx.webrender.all", true);
+
+user_pref("_user.js.parrot", "SUCCESS loaded user-overrides.js");
