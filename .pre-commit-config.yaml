@@ -9,7 +9,7 @@ ci:
     - shellcheck
     - shfmt
     - check-symlinks
-    - fish
+    - fish_syntax
     - fish_indent
 
 repos:
