@@ -1,16 +1,16 @@
 ---
 fail_fast: false
 ci:
-  autofix_commit_msg: '[pre-commit.ci] auto fixes from pre-commit.com hooks'
   autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: weekly
   skip:
+    - check-symlinks
+    - fish_indent
+    - fish_syntax
     - git-check
+    - hadolint
     - shellcheck
     - shfmt
-    - check-symlinks
-    - fish_syntax
-    - fish_indent
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
