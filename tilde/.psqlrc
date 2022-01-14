@@ -22,4 +22,3 @@
 --\set PROMPT2 '%n at %M:%> in %/%x%R%# '
 
 \set QUITE 0
-
