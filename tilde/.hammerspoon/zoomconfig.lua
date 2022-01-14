@@ -8,13 +8,21 @@ local function zoomStart()
     --local command=("/usr/local/bin/obs-cli SetCurrentScene=" .. sceneJSON .. " >> ~/Desktop/obsout.txt 2>&1")
     --hs.execute(command, with_user_env)
     --hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
-    hs.execute("/usr/local/bin/do-not-disturb on")
+    hs.execute("/usr/local/bin/calm-notifications on")
+    if (hs.application.find("Stretchly") ~= nil) then
+        print ("Pausing stretchly")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly pause")
+    end
 end
 
 local function zoomEnd()
     print("Ending Zoom meeting")
     --hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
-    hs.execute("/usr/local/bin/do-not-disturb off")
+    hs.execute("/usr/local/bin/calm-notifications off")
+    if (hs.application.find("Stretchly") ~= nil) then
+        print ("Resuming stretchly")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly resume")
+    end
     --sleep(1)
     --local appOBS = hs.application.find("OBS")
     --if(appOBS ~= nil) then
