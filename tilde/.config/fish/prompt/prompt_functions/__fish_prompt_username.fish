@@ -1,12 +1,12 @@
 function __fish_prompt_username --description 'Display username on remost host or when root.'
     if test "$LOGNAME" != "$USER" \
-    -o "$UID" = "0" \
-    -o "$USER" = "root" \
-    -o "$SSH_CONNECTION" != "" \
-    -o "$in_docker" != ""
+            -o "$UID" = 0 \
+            -o "$USER" = root \
+            -o "$SSH_CONNECTION" != "" \
+            -o "$in_docker" != ""
 
         set -l user_color
-        if test "$USER" = "root"
+        if test "$USER" = root
             set user_color $fish_color_user_root
         else
             set user_color $fish_color_user

@@ -15,4 +15,3 @@ function _logo
                       (J'(set_color FF7F00)'JJ'(set_color F00)'| \UUU)
                        (UU)'(set_color normal)
 end
-

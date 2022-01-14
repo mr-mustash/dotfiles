@@ -28,14 +28,14 @@ if status --is-interactive
 
     ### Abbreviations ###
     # tmux
-    abbr --add t 'tmux'
-    abbr --add tt 'tmux_for_ticket'
+    abbr --add t tmux
+    abbr --add tt tmux_for_ticket
     abbr --add tls 'tmux list-sessions'
 
     # Sensu expansion
     abbr --add silence '/nail/sys/bin/downtime (hostname --fqdn)'
     abbr --add unsilence 'sensu-cli stash delete silence/(hostname --fqdn)'
-    abbr --add sreport '/nail/sys/bin/sensu-report'
+    abbr --add sreport /nail/sys/bin/sensu-report
     abbr --add ssreport 'sensu-cli client delete (hostname --fqdn) ;and sleep 60 ;and sensu-report'
     abbr --add cnfdiff 'git diff --no-index -- /etc/my.cnf /nail/etc/my.cnf'
 
@@ -53,5 +53,5 @@ if status --is-interactive
     abbr --add gdm 'git diff master || git diff main'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
-    abbr --add gbf 'fuzzy_git_branch'
+    abbr --add gbf fuzzy_git_branch
 end

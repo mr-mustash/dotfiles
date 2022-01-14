@@ -1,8 +1,8 @@
 function __fish_prompt_language_docker -d "Display docker version"
     if not test -f Dockerfile \
-        -o -f docker-compose.yml \
-        -o -f /.dockerenv \
-        -o -f "$COMPOSE_FILE"
+            -o -f docker-compose.yml \
+            -o -f /.dockerenv \
+            -o -f "$COMPOSE_FILE"
         return
     end
 
@@ -14,7 +14,9 @@ function __fish_prompt_language_docker -d "Display docker version"
         set -gx docker_version (docker version | grep 'Version:' | awk '{print $2}' | head -n1)
     end
     # if docker daemon isn't running you'll get an error like 'Bad response from Docker engine'
-    if string match daemon $docker_version ; return ; end
+    if string match daemon $docker_version
+        return
+    end
 
     if test "$docker_version" = ""
         return

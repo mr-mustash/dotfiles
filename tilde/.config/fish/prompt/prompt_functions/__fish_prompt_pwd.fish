@@ -1,29 +1,29 @@
 function __fish_prompt_pwd --description 'Format the current directory for the prompt'
-  set -l max (math "round($COLUMNS / 8)") # maximum length = 1/8rd window width
+    set -l max (math "round($COLUMNS / 8)") # maximum length = 1/8rd window width
 
-  set -l short_path (pwd | string replace -r ".*/" "")   # basename of current dir
-  set -l short_path_length (string length $short_path)
+    set -l short_path (pwd | string replace -r ".*/" "") # basename of current dir
+    set -l short_path_length (string length $short_path)
 
-  # if basename of $PWD is too long by itself, don't trim it
-  if test $max -lt $short_path_length
-    set max $short_path_length
-  end
+    # if basename of $PWD is too long by itself, don't trim it
+    if test $max -lt $short_path_length
+        set max $short_path_length
+    end
 
-  # tilde-ify homedir
-  set -l long_path (pwd | string replace -r "^$HOME" "~")
+    # tilde-ify homedir
+    set -l long_path (pwd | string replace -r "^$HOME" "~")
 
-  # is $PWD too long, and if so, by how much?
-  set -l long_path_length (string length $long_path)
-  set -l excess (math "round($long_path_length - $max)")
+    # is $PWD too long, and if so, by how much?
+    set -l long_path_length (string length $long_path)
+    set -l excess (math "round($long_path_length - $max)")
 
-  if test $excess -gt 0
-    # cut to $max chars long, trim leading detritus and add leader
-    set cut_path (string sub --start "$excess" "$long_path")
-    set path_parts (string split --max=1 / "{$cut_path")
-    set trimmed_path $path_parts[2]
+    if test $excess -gt 0
+        # cut to $max chars long, trim leading detritus and add leader
+        set cut_path (string sub --start "$excess" "$long_path")
+        set path_parts (string split --max=1 / "{$cut_path")
+        set trimmed_path $path_parts[2]
 
-    set long_path "…/$trimmed_path"
-  end
+        set long_path "…/$trimmed_path"
+    end
 
-  echo -ns (set_color $fish_color_cwd --bold) $long_path (set_color normal)
+    echo -ns (set_color $fish_color_cwd --bold) $long_path (set_color normal)
 end

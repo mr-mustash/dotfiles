@@ -1,13 +1,13 @@
 function __fish_prompt_language_golang -d "Print out the golang version"
 
     if not test -f go.mod \
-        -o -d Godeps \
-        -o -f glide.yaml \
-        -o (count *.go) -gt 0 \
-        -o (count src/*.go) -gt 0 \
-        -o -f Gopkg.yml \
-        -o -f Gopkg.lock \
-        -o ([ (count $GOPATH) -gt 0 ]; and string match $GOPATH $PWD)
+            -o -d Godeps \
+            -o -f glide.yaml \
+            -o (count *.go) -gt 0 \
+            -o (count src/*.go) -gt 0 \
+            -o -f Gopkg.yml \
+            -o -f Gopkg.lock \
+            -o ([ (count $GOPATH) -gt 0 ]; and string match $GOPATH $PWD)
         return 0
     end
 

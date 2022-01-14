@@ -7,22 +7,22 @@ set -x LESSCHARSET utf-8
 set -x HOMEBREW_NO_ANALYTICS 1
 
 # Docker
-set -x DOCKER_BUILDKIT "1"
+set -x DOCKER_BUILDKIT 1
 
 # Location
 set -x LC_ALL "en_US.UTF-8"
 set -x TZ America/Los_Angeles
 
 # Don't judge me, I just like VIM, OK?!
-set -x  MANPAGER "vim -c MANPAGER -"
+set -x MANPAGER "vim -c MANPAGER -"
 
 # GPG
 set -gx GPG_TTY (tty)
-set -gx QUBES_GPG_DOMAIN "gpg"
+set -gx QUBES_GPG_DOMAIN gpg
 
 # Paths!
-set -a fish_user_paths  "$HOME/bin"
-set -a fish_user_paths "/usr/local/sbin"
+set -a fish_user_paths "$HOME/bin"
+set -a fish_user_paths /usr/local/sbin
 set -a fish_user_paths "$HOME/.yarn/bin"
 set -a fish_user_paths "$HOME/.config/yarn/global/node_modules/.bin"
 
@@ -30,7 +30,7 @@ set -a fish_user_paths "$HOME/.config/yarn/global/node_modules/.bin"
 # `brew --prefix coreutils` once per boot. Otherwise it was making
 # each shell (and vim for some reason?) take over a second to load.
 set -l __uname (uname)
-if test $__uname = "Darwin"
+if test $__uname = Darwin
     if status is-interactive
         if which brew >/dev/null
             if set -q __brew_coreutils_path

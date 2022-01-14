@@ -1,4 +1,4 @@
-function! pking#plugins#prose#Prose()
+function! pking#plugins#prose#Prose() abort
     set spell
 
     packadd vim-wordy

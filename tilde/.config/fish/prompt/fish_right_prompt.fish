@@ -12,7 +12,7 @@ function fish_right_prompt --description 'Display the right side of the interact
         set -lx __date (date +%s)
         if set -q __kubectl_run
             if test (math "$__date - $__kubectl_run") -lt 300
-                 __fish_right_prompt_k8s_context
+                __fish_right_prompt_k8s_context
             end
         end
         __fish_right_prompt_saml2aws
@@ -26,4 +26,3 @@ function fish_right_prompt --description 'Display the right side of the interact
     end
 
 end
-

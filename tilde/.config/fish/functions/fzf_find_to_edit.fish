@@ -7,4 +7,3 @@ function fzf_find_to_edit --description="Open of fzf file search with C-e in ins
 
     commandline -f repaint
 end
-

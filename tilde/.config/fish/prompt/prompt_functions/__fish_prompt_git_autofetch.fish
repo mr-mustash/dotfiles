@@ -1,6 +1,6 @@
 function __fish_prompt_git_autofetch
     if test ! (command git rev-parse --abbrev-ref @'{u}' 2>/dev/null)
-      return 0
+        return 0
     end
 
     set -l git_fetch_required 0
@@ -18,8 +18,8 @@ function __fish_prompt_git_autofetch
     end
 
     if test $git_fetch_required -eq 0
-      return 0
+        return 0
     end
 
-    env GIT_TERMINAL_PROMPT=0 git -c gc.auto=0 fetch > /dev/null 2>&1 && touch .git/FETCH_HEAD
+    env GIT_TERMINAL_PROMPT=0 git -c gc.auto=0 fetch >/dev/null 2>&1 && touch .git/FETCH_HEAD
 end

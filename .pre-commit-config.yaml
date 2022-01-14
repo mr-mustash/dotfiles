@@ -1,14 +1,31 @@
-exclude: '^$'
+---
 fail_fast: false
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: check-merge-conflict
-    -   id: check-yaml
-    -   id: detect-private-key
--   repo: https://github.com/Kuniwak/vint
-    rev: bcd6562a3d74898a179a9a542ded3c4086f5c57c
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: detect-private-key
+      - id: check-symlinks
+      - id: forbid-new-submodules
+  - repo: https://github.com/Kuniwak/vint
+    rev: v0.4a3
     hooks:
-    -   id: vint
+      - id: vint
+        exclude: tilde/.config/nvim/autoload/plug.vim
+  - repo: https://github.com/hugoh/pre-commit-fish.git
+    rev: v1.2
+    hooks:
+      - id: fish_syntax
+      - id: fish_indent
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.3.4
+    hooks:
+      - id: typos
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.8.0
+    hooks:
+      - id: hadolint
