@@ -22,9 +22,10 @@
 
 # Non-template things
 [alias]
-	show-alias = config --get-regexp ^alias\\.
-	up = pull --rebase --autostash
 	amend = commit -a --amend --no-edit
+	show-alias = config --get-regexp ^alias\\.
+	sign = commit --amend --signoff
+	up = pull --rebase --autostash
 
 [branch]
 	sort = -committerdate
