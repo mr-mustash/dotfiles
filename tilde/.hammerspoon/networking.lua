@@ -7,35 +7,38 @@ lastSSID = hs.wifi.currentNetwork()
 
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 10.13.36.1")
+    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 10.13.36.1")
     notification("Welcome home!", home_logo)
+    print("Connected to home WiFi")
     -- Leave at the end because it's blocking
     reconnectProxy()
 end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
+    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Welcome back to the office!")
+    print("Connected to work WiFi")
     -- Leave at the end because it's blocking
     reconnectProxy()
 end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
+    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Unknown WiFi Network")
+    print("Connected to unknown WiFi")
     -- Leave at the end because it's blocking
     reconnectProxy()
 end
 
-local function disableWifiSlowly()
+function disableWifiSlowly()
     sleep(15)
     hs.wifi.setPower(false)
     print("Wifi disabled after being docked.")
 end
 
-local function reconnectProxy()
+function reconnectProxy()
     sleep(10)
     hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
     sleep(1)
