@@ -3,7 +3,7 @@
 # automatically created from a template file.
 [user]
 	name  = Patrick King
-{{if (eq .Env.USER "patrick.king")}}
+{{- if eq (or .Env.USER "pking") "patrick.king" }}
 	email = patrick.king@onepeloton.com
 	username = patrick.king
     signingkey = 0x944E36F397047609
@@ -14,7 +14,7 @@
 {{end}}
 
 [gpg]
-{{ if eq (.Env.OSTYPE | printf "%.6s") "darwin"}}
+{{- if eq (or (.Env.OSTYPE | printf "%.6s") "Linux") "darwin"}}
 	program = /usr/local/MacGPG2/bin/gpg
 {{else}}
 	program = /usr/bin/qubes-gpg-client-wrapper
