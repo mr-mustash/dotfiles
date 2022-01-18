@@ -4,6 +4,7 @@ ci:
   autoupdate_schedule: weekly
   skip:
     - check-symlinks
+    - detect-aws-credentials
     - fish_indent
     - fish_syntax
     - hadolint
@@ -14,13 +15,20 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
-      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
       - id: check-merge-conflict
-      - id: check-yaml
-      - id: check-toml
-      - id: detect-private-key
       - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: end-of-file-fixer
       - id: forbid-new-submodules
+      - id: no-commit-to-branch
+        args: [--branch, main]
+      - id: mixed-line-ending
+      - id: trailing-whitespace
   - repo: https://github.com/Kuniwak/vint
     rev: v0.4a3
     hooks:

@@ -9,6 +9,14 @@ user_pref("privacy.clearOnShutdown.cookies", true); // 2811
 /*** Moar security ***/
 user_pref("fission.autostart", true);
 
+/*** DNS over HTTPS ***/
+user_pref("network.trr.uri", "https://dns.nextdns.io/3ba7c2");
+user_pref("network.trr.custom_uri", "https://dns.nextdns.io/3ba7c2");
+user_pref("network.trr.mode", 3);
+user_pref("network.dns.echconfig.enabled", true);
+user_pref("network.dns.use_https_rr_as_altsvc", true);
+user_pref("network.proxy.socks_remote_dns", true);
+
 /*** Firefox experience ***/
 user_pref("keyword.enabled", true); // 0801
 user_pref("browser.urlbar.suggest.bookmark", false);

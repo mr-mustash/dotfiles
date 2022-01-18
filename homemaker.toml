@@ -12,7 +12,7 @@
         [".psqlrc"],
         [".terminfo"],
         [".tmux.conf"],
-        [".vintrc.yaml"],
+        [".vintrc"],
         [".yamllint"],
     ]
     templates = [
@@ -29,7 +29,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "sign-bunny", "markcat", "bash-language-server", "obs-cli", "do-not-disturb-cli", "ipfs-deploy", "vim-language-server", ],
+        ["npm", "install", "markcat", "bash-language-server", "obs-cli", "ipfs-deploy", "vim-language-server", ],
     ]
 
 [tasks.go]
