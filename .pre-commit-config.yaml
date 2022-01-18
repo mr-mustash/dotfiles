@@ -4,6 +4,7 @@ ci:
   autoupdate_schedule: weekly
   skip:
     - check-symlinks
+    - detect-aws-credentials
     - fish_indent
     - fish_syntax
     - hadolint
