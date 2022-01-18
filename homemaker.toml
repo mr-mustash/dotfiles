@@ -20,19 +20,6 @@
         [".gnupg/gpg-agent.conf"],
     ]
 
-[tasks.keybase]
-    accepts = [["which", "keybase"]]
-    cmds = [
-        ["keybase", "login"],
-    ]
-
-[tasks.secrets]
-    deps = ["keybase"]
-    cmds = [
-        ["git", "clone", "keybase://private/king/dotfiles-secrets", "~/.secrets/"],
-        ["chmod", "0700", "~/.secrets"],
-    ]
-
 [tasks.pip]
     accepts = [["which", "pip3"]]
     cmds = [
@@ -91,7 +78,7 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo", "nvim2vim", "secrets"]
+    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo", "nvim2vim"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{

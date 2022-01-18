@@ -7,7 +7,6 @@ ci:
     - check-symlinks
     - fish_indent
     - fish_syntax
-    - git-check
     - hadolint
     - shellcheck
     - shfmt
@@ -27,6 +26,7 @@ repos:
     rev: v0.4a3
     hooks:
       - id: vint
+        args: [--enable-neovim]
         exclude: tilde/.config/nvim/autoload/plug.vim
   - repo: https://github.com/hugoh/pre-commit-fish.git
     rev: v1.2
