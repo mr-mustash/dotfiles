@@ -39,7 +39,7 @@ RUN git clone https://github.com/mr-mustash/dotfiles.git /tmp/dotfiles/
 
 WORKDIR /tmp/dotfiles
 RUN git checkout main && git submodule init && git pull --recurse-submodules
-RUN yes "c" | /home/pking/go/bin/homemaker -clobber -variant nix -task default ./homemaker.toml ./tilde/
+RUN /home/pking/go/bin/homemaker -clobber -variant nix -task default ./homemaker.toml ./tilde/
 
 
 # Environment Variables
