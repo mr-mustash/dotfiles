@@ -29,6 +29,7 @@ let g:datadir = has('nvim') ? expand(stdpath('data')) : expand('~/.vim/local')
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
+" vint: next-line -ProhibitSetNoCompatible
 set nocompatible
 autocmd customaugroup InsertLeave * set nopaste
 
@@ -341,6 +342,7 @@ endif
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
 
+" vint: next-line -ProhibitEncodingOptionAfterScriptEncoding
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8

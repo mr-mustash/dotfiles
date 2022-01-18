@@ -5,14 +5,16 @@ FROM ubuntu:20.04
 ENV TZ=US/Pacific
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y software-properties-common \
+# hadolint ignore=DL3008
+RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common \
     && apt-add-repository ppa:fish-shell/release-3 && apt-add-repository ppa:jonathonf/vim \
-    && apt-get update && apt-get install -y git fish mysql-client postgresql redis vim docker.io \
+    && apt-get update && apt-get install --no-install-recommends -y git fish mysql-client postgresql redis vim docker.io \
                        curl wget golang build-essential file sudo rsync dstat \
                        jq less percona-toolkit mytop sysstat \
                        fzf highlight python3 python3-pip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# hadolint ignore=DL3013
 RUN pip3 install --no-cache-dir awscli --upgrade --user
 
 RUN adduser --disabled-password --gecos '' --uid 20454 pking \
@@ -36,7 +38,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN git clone https://github.com/mr-mustash/dotfiles.git /tmp/dotfiles/
 
 WORKDIR /tmp/dotfiles
-RUN git submodule sync && git submodule update --init --remote --recursive
+RUN git checkout main && git submodule init && git pull --recurse-submodules
 RUN yes "c" | /home/pking/go/bin/homemaker -clobber -variant nix -task default ./homemaker.toml ./tilde/
 
 

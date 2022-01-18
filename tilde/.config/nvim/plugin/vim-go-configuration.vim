@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 nmap <Leader>gd :GoDebugStart<CR>
 nmap <Leader>gr :GoDebugRestart<CR>
 nmap <Leader>gx :GoDebugStop<CR>
