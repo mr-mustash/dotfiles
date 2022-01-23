@@ -7,12 +7,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common \
-    && apt-add-repository ppa:fish-shell/release-3 && apt-add-repository ppa:jonathonf/vim \
-    && apt-get update && apt-get install --no-install-recommends -y git fish mysql-client postgresql redis vim docker.io \
+    && apt-get install --no-install-recommends -y gpg gpg-agent \
+    && apt-add-repository ppa:fish-shell/release-3 \
+    && add-apt-repository ppa:neovim-ppa/stable \
+    && apt-get update && apt-get install --no-install-recommends -y \
+                       git fish mysql-client postgresql redis vim neovim docker.io \
                        curl wget golang build-essential file sudo rsync dstat \
                        jq less percona-toolkit mytop sysstat \
                        fzf highlight python3 python3-pip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3013
 RUN pip3 install --no-cache-dir awscli --upgrade --user
