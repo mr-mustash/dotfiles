@@ -1,5 +1,5 @@
 # Dotfiles
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg)](https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main) [![Docker Build](https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=Docker&logo=docker&style=flat)](https://hub.docker.com/repository/docker/mrmustash/homedir)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg)](https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main) [![Snyk Container Analysis](https://img.shields.io/github/workflow/status/mr-mustash/dotfiles/Snyk%20Container?label=Snyk%20Container%20Check&logo=Snyk)](https://github.com/mr-mustash/dotfiles/actions/workflows/snyk-container-analysis.yml) [![Docker Image Build](https://img.shields.io/github/workflow/status/mr-mustash/dotfiles/Docker%20Image%20Build?label=Docker%20Image%20Build&logo=Docker)](https://github.com/mr-mustash/dotfiles/actions/workflows/docker-image.yml) [![mrmustash/homedir:latest](https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=mrmustash%2Fhomedir%3Alatest&logo=docker)](https://hub.docker.com/repository/docker/mrmustash/homedir)
 
 Welcome to Patrick King's dotfiles repo.
 
