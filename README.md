@@ -1,5 +1,5 @@
 # Dotfiles
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg)](https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main) [![Docker Build](https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=Docker&logo=docker&style=flat)](https://hub.docker.com/repository/docker/mrmustash/homedir)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg)](https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main) [![Snyk Container Analysis](https://github.com/mr-mustash/dotfiles/actions/workflows/snyk-container-analysis.yml/badge.svg?branch=main&event=push)](https://github.com/mr-mustash/dotfiles/actions/workflows/snyk-container-analysis.yml) [![mrmustash/homedir:latest](https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=Docker&logo=docker&style=flat)](https://hub.docker.com/repository/docker/mrmustash/homedir)
 
 Welcome to Patrick King's dotfiles repo.
 
