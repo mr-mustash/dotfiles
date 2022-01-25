@@ -25,6 +25,7 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: forbid-new-submodules
+      - id: mixed-line-ending
       - id: no-commit-to-branch
         args: [--branch, main]
       - id: mixed-line-ending
@@ -41,7 +42,7 @@ repos:
       - id: fish_syntax
       - id: fish_indent
   - repo: https://github.com/crate-ci/typos
-    rev: v1.3.4
+    rev: typos-dict-v0.7.2
     hooks:
       - id: typos
   - repo: https://github.com/hadolint/hadolint
@@ -54,3 +55,8 @@ repos:
       - id: git-check
       - id: shellcheck
       - id: shfmt
+#-  repo: https://github.com/JohnnyMorganz/StyLua
+#   rev: v0.11.3
+#   hooks:
+#     - id: stylua-system
+#       args: [--indent-type, Spaces]

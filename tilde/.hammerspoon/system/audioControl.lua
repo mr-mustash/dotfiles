@@ -17,14 +17,14 @@ local function internalOrExternalMic()
     local externalMic = hs.audiodevice.findInputByName(externalMic)
 
     --if not speakers or not headphones then
-    --    print(headphones)
-    --    print(speakers)
+    --    _log(headphones)
+    --    _log(speakers)
     --    notification("ERROR: Some audio output devices are missing")
     --    return
     --end
     --if not internalMic or not externalMic then
-    --    print(internalMic)
-    --    print(externalMic)
+    --    _log(internalMic)
+    --    _log(externalMic)
     --    notification("ERROR: Some audio input devices are missing")
     --    return
     --end
@@ -32,49 +32,68 @@ local function internalOrExternalMic()
     -- Internal mic when undocked
     if internalMic and not externalMic then
         internalMic:setDefaultInputDevice()
-        print("Mic changed to internal mic.")
+        _log("Mic changed to internal mic.")
     end
 
     -- Use YetiX when docked
     if internalMic and externalMic then
         internalMic:setDefaultInputDevice()
-        print("Mic changed to YetiX.")
+        _log("Mic changed to YetiX.")
     end
 end
 
 local function audioDeviceChanged(arg)
-    if arg == 'dev#' or arg == 'dOut' then
+    if arg == "dev#" or arg == "dOut" then
         lastSetDeviceTime = os.time()
-    elseif arg == 'dIn ' and os.time() - lastSetDeviceTime < 2 then
+    elseif arg == "dIn " and os.time() - lastSetDeviceTime < 2 then
         inputDevice = hs.audiodevice.defaultInputDevice()
         internalOrExternalMic()
     end
-    if hs.audiodevice.defaultInputDevice():transportType() ~= 'Bluetooth' then
+    if hs.audiodevice.defaultInputDevice():transportType() ~= "Bluetooth" then
         lastInputDevice = hs.audiodevice.defaultInputDevice()
     end
 end
 
-
 function audioControl.init()
     hs.audiodevice.watcher.setCallback(audioDeviceChanged)
     hs.audiodevice.watcher.start()
+
+    _log("Audio control config loaded.")
 end
 
 function audioControl.muteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
         device:setInputMuted(true)
         if device:inputMuted() then
-            print(device:name() .. " muted")
+            _log(device:name() .. " muted")
         end
     end
 end
 
 function audioControl.unmuteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
-        if device:inputMuted() then
-            print(device:name() .. " unmuted")
-        end
         device:setInputMuted(false)
+        if not device:inputMuted() then
+            _log(device:name() .. " unmuted")
+        end
+    end
+end
+
+function audioControl.muteOutputs()
+    for _, device in pairs(hs.audiodevice.allOutputDevices()) do
+        device:setOutputMuted(true)
+        if device:outputMuted() then
+            _log(device:name() .. " muted")
+        end
+    end
+end
+
+function audioControl.unmuteOutputs()
+    for _, device in pairs(hs.audiodevice.allOutputDevices()) do
+        device:setOutputMuted(false)
+        if not device:outputMuted() then
+            _log(device:name() .. " unmuted")
+        end
     end
 end
 
