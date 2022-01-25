@@ -1,7 +1,7 @@
 zoomconfig = {}
 
 local function zoomStart()
-    print("Staring Zoom meeting")
+    _log("Staring Zoom meeting")
     --hs.application.launchOrFocus("OBS")
     --sleep(5)
     --local sceneJSON=[[{ "scene-name": "Webcam Only" }]]
@@ -9,19 +9,19 @@ local function zoomStart()
     --hs.execute(command, with_user_env)
     --hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
     hs.execute("/usr/local/bin/calm-notifications on")
-    if (hs.application.find("Stretchly") ~= nil) then
-        print ("Pausing stretchly")
-        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly pause")
+    if hs.application.find("Stretchly") ~= nil then
+        _log("Pausing stretchly")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly pause 2>/dev/null")
     end
 end
 
 local function zoomEnd()
-    print("Ending Zoom meeting")
+    _log("Ending Zoom meeting")
     --hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
     hs.execute("/usr/local/bin/calm-notifications off")
-    if (hs.application.find("Stretchly") ~= nil) then
-        print ("Resuming stretchly")
-        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly resume")
+    if hs.application.find("Stretchly") ~= nil then
+        _log("Resuming stretchly")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly resume 2>/dev/null")
     end
     --sleep(1)
     --local appOBS = hs.application.find("OBS")
@@ -31,8 +31,8 @@ local function zoomEnd()
 end
 
 local function updateZoomStatus(event)
-    hs.printf("updateZoomStatus(%s)", event)
-    if (event == "from-running-to-meeting") then
+    _log("Zoom status: " .. event)
+    if event == "from-running-to-meeting" then
         zoomStart()
     elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
         zoomEnd()
@@ -42,6 +42,7 @@ end
 function zoomconfig.init()
     spoon.Zoom:setStatusCallback(updateZoomStatus)
     spoon.Zoom:start()
+    _log("Zoom config loaded")
 end
 
 return zoomconfig
