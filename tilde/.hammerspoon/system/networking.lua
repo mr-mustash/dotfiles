@@ -9,41 +9,27 @@ local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
     --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 10.13.36.1")
     notification("Welcome home!", home_logo)
-    print("Connected to home WiFi")
+    _log("Connected to home WiFi")
     -- Leave at the end because it's blocking
-    reconnectProxy()
+    networking.reconnectProxy()
 end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
     --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Welcome back to the office!")
-    print("Connected to work WiFi")
+    _log("Connected to work WiFi")
     -- Leave at the end because it's blocking
-    reconnectProxy()
+    networking.reconnectProxy()
 end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
     --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
     notification("Unknown WiFi Network")
-    print("Connected to unknown WiFi")
+    _log("Connected to unknown WiFi")
     -- Leave at the end because it's blocking
-    reconnectProxy()
-end
-
-function disableWifiSlowly()
-    sleep(15)
-    hs.wifi.setPower(false)
-    print("Wifi disabled after being docked.")
-end
-
-function reconnectProxy()
-    sleep(10)
-    hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
-    sleep(1)
-    hs.execute("/usr/bin/screen -dmS proxy /usr/local/bin/autossh -M 0 -N -D localhost:18888 proxy")
-    print("Proxy restarted")
+    networking.reconnectProxy()
 end
 
 local function ssidChangedCallback()
@@ -67,9 +53,25 @@ local function ssidChangedCallback()
     lastSSID = newSSID
 end
 
+function networking.disableWifiSlowly()
+    sleep(15)
+    hs.wifi.setPower(false)
+    _log("Wifi disabled after being docked.")
+end
+
+function networking.reconnectProxy()
+    sleep(10)
+    hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
+    sleep(1)
+    hs.execute("/usr/bin/screen -dmS proxy /usr/local/bin/autossh -M 0 -N -D localhost:18888 proxy")
+    _log("Proxy restarted")
+end
+
 function networking.init()
     wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
     wifiWatcher:start()
+
+    _log("Networking config loaded.")
 end
 
 return networking
