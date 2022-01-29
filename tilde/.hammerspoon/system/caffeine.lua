@@ -1,12 +1,12 @@
 local caffeine = {}
 
 local function screenLocked()
-    print "Screen Locked"
+    _log("Screen Locked")
     audioControl.muteInputs()
 end
 
 local function screenUnlocked()
-    print "Screen Unlocked"
+    _log("Screen Unlocked")
     audioControl.unmuteInputs()
 end
 
@@ -21,6 +21,8 @@ end
 function caffeine.init()
     sleepWatcher = hs.caffeinate.watcher.new(sleepCallback)
     sleepWatcher:start()
+
+    _log("Caffeine config loaded.")
 end
 
 return caffeine
