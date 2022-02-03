@@ -7,7 +7,6 @@ if status --is-interactive
     alias more="less"
     alias cd..="cd .."
     alias cp="cp -i"
-    alias rm="rm -i"
 
     function ll
         pwd
@@ -27,6 +26,9 @@ if status --is-interactive
     #alias time='time -f "\t%e real\t%U user\t%S sys\t%P CPU\t%x status"'
 
     ### Abbreviations ###
+    # Misc
+    abbr --add ag rg # some habits are too hard to break
+
     # tmux
     abbr --add t tmux
     abbr --add tt tmux_for_ticket
