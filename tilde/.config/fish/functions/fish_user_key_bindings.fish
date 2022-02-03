@@ -1,6 +1,6 @@
 function user_bash_key_bindings
     # bash-like command cancel
-    bind \cc 'echo; commandline | cat; commandline ""; commandline -f repaint'
+    bind \cc 'echo; commandline | /bin/cat; commandline ""; commandline -f repaint'
 end
 
 function user_vimrc_like_key_bindings

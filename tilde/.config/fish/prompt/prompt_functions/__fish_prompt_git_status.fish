@@ -53,9 +53,9 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         end
 
         # Check whether the branch is behind
-        if test (string match '*behind*' $index)
-            set is_behind true
-        end
+        #if test (string match '*behind*' $index)
+        #    set is_behind true
+        #end
 
         # Check whether the branch has diverged
         if test "$is_ahead" = true -a "$is_behind" = true

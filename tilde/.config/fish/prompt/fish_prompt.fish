@@ -3,6 +3,7 @@ function fish_prompt --description 'Write out the prompt'
     __fish_prompt_username
     __fish_prompt_hostname
     __fish_prompt_pwd
+    __fish_prompt_pwd_graveyard
 
     __fish_prompt_git
 
@@ -20,10 +21,6 @@ function fish_prompt --description 'Write out the prompt'
             set fish_color_prompt $fish_color_user
         case visual
             set fish_color_prompt magenta --bold
-    end
-
-    function __fish_prompt_git_status_loading_indicator
-        echo (set_color brblack)…(set_color normal)
     end
 
     set -l glyph "❯"
