@@ -26,6 +26,13 @@ set -a fish_user_paths /usr/local/sbin
 set -a fish_user_paths "$HOME/.yarn/bin"
 set -a fish_user_paths "$HOME/.config/yarn/global/node_modules/.bin"
 
+# Using rip instead of vim
+set -x GRAVEYARD "$HOME/.local/graveyard"
+
+# Autossh
+set -x AUTOSSH_DEBUG 1
+set -x AUTOSSH_LOGFILE "/tmp/autossh.log"
+
 # This monstrosity is here to make sure that I only have to run
 # `brew --prefix coreutils` once per boot. Otherwise it was making
 # each shell (and vim for some reason?) take over a second to load.

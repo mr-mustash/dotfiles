@@ -3,6 +3,8 @@ function fish_right_prompt --description 'Display the right side of the interact
     set -l exit $status
     set -l time $CMD_DURATION
 
+    __fish_right_prompt_git_autofetch
+
     __fish_right_prompt_timer $time
     if test $exit -ne 0
         __fish_right_prompt_signal $exit
