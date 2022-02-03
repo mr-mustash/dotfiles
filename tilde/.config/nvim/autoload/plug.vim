@@ -344,13 +344,13 @@ function! plug#end()
     return s:err('plug#end() called without calling plug#begin() first')
   endif
 
-  if exists('#PlugLOD')
-    augroup PlugLOD
+  if exists('#PlugLOAD')
+    augroup PlugLOAD
       autocmd!
     augroup END
-    augroup! PlugLOD
+    augroup! PlugLOAD
   endif
-  let lod = { 'ft': {}, 'map': {}, 'cmd': {} }
+  let load = { 'ft': {}, 'map': {}, 'cmd': {} }
 
   if exists('g:did_load_filetypes')
     filetype off
@@ -370,13 +370,13 @@ function! plug#end()
       for cmd in s:to_a(plug.on)
         if cmd =~? '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
-            call s:assoc(lod.map, cmd, name)
+            call s:assoc(load.map, cmd, name)
           endif
           call add(s:triggers[name].map, cmd)
         elseif cmd =~# '^[A-Z]'
           let cmd = substitute(cmd, '!*$', '', '')
           if exists(':'.cmd) != 2
-            call s:assoc(lod.cmd, cmd, name)
+            call s:assoc(load.cmd, cmd, name)
           endif
           call add(s:triggers[name].cmd, cmd)
         else
@@ -394,29 +394,29 @@ function! plug#end()
         augroup END
       endif
       for type in types
-        call s:assoc(lod.ft, type, name)
+        call s:assoc(load.ft, type, name)
       endfor
     endif
   endfor
 
-  for [cmd, names] in items(lod.cmd)
+  for [cmd, names] in items(load.cmd)
     execute printf(
-    \ 'command! -nargs=* -range -bang -complete=file %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
+    \ 'command! -nargs=* -range -bang -complete=file %s call s:load_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
     \ cmd, string(cmd), string(names))
   endfor
 
-  for [map, names] in items(lod.map)
+  for [map, names] in items(load.map)
     for [mode, map_prefix, key_prefix] in
           \ [['i', '<C-\><C-O>', ''], ['n', '', ''], ['v', '', 'gv'], ['o', '', '']]
       execute printf(
-      \ '%snoremap <silent> %s %s:<C-U>call <SID>lod_map(%s, %s, %s, "%s")<CR>',
+      \ '%snoremap <silent> %s %s:<C-U>call <SID>load_map(%s, %s, %s, "%s")<CR>',
       \ mode, map, map_prefix, string(map), string(names), mode != 'i', key_prefix)
     endfor
   endfor
 
-  for [ft, names] in items(lod.ft)
-    augroup PlugLOD
-      execute printf('autocmd FileType %s call <SID>lod_ft(%s, %s)',
+  for [ft, names] in items(load.ft)
+    augroup PlugLOAD
+      execute printf('autocmd FileType %s call <SID>load_ft(%s, %s)',
             \ ft, string(ft), string(names))
     augroup END
   endfor
@@ -622,7 +622,7 @@ function! plug#load(...)
   let unloaded = filter(copy(names), '!get(s:loaded, v:val, 0)')
   if !empty(unloaded)
     for name in unloaded
-      call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+      call s:load([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
     endfor
     call s:dobufread(unloaded)
     return 1
@@ -644,7 +644,7 @@ function! s:remove_triggers(name)
   call remove(s:triggers, a:name)
 endfunction
 
-function! s:lod(names, types, ...)
+function! s:load(names, types, ...)
   for name in a:names
     call s:remove_triggers(name)
     let s:loaded[name] = 1
@@ -666,22 +666,22 @@ function! s:lod(names, types, ...)
   endfor
 endfunction
 
-function! s:lod_ft(pat, names)
+function! s:load_ft(pat, names)
   let syn = 'syntax/'.a:pat.'.vim'
-  call s:lod(a:names, ['plugin', 'after/plugin'], syn, 'after/'.syn)
-  execute 'autocmd! PlugLOD FileType' a:pat
+  call s:load(a:names, ['plugin', 'after/plugin'], syn, 'after/'.syn)
+  execute 'autocmd! PlugLOAD FileType' a:pat
   call s:doautocmd('filetypeplugin', 'FileType')
   call s:doautocmd('filetypeindent', 'FileType')
 endfunction
 
-function! s:lod_cmd(cmd, bang, l1, l2, args, names)
-  call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+function! s:load_cmd(cmd, bang, l1, l2, args, names)
+  call s:load(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   call s:dobufread(a:names)
   execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
-function! s:lod_map(map, names, with_prefix, prefix)
-  call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+function! s:load_map(map, names, with_prefix, prefix)
+  call s:load(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   call s:dobufread(a:names)
   let extra = ''
   while 1
@@ -936,7 +936,7 @@ function! s:prepare(...)
     if b:plug_preview == 1
       pc
     endif
-    enew
+    new
   else
     call s:new_window()
   endif
