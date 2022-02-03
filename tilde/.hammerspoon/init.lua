@@ -3,39 +3,47 @@ hs.logger.defaultLogLevel = "debug"
 local basePath = os.getenv("HOME") .. "/.hammerspoon/"
 require("hs.crash")
 hs.crash.crashLogToNSLog = false
-hs.application.enableSpotlightForNameSearches(true) --Search for application names better
+hs.application.enableSpotlightForNameSearches(true) -- Search for application names better
 -- ========================================================================= }}}
 
 -- Global Variables ======================================================== {{{
+-- Load secrets first
+require("secrets")
 
-hyper = { "⌘", "⌥", "ctrl" }
-shyper = { "⌘", "⌥", "⇧", "ctrl" }
+hyper = {"⌘", "⌥", "ctrl"}
+shyper = {"⌘", "⌥", "⇧", "ctrl"}
+
+-- Disable auto reload while testing
+auto_reload = true
 
 -- Assets
-home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/king.png")
+home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
 docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
 spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 
--- Audio Devices
-headphoneOutput = "Patrick’s AirPods Pro"
-speakerOutput = "MacBook Pro Speakers"
-internalMic = "MacBook Pro Microphone"
-externalMic = "Yeti X"
+menubarStyle = {font = {name = "DejaVuSansMono Nerd Font Mono", size = 14}}
+menubarLargeStyle = {font = {name = "DejaVuSansMono Nerd Font Mono", size = 20}}
+
+defaultStyle = {font = {name = ".AppleSystemUIFont", size = 13}}
 
 -- ========================================================================= }}}
 
 -- Global Functions ======================================================== {{{
 function notification(notification, image)
     if image == nil or image == "" then
-        hs.notify.new({ title = "Hammerspoon", informativeText = notification, withdrawAfter = 3 }):send()
+        hs.notify.new({
+            title = "Hammerspoon",
+            informativeText = notification,
+            withdrawAfter = 3
+        }):send()
     else
         hs.notify.new({
             title = "Hammerspoon",
             informativeText = notification,
             contentImage = image,
-            withdrawAfter = 3,
+            withdrawAfter = 3
         }):send()
     end
 end
@@ -50,15 +58,23 @@ function _log(message)
     print(location .. ": " .. message)
 end
 
-function sleep(n)
-    hs.execute(("sleep " .. tonumber(n)))
-end
+function sleep(n) hs.execute(("sleep " .. tonumber(n))) end
 
 function appID(app)
     return hs.application.infoForBundlePath(app)["CFBundleIdentifier"]
 end
+
 -- ========================================================================= }}}
 
+-- Important functions ===================================================== {{{
+executeHelpers = require("functions/executeHelpers")
+reload = require("functions/reload")
+
+executeHelpers.init()
+reload.init()
+
+-- ========================================================================= }}}
+--
 -- Load & Configure Spoons ================================================= {{{
 hs.loadSpoon("EjectMenu")
 hs.loadSpoon("URLDispatcher")
@@ -77,6 +93,7 @@ charging = require("system/charging")
 display = require("system/display")
 dock = require("system/dock")
 networking = require("system/networking")
+turboboost = require("system/turboboost")
 
 audioControl.init()
 caffeine.init()
@@ -84,25 +101,23 @@ charging.init()
 display.init()
 dock.init()
 networking.init()
+turboboost.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
-spotifyconfig = require("app-config/spotifyconfig")
+elgato = require("app-config/elgato")
+-- spotifyconfig = require("app-config/spotifyconfig")
 stretchly = require("app-config/stretchly")
 zoomconfig = require("app-config/zoomconfig")
 
-spotifyconfig.init()
+elgato.init()
+-- spotifyconfig.init()
 stretchly.init()
 zoomconfig.init()
 -- ========================================================================= }}}
 
--- Misc functions ========================================================== {{{
-reload = require("functions/reload")
-reload.init()
--- ========================================================================= }}}
-
 ---------- testing ------------
---applicationEventMap = {
+-- applicationEventMap = {
 --    [hs.application.watcher.activated] = "activated",
 --    [hs.application.watcher.deactivated] = "deactivated",
 --    [hs.application.watcher.hidden] = "hidden",
@@ -110,9 +125,9 @@ reload.init()
 --    [hs.application.watcher.launching] = "launching",
 --    [hs.application.watcher.terminated] = "terminated",
 --    [hs.application.watcher.unhidden] = "unhidden",
---}
+-- }
 --
---applicationsWatcher = hs.application.watcher.new(function(name, type, app)
+-- applicationsWatcher = hs.application.watcher.new(function(name, type, app)
 --    local title = ""
 --    local windowTitle = ""
 --    if app ~= nil then
@@ -126,6 +141,6 @@ reload.init()
 --        end
 --    end
 --    hs.timer.doAfter(1, function() _log(appHistory, "[" .. name .. " - " .. title .. "] " .. " [" .. windowTitle .. "] [" .. applicationEventMap[type] .. "]") end)
---end)
+-- end)
 --
---applicationsWatcher:start()
+-- applicationsWatcher:start()

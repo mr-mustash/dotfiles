@@ -17,6 +17,7 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
@@ -42,7 +43,7 @@ repos:
       - id: fish_syntax
       - id: fish_indent
   - repo: https://github.com/crate-ci/typos
-    rev: typos-dict-v0.7.2
+    rev: typos-v0.8.5
     hooks:
       - id: typos
   - repo: https://github.com/hadolint/hadolint
@@ -55,8 +56,14 @@ repos:
       - id: git-check
       - id: shellcheck
       - id: shfmt
-#-  repo: https://github.com/JohnnyMorganz/StyLua
-#   rev: v0.11.3
+
+# - repo: https://github.com/lunarmodules/luacheck
+#   rev: c795cbec5cbf022f2eb52f42cd1861c32d2b180f
 #   hooks:
-#     - id: stylua-system
-#       args: [--indent-type, Spaces]
+#     - id: luacheck
+#       args: [--globals, --ignore 'accessing undefined variable', --filename]
+# -  repo: https://github.com/JohnnyMorganz/StyLua
+#    rev: v0.11.3
+#    hooks:
+#      - id: stylua-system
+#        args: [--indent-type, Spaces]

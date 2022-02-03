@@ -1,13 +1,17 @@
 networking = {}
 
 wifiWatcher = nil
-homeSSID = "FBI Work Van"
-workSSID = "Peloton"
+homeSSID = secrets.networking.homeSSID
+workSSID = secrets.networking.workSSID
 lastSSID = hs.wifi.currentNetwork()
+
+proxyPid = nil
 
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 10.13.36.1")
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
+                     secrets.networking.homeDNS
+    hs.execute(_cmd)
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
     -- Leave at the end because it's blocking
@@ -16,7 +20,9 @@ end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
+                     secrets.networking.publicDNS
+    hs.execute(_cmd)
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")
     -- Leave at the end because it's blocking
@@ -25,7 +31,9 @@ end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    --hs.execute("sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' 1.1.1.1")
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
+                     secrets.networking.publicDNS
+    hs.execute(_cmd)
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
     -- Leave at the end because it's blocking
@@ -42,7 +50,8 @@ local function ssidChangedCallback()
         elseif newSSID == workSSID and lastSSID ~= workSSID then
             -- Connected to work Wifi
             workWifiConnected()
-        elseif newSSID ~= homeSSID and lastSSID == homeSSID or newSSID ~= workSSID and lastSSID == workSSID then
+        elseif newSSID ~= homeSSID and lastSSID == homeSSID or newSSID ~=
+            workSSID and lastSSID == workSSID then
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
@@ -53,6 +62,17 @@ local function ssidChangedCallback()
     lastSSID = newSSID
 end
 
+function networking.checkForLAN()
+    if hs.network.interfaceDetails(v4) then
+        for key, _ in pairs(hs.network.interfaceDetails(v4)) do
+            if key == "AirPort" then return "wifi" end
+        end
+        return "lan"
+    else
+        return "none"
+    end
+end
+
 function networking.disableWifiSlowly()
     sleep(15)
     hs.wifi.setPower(false)
@@ -60,11 +80,34 @@ function networking.disableWifiSlowly()
 end
 
 function networking.reconnectProxy()
-    sleep(10)
-    hs.execute("/usr/bin/pgrep autossh | /usr/bin/xargs kill ")
-    sleep(1)
-    hs.execute("/usr/bin/screen -dmS proxy /usr/local/bin/autossh -M 0 -N -D localhost:18888 proxy")
-    _log("Proxy restarted")
+    _log("Reconnecting to proxy")
+
+    proxyPid = hs.execute("/usr/bin/pgrep autossh")
+
+    if proxyPid ~= "" then
+        hs.execute("/usr/bin/pgrep autossh | xargs /bin/kill -s SIGUSR1")
+        _log("SIGUSR1 sent to pid: " .. proxyPid .. " to restart proxy.")
+    elseif proxyPid == "" then
+        _log("No proxy running.")
+        _log("Killing off any errant autossh processes.")
+        hs.execute("killall autossh")
+
+        _log("Starting proxy.")
+        local conn = "localhost:" .. secrets.networking.proxyPort
+        local config = os.getenv("HOME") .. "/.ssh/config"
+        local args = {
+            "-M", "0", "-N", "-f", "-F", config, "-v", "-D", conn, "proxy"
+        }
+        local env = {AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log"}
+
+        local reconnect = hs.task.new("/usr/local/bin/autossh",
+                                      executeHelpers.callback, args):waitUntilExit()
+        reconnect:setEnvironment(env)
+        reconnect:start()
+
+        proxyPid = reconnect:pid()
+        _log("Autossh started.")
+    end
 end
 
 function networking.init()
