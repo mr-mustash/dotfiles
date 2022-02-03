@@ -49,7 +49,7 @@ if not set -q __pking_init_colors
     set -U fish_prompt_color_git_unmerged red
     set -U fish_prompt_color_git_diverged magenta
     set -U fish_prompt_color_git_ahead magenta
-    set -U fish_prompt_color_git_behind magenta
+    set -U fish_prompt_color_git_behind f34f29
     set -U fish_prompt_color_git_clean green
 
     # Language icon colors
@@ -64,6 +64,7 @@ if not set -q __pking_init_colors
     set -U fish_prompt_color_jobs yellow --bold
 
     # Misc
+    set -U fish_prompt_color_graveyard ffa500 --bold
 
     set -gx __pking_init_colors ✓
 end
