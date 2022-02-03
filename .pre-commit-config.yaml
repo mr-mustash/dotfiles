@@ -42,10 +42,6 @@ repos:
     hooks:
       - id: fish_syntax
       - id: fish_indent
-  - repo: https://github.com/crate-ci/typos
-    rev: typos-v0.8.5
-    hooks:
-      - id: typos
   - repo: https://github.com/hadolint/hadolint
     rev: v2.8.0
     hooks:
