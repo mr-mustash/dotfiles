@@ -15,9 +15,13 @@ local function reloadConfig(paths)
 end
 
 function reload.init()
-    configFileWatcher = hs.pathwatcher.new(hs.configdir, reloadConfig):start()
-
-    _log("Loaded reload function.")
+    if auto_reload == true then
+        _log("Loaded reload function.")
+        configFileWatcher =
+            hs.pathwatcher.new(hs.configdir, reloadConfig):start()
+    else
+        _log("Auto reload disabled.")
+    end
 end
 
 return reload

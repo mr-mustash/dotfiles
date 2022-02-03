@@ -1,60 +1,82 @@
 local audioControl = {}
 
 -- Avoid automatically setting a bluetooth audio input device
-lastSetDeviceTime = os.time()
-lastInputDevice = nil
+lastChangeTime = os.time()
+lastInputDevice = hs.audiodevice.defaultInputDevice()
+lastOutputDevice = hs.audiodevice.defaultOutputDevice()
 
-headphoneOutput = "Patrick’s AirPods Pro"
-speakerOutput = "MacBook Pro Speakers"
-internalMic = "MacBook Pro Microphone"
-externalMic = "Yeti X"
+local function internalOrExternalSpeaker()
+    local speakers = hs.audiodevice.findOutputByName(
+                         secrets.audioControl.internalOutput)
+    local headphones = hs.audiodevice.findOutputByName(
+                           secrets.audioControl.headphoneOutput)
+    local monitor = hs.audiodevice.findOutputByName(
+                        secrets.audioControl.monitorOutput)
+
+    if headphones then
+        headphones:setDefaultOutputDevice()
+        _log("Output changed to AirPods")
+        return 0
+    end
+
+    if monitor then
+        monitor:setDefaultOutputDevice()
+        _log("Output device changed to LG HDR 5K")
+        return 0
+    end
+
+    if speakers then
+        speakers:setDefaultOutputDevice()
+        _log("Output changed to internal speakers.")
+        return 0
+    end
+
+    _log("Unable to set any speakers as default.")
+    return 1
+end
 
 local function internalOrExternalMic()
-    local current = hs.audiodevice.defaultOutputDevice()
-    local speakers = hs.audiodevice.findOutputByName(speakerOutput)
-    local headphones = hs.audiodevice.findOutputByName(headphoneOutput)
-    local internalMic = hs.audiodevice.findInputByName(internalMic)
-    local externalMic = hs.audiodevice.findInputByName(externalMic)
+    local internalMic = hs.audiodevice.findInputByName(
+                            secrets.audioControl.internalMic)
+    local externalMic = hs.audiodevice.findInputByName(
+                            secrets.audioControl.externalMic)
 
-    --if not speakers or not headphones then
-    --    _log(headphones)
-    --    _log(speakers)
-    --    notification("ERROR: Some audio output devices are missing")
-    --    return
-    --end
-    --if not internalMic or not externalMic then
-    --    _log(internalMic)
-    --    _log(externalMic)
-    --    notification("ERROR: Some audio input devices are missing")
-    --    return
-    --end
+    -- Use YetiX when docked
+    if externalMic then
+        externalMic:setDefaultInputDevice()
+        _log("Mic changed to YetiX.")
+        return 0
+    end
 
     -- Internal mic when undocked
     if internalMic and not externalMic then
         internalMic:setDefaultInputDevice()
         _log("Mic changed to internal mic.")
+        return 0
     end
 
-    -- Use YetiX when docked
-    if internalMic and externalMic then
-        internalMic:setDefaultInputDevice()
-        _log("Mic changed to YetiX.")
-    end
+    _log("Unable to set any mic as default")
+    return 1
 end
 
 local function audioDeviceChanged(arg)
-    if arg == "dev#" or arg == "dOut" then
-        lastSetDeviceTime = os.time()
-    elseif arg == "dIn " and os.time() - lastSetDeviceTime < 2 then
-        inputDevice = hs.audiodevice.defaultInputDevice()
-        internalOrExternalMic()
-    end
-    if hs.audiodevice.defaultInputDevice():transportType() ~= "Bluetooth" then
-        lastInputDevice = hs.audiodevice.defaultInputDevice()
+    local sRetval = 1
+    local mRetval = 1
+    if arg == "dev#" and os.time() - lastChangeTime > 2 then
+        sRetval = internalOrExternalSpeaker()
+        mRetval = internalOrExternalMic()
+
+        if sRetval == 0 and mRetval == 0 then
+            lastSetOutputTime = os.time()
+        else
+            _log("Unable to set mic or speakers. Mic: " .. mRetval ..
+                     ", Speakers: " .. sRetval)
+        end
     end
 end
 
 function audioControl.init()
+    -- TODO: Set up something like https://gist.github.com/waydabber/3241fc146cef65131a42ce30e4b6eab7#file-ddcavcontrol-init-lua-L145 to control external display's speakers.
     hs.audiodevice.watcher.setCallback(audioDeviceChanged)
     hs.audiodevice.watcher.start()
 
@@ -64,32 +86,38 @@ end
 function audioControl.muteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
         device:setInputMuted(true)
-        if device:inputMuted() then
-            _log(device:name() .. " muted")
-        end
+        if device:inputMuted() then _log(device:name() .. " muted") end
     end
 end
 
 function audioControl.unmuteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
         device:setInputMuted(false)
-        if not device:inputMuted() then
-            _log(device:name() .. " unmuted")
-        end
+        if not device:inputMuted() then _log(device:name() .. " unmuted") end
     end
 end
 
 function audioControl.muteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
-        device:setOutputMuted(true)
-        if device:outputMuted() then
-            _log(device:name() .. " muted")
+        if device:name() == secrets.audioControl.monitorOutput then
+            hs.execute("/usr/local/bin/ddcctl -d 1- -m 1")
+            _log("External display " .. device:name() .. " muted")
+            return
         end
+
+        device:setOutputMuted(true)
+        if device:outputMuted() then _log(device:name() .. " muted") end
     end
 end
 
 function audioControl.unmuteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
+        if device:name() == secrets.audioControl.monitorOutput then
+            hs.execute("/usr/local/bin/ddcctl -d 1- -m 2")
+            _log("External display " .. device:name() .. " unmuted")
+            return
+        end
+
         device:setOutputMuted(false)
         if not device:outputMuted() then
             _log(device:name() .. " unmuted")
