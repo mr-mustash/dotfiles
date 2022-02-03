@@ -1,6 +1,7 @@
 # common ================================================================== {{{
 [tasks.links]
     links = [
+        [".applescript"],
         [".config/fish"],
         [".config/flake8"],
         [".config/nvim"],
