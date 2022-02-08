@@ -1,4 +1,9 @@
 if has('nvim')
+    "let g:autoloaded_copilot_log = '/dev/null'
+
+    imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
+    let g:copilot_no_tab_map = v:true
+
     " Disable copilot when working on text files
     let g:copilot_filetypes = {
       \ 'markdown':     v:false,
@@ -13,5 +18,7 @@ if has('nvim')
       \ '*COMMIT*':     v:false,
       \ }
 
-    let g:copilot_enabled = 1
+    if PlugLoaded('copilot.vim')
+        let g:copilot_enabled = 1
+    endif
 endif

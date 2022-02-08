@@ -60,6 +60,7 @@ function dock.isDocked()
 end
 
 function dock.init()
+    local initStart = os.clock()
     usbWatcher = hs.usb.watcher.new(usbkWatcherCallback)
     usbWatcher:start()
 
@@ -75,7 +76,7 @@ function dock.init()
         _log("Dock not found on reload.")
     end
 
-    _log("Dock config loaded.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return dock

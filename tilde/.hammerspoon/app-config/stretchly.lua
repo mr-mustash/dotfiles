@@ -19,8 +19,9 @@ local function stretchlyCall(name, eventType, app)
 end
 
 function stretchly.init()
+    local initStart = os.clock()
     stretchlyWatcher = hs.application.watcher.new(stretchlyCall)
     stretchlyWatcher:start()
-    _log("Stretchly config loaded")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 return stretchly

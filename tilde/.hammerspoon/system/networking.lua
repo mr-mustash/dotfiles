@@ -9,8 +9,7 @@ proxyPid = nil
 
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
-                     secrets.networking.homeDNS
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.homeDNS
     hs.execute(_cmd)
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
@@ -20,8 +19,7 @@ end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
-                     secrets.networking.publicDNS
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.publicDNS
     hs.execute(_cmd)
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")
@@ -31,8 +29,7 @@ end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " ..
-                     secrets.networking.publicDNS
+    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.publicDNS
     hs.execute(_cmd)
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
@@ -50,8 +47,7 @@ local function ssidChangedCallback()
         elseif newSSID == workSSID and lastSSID ~= workSSID then
             -- Connected to work Wifi
             workWifiConnected()
-        elseif newSSID ~= homeSSID and lastSSID == homeSSID or newSSID ~=
-            workSSID and lastSSID == workSSID then
+        elseif newSSID ~= homeSSID and lastSSID == homeSSID or newSSID ~= workSSID and lastSSID == workSSID then
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
@@ -65,7 +61,9 @@ end
 function networking.checkForLAN()
     if hs.network.interfaceDetails(v4) then
         for key, _ in pairs(hs.network.interfaceDetails(v4)) do
-            if key == "AirPort" then return "wifi" end
+            if key == "AirPort" then
+                return "wifi"
+            end
         end
         return "lan"
     else
@@ -96,12 +94,20 @@ function networking.reconnectProxy()
         local conn = "localhost:" .. secrets.networking.proxyPort
         local config = os.getenv("HOME") .. "/.ssh/config"
         local args = {
-            "-M", "0", "-N", "-f", "-F", config, "-v", "-D", conn, "proxy"
+            "-M",
+            "0",
+            "-N",
+            "-f",
+            "-F",
+            config,
+            "-v",
+            "-D",
+            conn,
+            "proxy",
         }
-        local env = {AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log"}
+        local env = { AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log" }
 
-        local reconnect = hs.task.new("/usr/local/bin/autossh",
-                                      executeHelpers.callback, args):waitUntilExit()
+        local reconnect = hs.task.new("/usr/local/bin/autossh", executeHelpers.callback, args):waitUntilExit()
         reconnect:setEnvironment(env)
         reconnect:start()
 
@@ -111,10 +117,11 @@ function networking.reconnectProxy()
 end
 
 function networking.init()
+    local initStart = os.clock()
     wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
     wifiWatcher:start()
 
-    _log("Networking config loaded.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return networking
