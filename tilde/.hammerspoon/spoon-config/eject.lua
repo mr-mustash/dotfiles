@@ -1,6 +1,7 @@
 ejectconfig = {}
 
 function ejectconfig.init()
+    local initStart = os.clock()
     spoon.EjectMenu:start()
 
     spoon.EjectMenu.eject_on_lid_close = true
@@ -8,7 +9,7 @@ function ejectconfig.init()
     spoon.EjectMenu.notify = true
     spoon.EjectMenu.show_in_menubar = false
 
-    _log("Eject config loaded.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return ejectconfig

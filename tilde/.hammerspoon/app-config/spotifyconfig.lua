@@ -17,6 +17,7 @@ local function displayCurrentTrack()
 end
 
 function spotifyconfig.init()
+    local initStart = os.clock()
     hs.hotkey.bind(hyper, "k", function()
         hs.spotify.playpause()
         displayCurrentTrack()
@@ -32,7 +33,7 @@ function spotifyconfig.init()
         displayCurrentTrack()
     end)
 
-    _log("Spotify config loaded")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return spotifyconfig

@@ -6,12 +6,9 @@ lastInputDevice = hs.audiodevice.defaultInputDevice()
 lastOutputDevice = hs.audiodevice.defaultOutputDevice()
 
 local function internalOrExternalSpeaker()
-    local speakers = hs.audiodevice.findOutputByName(
-                         secrets.audioControl.internalOutput)
-    local headphones = hs.audiodevice.findOutputByName(
-                           secrets.audioControl.headphoneOutput)
-    local monitor = hs.audiodevice.findOutputByName(
-                        secrets.audioControl.monitorOutput)
+    local speakers = hs.audiodevice.findOutputByName(secrets.audioControl.internalOutput)
+    local headphones = hs.audiodevice.findOutputByName(secrets.audioControl.headphoneOutput)
+    local monitor = hs.audiodevice.findOutputByName(secrets.audioControl.monitorOutput)
 
     if headphones then
         headphones:setDefaultOutputDevice()
@@ -36,10 +33,8 @@ local function internalOrExternalSpeaker()
 end
 
 local function internalOrExternalMic()
-    local internalMic = hs.audiodevice.findInputByName(
-                            secrets.audioControl.internalMic)
-    local externalMic = hs.audiodevice.findInputByName(
-                            secrets.audioControl.externalMic)
+    local internalMic = hs.audiodevice.findInputByName(secrets.audioControl.internalMic)
+    local externalMic = hs.audiodevice.findInputByName(secrets.audioControl.externalMic)
 
     -- Use YetiX when docked
     if externalMic then
@@ -69,31 +64,75 @@ local function audioDeviceChanged(arg)
         if sRetval == 0 and mRetval == 0 then
             lastSetOutputTime = os.time()
         else
-            _log("Unable to set mic or speakers. Mic: " .. mRetval ..
-                     ", Speakers: " .. sRetval)
+            _log("Unable to set mic or speakers. Mic: " .. mRetval .. ", Speakers: " .. sRetval)
         end
     end
 end
 
+local function trapVolumeControls()
+    systemeventtap = hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(mainEvent)
+        local event = mainEvent:systemKey()
+        local flags = hs.eventtap.checkKeyboardModifiers()
+        if event["down"] == false or event["repeat"] == true then
+            if hs.audiodevice.defaultOutputDevice():name() == secrets.audioControl.monitorOutput then
+                _log("Trapped volume control and sending to external monitor.")
+                _log("Keycode: " .. event["key"] .. ", Monitor: " .. hs.audiodevice.defaultOutputDevice():name())
+
+                -- Send mute to external monitor if connected and it's the default audio output
+                if event["key"] == "MUTE" then
+                    if isMuted == false then
+                        isMuted = true
+                        hs.execute("/usr/local/bin/ddcctl -d 1- -m 1")
+                        _log("Muted external monitor.")
+                    else
+                        isMuted = false
+                        hs.execute("/usr/local/bin/ddcctl -d 1- -m 0")
+                        _log("Unmuted external monitor.")
+                    end
+                    return true
+                end
+
+                -- Send volume up to external monitor if connected and it's the default audio output
+                if event["key"] == "SOUND_UP" then
+                    hs.execute("/usr/local/bin/ddcctl -d 1 -v 10+")
+                    return true
+                end
+                if event["key"] == "SOUND_DOWN" then
+                    hs.execute("/usr/local/bin/ddcctl -d 1 -v 10-")
+                    return true
+                end
+            end
+        end
+    end)
+
+    systemeventtap:start()
+end
+
 function audioControl.init()
-    -- TODO: Set up something like https://gist.github.com/waydabber/3241fc146cef65131a42ce30e4b6eab7#file-ddcavcontrol-init-lua-L145 to control external display's speakers.
+    local initStart = os.clock()
     hs.audiodevice.watcher.setCallback(audioDeviceChanged)
     hs.audiodevice.watcher.start()
 
-    _log("Audio control config loaded.")
+    trapVolumeControls()
+
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 function audioControl.muteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
         device:setInputMuted(true)
-        if device:inputMuted() then _log(device:name() .. " muted") end
+        if device:inputMuted() then
+            _log(device:name() .. " muted")
+        end
     end
 end
 
 function audioControl.unmuteInputs()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
         device:setInputMuted(false)
-        if not device:inputMuted() then _log(device:name() .. " unmuted") end
+        if not device:inputMuted() then
+            _log(device:name() .. " unmuted")
+        end
     end
 end
 
@@ -106,7 +145,9 @@ function audioControl.muteOutputs()
         end
 
         device:setOutputMuted(true)
-        if device:outputMuted() then _log(device:name() .. " muted") end
+        if device:outputMuted() then
+            _log(device:name() .. " muted")
+        end
     end
 end
 

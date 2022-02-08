@@ -2,6 +2,7 @@
 [tasks.links]
     links = [
         [".applescript"],
+        [".config/bat"],
         [".config/fish"],
         [".config/flake8"],
         [".config/nvim"],

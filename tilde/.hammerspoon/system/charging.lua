@@ -6,8 +6,7 @@ local debouncing = false
 
 local function stopDocker()
     _log("Stopping docker containers.")
-    hs.execute(
-        "sudo /usr/bin/renice 19 -p $(/usr/bin/pgrep com.docker.hyperkit)")
+    hs.execute("sudo /usr/bin/renice 19 -p $(/usr/bin/pgrep com.docker.hyperkit)")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
         local cmd = "/usr/local/bin/docker stop " .. container
@@ -90,47 +89,55 @@ local function onWallPower()
         -- Have to set this to something else than "battery" because
         -- onWallPower is called twice when plugging in and the state of
         -- hs.battery.isCharging() changes between the two calls.
-        _log(
-            "Plugged in after battery power. Entering post_bat to get get accurate power state.")
+        _log("Plugged in after battery power. Entering post_bat to get get accurate power state.")
         previousPowerState = "post_bat"
+        previousPowerStateTime = os.time() - 601 -- Don't debounce right after battery
         sleep(3)
         return
     elseif os.time() - previousPowerStateTime > 600 then
         debouncing = false
         -- Checking for fully charged first
-        if hs.battery.isCharged() == true and hs.battery.percentage == 100.0 -- Annoying, but hs.battery.isCharged() returns true even when the battery isn't at 100%
-        and previousPowerState ~= "fullyCharged" then
+        if
+            hs.battery.isCharged() == true
+            and hs.battery.percentage() >= 99.0 -- Annoying, but hs.battery.isCharged() returns true even when the battery isn't at 100%
+            and previousPowerState ~= "fullyCharged"
+        then
             acPowerFullyCharged()
             return
-        elseif hs.battery.isCharging() == true and hs.battery.percentage() >=
-            50.0 and previousPowerState ~= "chargingNominal" then
+        elseif
+            hs.battery.isCharging() == true
+            and hs.battery.percentage() >= 50.0
+            and previousPowerState ~= "chargingNominal"
+        then
             acPowerFullSpeedNominal()
             return
-        elseif hs.battery.isCharging() == true and hs.battery.percentage() <
-            50.0 and previousPowerState ~= "chargingLowBat" then
+        elseif
+            hs.battery.isCharging() == true
+            and hs.battery.percentage() < 50.0
+            and previousPowerState ~= "chargingLowBat"
+        then
             acPowerFullSpeedLowBat()
             return
-        elseif hs.battery.isCharging() == false and hs.battery.isCharged() ==
-            false and previousPowerState ~= "trickle" then
+        elseif
+            hs.battery.isCharging() == false
+            and hs.battery.isCharged() == false
+            and previousPowerState ~= "trickle"
+        then
             acPowerTrickle()
             return
         else
-            _log("Not changing power state. Current state: " ..
-                     previousPowerState)
+            _log("Not changing power state. Current state: " .. previousPowerState)
             return
         end
     else
         debouncing = true
         local timeLeft = 600 - (os.time() - previousPowerStateTime)
-        local msg = string.format(
-                        "Debouncing power state change. Seconds remaining in debounce: %d",
-                        timeLeft)
+        local msg = string.format("Debouncing power state change. Seconds remaining in debounce: %d", timeLeft)
         _log(msg)
         return
     end
 
-    _log(
-        "Somehow we got here with no power state being met? This should never happen.")
+    _log("Somehow we got here with no power state being met? This should never happen.")
 end
 
 local function menubarUpdate()
@@ -182,7 +189,9 @@ local function menubarUpdate()
     end
 
     if percentage ~= 100 then
-        if debouncing == true then icon = icon .. " " end
+        if debouncing == true then
+            icon = icon .. " "
+        end
         local text = hs.styledtext.new(icon, menubarStyle)
 
         stylizedPercentage = hs.styledtext.new(percentage .. "% ", defaultStyle)
@@ -214,8 +223,7 @@ local function setPowerStateOnLoad()
             acPowerTrickle()
         end
     else
-        _log(
-            "Something is broken in the battery module and we're not on AC or battery power.")
+        _log("Something is broken in the battery module and we're not on AC or battery power.")
     end
 
     _log("Power state on load: " .. previousPowerState)
@@ -232,14 +240,11 @@ function powerStateChanged()
     end
 
     menubarUpdate()
-    _log("Battery currently at " .. string.format("%s", batPercent) ..
-             "% and power state is " .. previousPowerState ..
-             " and has been for " ..
-             string.format("%s", os.time() - previousPowerStateTime) ..
-             " seconds.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 function charging.init()
+    local initStart = os.clock()
     batteryWatcher = hs.battery.watcher.new(powerStateChanged)
     chargingMenubarIndicator = hs.menubar.new(nil)
 
@@ -247,7 +252,7 @@ function charging.init()
     setPowerStateOnLoad()
     menubarUpdate()
 
-    _log("Charging config loaded.")
+    _log("Charging config loaded in " .. os.clock() - initStart .. " seconds.")
 end
 
 return charging

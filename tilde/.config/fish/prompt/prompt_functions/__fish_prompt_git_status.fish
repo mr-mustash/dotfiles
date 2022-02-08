@@ -20,7 +20,6 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         set -l trimmed_index (string split \n $index | string sub --start 1 --length 2)
 
 
-
         for i in $trimmed_index
             if test (string match '\?\?' $i)
                 set git_status untracked $git_status

@@ -11,8 +11,7 @@ function elgato.zoomStart()
         local status, body, headers = hs.http.get(url)
         local settings = hs.json.decode(body)
         settings.lights[1].on = 1
-        local status, response, header =
-            hs.http.doRequest(url, "PUT", hs.json.encode(settings))
+        local status, response, header = hs.http.doRequest(url, "PUT", hs.json.encode(settings))
     end
 
     _log("Zoom lighting turned on.")
@@ -29,11 +28,14 @@ function elgato.zoomEnd()
         local status, body, headers = hs.http.get(url)
         local settings = hs.json.decode(body)
         settings.lights[1].on = 0
-        local status, response, header =
-            hs.http.doRequest(url, "PUT", hs.json.encode(settings))
+        local status, response, header = hs.http.doRequest(url, "PUT", hs.json.encode(settings))
     end
 end
 
-function elgato.init() _log("Elgato module loaded.") end
+function elgato.init()
+    local initStart = os.clock()
+
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
+end
 
 return elgato
