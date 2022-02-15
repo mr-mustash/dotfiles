@@ -4,7 +4,6 @@ ci:
   autoupdate_schedule: weekly
   skip:
     - check-symlinks
-    - detect-aws-credentials
     - fish_indent
     - fish_syntax
     - hadolint
@@ -22,7 +21,7 @@ repos:
       - id: check-symlinks
       - id: check-toml
       - id: check-yaml
-      - id: detect-aws-credentials
+      # - id: detect-aws-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: forbid-new-submodules

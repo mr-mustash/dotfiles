@@ -100,7 +100,7 @@ end
 function audioControl.muteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            hs.execute("/usr/local/bin/ddcctl -d 1- -m 1")
+            hs.execute("/opt/homebrew/bin/ddcctl -d 1- -m 1")
             _log("External display " .. device:name() .. " muted")
             return
         end
@@ -113,7 +113,7 @@ end
 function audioControl.unmuteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            hs.execute("/usr/local/bin/ddcctl -d 1- -m 2")
+            hs.execute("/opt/homebrew/bin/ddcctl -d 1- -m 2")
             _log("External display " .. device:name() .. " unmuted")
             return
         end
