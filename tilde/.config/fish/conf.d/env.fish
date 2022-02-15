@@ -21,10 +21,20 @@ set -gx GPG_TTY (tty)
 set -gx QUBES_GPG_DOMAIN gpg
 
 # Paths!
+set -gx HOMEBREW_PREFIX /opt/homebrew
+set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+set -gx HOMEBREW_REPOSITORY /opt/homebrew
+set -q PATH; or set PATH ''
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
+set -q MANPATH; or set MANPATH ''
+set -gx MANPATH /opt/homebrew/share/man $MANPATH
+set -q INFOPATH; or set INFOPATH ''
+set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
+
 set -a fish_user_paths "$HOME/bin"
-set -a fish_user_paths /usr/local/sbin
 set -a fish_user_paths "$HOME/.yarn/bin"
 set -a fish_user_paths "$HOME/.config/yarn/global/node_modules/.bin"
+
 
 # Using rip instead of vim
 set -x GRAVEYARD "$HOME/.local/graveyard"
@@ -57,8 +67,8 @@ if test $__uname = Darwin
     end
 end
 
-if test -e /usr/local/share/fish/__fish_build_paths.fish
-    source /usr/local/share/fish/__fish_build_paths.fish
+if test -e /opt/homebrew/opt/fish/share/fish/__fish_build_paths.fish
+    source /opt/homebrew/opt/fish/share/fish/__fish_build_paths.fish
 end
 
 if test -d $HOME/go
@@ -69,7 +79,7 @@ if test -d $HOME/go
 end
 
 # Autojump
-[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
 
 #FZF
 if test -e $HOME/.config/fish/functions/fzf_env.fish
