@@ -23,8 +23,8 @@ spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 
-menubarStyle = {font = {name = "DejaVuSansMono Nerd Font Mono", size = 14}}
-menubarLargeStyle = {font = {name = "DejaVuSansMono Nerd Font Mono", size = 20}}
+menubarStyle = {font = {name = "DejaVuSansMono Nerd Font", size = 14}}
+menubarLargeStyle = {font = {name = "DejaVuSansMono Nerd Font", size = 20}}
 
 defaultStyle = {font = {name = ".AppleSystemUIFont", size = 13}}
 
@@ -93,7 +93,6 @@ charging = require("system/charging")
 display = require("system/display")
 dock = require("system/dock")
 networking = require("system/networking")
-turboboost = require("system/turboboost")
 
 audioControl.init()
 caffeine.init()
@@ -101,7 +100,6 @@ charging.init()
 display.init()
 dock.init()
 networking.init()
-turboboost.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
