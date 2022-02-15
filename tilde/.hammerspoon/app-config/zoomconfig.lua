@@ -9,7 +9,7 @@ local function zoomStart()
     -- hs.execute(command, with_user_env)
     -- hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
     elgato.zoomStart()
-    hs.execute("/usr/local/bin/calm-notifications on")
+    hs.execute("/opt/homebrew/bin/calm-notifications on")
     -- hs.spotify.pause()
     if hs.application.find("Stretchly") ~= nil then
         _log("Pausing stretchly")
@@ -21,7 +21,7 @@ end
 local function zoomEnd()
     _log("Ending Zoom meeting")
     -- hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
-    hs.execute("/usr/local/bin/calm-notifications off")
+    hs.execute("/opt/homebrew/bin/calm-notifications off")
     if hs.application.find("Stretchly") ~= nil then
         _log("Resuming stretchly")
         hs.execute(

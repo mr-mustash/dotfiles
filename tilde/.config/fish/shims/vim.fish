@@ -5,7 +5,7 @@ function vim --wraps vim -d "Checks to see if neovim is installed and default to
         else
             echo (set_color red)"---Falling back to vim---"(set_color normal)
             sleep 0.5
-            /usr/local/bin/vim $argv
+            command vim $argv
         end
     end
 end
