@@ -61,9 +61,9 @@ local function onWallPower()
         -- Have to set this to something else than "battery" because
         -- onWallPower is called twice when plugging in and the state of
         -- hs.battery.isCharging() changes between the two calls.
-        _log(
-            "Plugged in after battery power. Entering post_bat to get get accurate power state.")
+        _log("Plugged in after battery power. Entering post_bat to get get accurate power state.")
         previousPowerState = "post_bat"
+        previousPowerStateTime = os.time() - 601 -- Don't debounce right after battery
         sleep(3)
         return
     end
@@ -83,10 +83,96 @@ local function onWallPower()
         return
     end
 
-    _log(
-        "Somehow we got here with no power state being met? This should never happen.")
+    _log("Somehow we got here with no power state being met? This should never happen.")
 end
 
+local function menubarUpdate()
+    local icon = "Something is broken in the battery module."
+    local percentage = math.floor(hs.battery.percentage())
+
+    if previousPowerState == "battery" then
+        -- Maybe change back to this? I do kinda like only having a status icon when charging though.
+        icon = " "
+        -- icon = ""
+    elseif previousPowerState == "post_bat" then
+        icon = " "
+    elseif previousPowerState == "trickle" then
+        icon = " "
+    elseif previousPowerState == "chargingLowBat" then
+        icon = " "
+    elseif previousPowerState == "chargingNominal" then
+        icon = " "
+    elseif previousPowerState == "fullyCharged" then
+        icon = "💯 "
+    else
+        icon = "No previousPowerState "
+    end
+
+    if percentage >= 0 and percentage < 10 then
+        icon = icon .. ""
+    elseif percentage >= 10 and percentage < 20 then
+        icon = icon .. ""
+    elseif percentage >= 20 and percentage < 30 then
+        icon = icon .. ""
+    elseif percentage >= 30 and percentage < 40 then
+        icon = icon .. ""
+    elseif percentage >= 40 and percentage < 50 then
+        icon = icon .. ""
+    elseif percentage >= 50 and percentage < 60 then
+        icon = icon .. ""
+    elseif percentage >= 60 and percentage < 70 then
+        icon = icon .. ""
+    elseif percentage >= 70 and percentage < 80 then
+        icon = icon .. ""
+    elseif percentage >= 80 and percentage < 90 then
+        icon = icon .. ""
+    elseif percentage >= 90 and percentage < 100 then
+        icon = icon .. ""
+    elseif percentage == 100 then
+        icon = icon .. " "
+    else
+        icon = "NO BATT PERCENTAGE"
+    end
+
+    if percentage ~= 100 then
+        if debouncing == true then icon = icon .. " " end
+        local text = hs.styledtext.new(icon, menubarStyle)
+
+        stylizedPercentage = hs.styledtext.new(percentage .. "% ", defaultStyle)
+        chargingMenubarIndicator:setTitle(stylizedPercentage .. text)
+    else
+        local text = hs.styledtext.new(icon, menubarStyle)
+        chargingMenubarIndicator:setTitle(text)
+    end
+end
+
+local function setPowerStateOnLoad()
+    local currentPowerSource = hs.battery.powerSource()
+    local currentBatteryPercentage = hs.battery.percentage()
+    local charging = hs.battery.isCharging()
+    previousPowerStateTime = os.time()
+
+    if currentPowerSource == "Battery Power" then
+        batteryPower()
+    elseif currentPowerSource == "AC Power" then
+        if hs.battery.isCharged() == true then
+            acPowerFullyCharged()
+        elseif charging then
+            if currentBatteryPercentage >= 50.0 then
+                acPowerFullSpeedNominal()
+            else
+                acPowerFullSpeedLowBat()
+            end
+        else
+            acPowerTrickle()
+        end
+    else
+        _log(
+            "Something is broken in the battery module and we're not on AC or battery power.")
+    end
+
+    _log("Power state on load: " .. previousPowerState)
+end
 
 function powerStateChanged()
     local batPercent = math.floor(hs.battery.percentage())
@@ -106,12 +192,13 @@ function powerStateChanged()
 end
 
 function charging.init()
+    local initStart = os.clock()
     batteryWatcher = hs.battery.watcher.new(powerStateChanged)
     chargingMenubarIndicator = hs.menubar.new(nil)
 
     batteryWatcher:start()
 
-    _log("Charging config loaded.")
+    _log("Charging config loaded in " .. os.clock() - initStart .. " seconds.")
 end
 
 return charging

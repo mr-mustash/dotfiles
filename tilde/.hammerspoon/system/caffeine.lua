@@ -19,10 +19,11 @@ local function sleepCallback(event)
 end
 
 function caffeine.init()
+    local initStart = os.clock()
     sleepWatcher = hs.caffeinate.watcher.new(sleepCallback)
     sleepWatcher:start()
 
-    _log("Caffeine config loaded.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return caffeine

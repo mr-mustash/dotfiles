@@ -63,15 +63,14 @@ set background=dark
 filetype plugin indent on
 
 syntax enable
-set synmaxcol=120
 set hlsearch
 
 " Load custom highlights after colorscheme is loaded
 " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
 function! MyHighlights() abort
-    " Only highlight the 81st character when it's visible on the screen.
+    " Only highlight the 121st character when it's visible on the screen.
     highlight ColorColumn guibg=#e75480 guifg=#b58900
-    autocmd customaugroup Filetype * if &ft!="man" | call matchadd('ColorColumn', '\%81v',100) | endif
+    autocmd customaugroup Filetype * if &ft!="man" | call matchadd('ColorColumn', '\%121v',100) | endif
 
     "highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
     "highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
@@ -80,10 +79,10 @@ function! MyHighlights() abort
     highlight CursorLine      cterm=none ctermbg=0 ctermfg=none
     highlight SignColumn      guibg=#073642
 
-    highlight SpellBad   ctermbg=7 ctermfg=none
-    highlight SpellLocal ctermbg=7 ctermfg=none
-    highlight SpellRare  ctermbg=7 ctermfg=none
-    highlight SpellCap   ctermbg=7 ctermfg=none
+    highlight SpellBad   ctermbg=7 guifg=#ef3b3b
+    highlight SpellLocal ctermbg=7 guifg=#ef3b3b
+    highlight SpellRare  ctermbg=7 guifg=#ef3b3b
+    highlight SpellCap   ctermbg=7 guifg=#ef3b3b
 
     highlight GitGutterDelete guifg=#dc322f guibg=#073642
     highlight GitGutterAdd    guifg=#859900 guibg=#073642
@@ -222,8 +221,8 @@ inoremap jk <esc>
 " vnoremap jk <esc>
 
 " Remap n and N to use special highlighting function during search.
-nnoremap <silent> n  n:call pking#plugins#search#HLNext(0.03)<cr>
-nnoremap <silent> N  N:call pking#plugins#search#HLNext(0.03)<cr>
+nnoremap <silent> n  nzz:call pking#plugins#search#HLNext(0.03)<cr>
+nnoremap <silent> N  Nzz:call pking#plugins#search#HLNext(0.03)<cr>
 
 " When in normal mode clear all status when hitting enter.
 " Look at ":help map_bar" if you forget that you need to use \| to
@@ -424,6 +423,9 @@ autocmd customaugroup VimEnter * echo "<^.^>"
 " ========================================================================= }}}
 " 26 neovim  ============================================================== {{{
 set guicursor=
-" ========================================================================= }}}
 
+"lua << EOF
+"    require('plugin/nvim-scrollbar-configuration')
+"EOF
+" ========================================================================= }}}
 " vim: set foldmethod=marker foldlevel=99 foldlevelstart=99

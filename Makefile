@@ -45,6 +45,12 @@ homemaker: homemaker_install submodules ## Run homemaker to build homedir
 setup: bundle homemaker ## Full computer setup with homedir and binaries
 
 # Other targets
+docker: ## Build docker image
+	docker build -t mrmustash/homedir:devel .
+
+docker_clean: ## Build docker image without cache
+	docker build --no-cache -t mrmustash/homedir:devel .
+
 pre_commit: ## Install pre-commit hooks for this repo
 	brew install pre-commit
 	pre-commit install

@@ -10,11 +10,11 @@ hs.application.enableSpotlightForNameSearches(true) -- Search for application na
 -- Load secrets first
 require("secrets")
 
-hyper = {"⌘", "⌥", "ctrl"}
-shyper = {"⌘", "⌥", "⇧", "ctrl"}
+hyper = { "⌘", "⌥", "ctrl" }
+shyper = { "⌘", "⌥", "⇧", "ctrl" }
 
 -- Disable auto reload while testing
-auto_reload = true
+auto_reload = false
 
 -- Assets
 home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
@@ -23,10 +23,10 @@ spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 
-menubarStyle = {font = {name = "DejaVuSansMono Nerd Font", size = 14}}
-menubarLargeStyle = {font = {name = "DejaVuSansMono Nerd Font", size = 20}}
+menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
+menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
 
-defaultStyle = {font = {name = ".AppleSystemUIFont", size = 13}}
+defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
 
 -- ========================================================================= }}}
 
@@ -36,14 +36,14 @@ function notification(notification, image)
         hs.notify.new({
             title = "Hammerspoon",
             informativeText = notification,
-            withdrawAfter = 3
+            withdrawAfter = 3,
         }):send()
     else
         hs.notify.new({
             title = "Hammerspoon",
             informativeText = notification,
             contentImage = image,
-            withdrawAfter = 3
+            withdrawAfter = 3,
         }):send()
     end
 end
@@ -58,7 +58,9 @@ function _log(message)
     print(location .. ": " .. message)
 end
 
-function sleep(n) hs.execute(("sleep " .. tonumber(n))) end
+function sleep(n)
+    hs.execute(("sleep " .. tonumber(n)))
+end
 
 function appID(app)
     return hs.application.infoForBundlePath(app)["CFBundleIdentifier"]
