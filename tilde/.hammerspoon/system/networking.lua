@@ -13,8 +13,6 @@ local function homeWifiConnected()
     hs.execute(_cmd)
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
-    -- Leave at the end because it's blocking
-    networking.reconnectProxy()
 end
 
 local function workWifiConnected()
@@ -23,8 +21,6 @@ local function workWifiConnected()
     hs.execute(_cmd)
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")
-    -- Leave at the end because it's blocking
-    networking.reconnectProxy()
 end
 
 local function unknownWifiNetwork()
@@ -33,8 +29,6 @@ local function unknownWifiNetwork()
     hs.execute(_cmd)
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
-    -- Leave at the end because it's blocking
-    networking.reconnectProxy()
 end
 
 local function ssidChangedCallback()
@@ -77,44 +71,36 @@ function networking.disableWifiSlowly()
     _log("Wifi disabled after being docked.")
 end
 
-function networking.reconnectProxy()
-    _log("Reconnecting to proxy")
-
-    proxyPid = hs.execute("/usr/bin/pgrep autossh")
-
-    if proxyPid ~= "" then
-        hs.execute("/usr/bin/pgrep autossh | xargs /bin/kill -s SIGUSR1")
-        _log("SIGUSR1 sent to pid: " .. proxyPid .. " to restart proxy.")
-    elseif proxyPid == "" then
-        _log("No proxy running.")
-        _log("Killing off any errant autossh processes.")
-        hs.execute("killall autossh")
-
-        _log("Starting proxy.")
-        local conn = "localhost:" .. secrets.networking.proxyPort
-        local config = os.getenv("HOME") .. "/.ssh/config"
-        local args = {
-            "-M",
-            "0",
-            "-N",
-            "-f",
-            "-F",
-            config,
-            "-v",
-            "-D",
-            conn,
-            "proxy",
-        }
-        local env = { AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log" }
-
-        local reconnect = hs.task.new("/usr/local/bin/autossh", executeHelpers.callback, args):waitUntilExit()
-        reconnect:setEnvironment(env)
-        reconnect:start()
-
-        proxyPid = reconnect:pid()
-        _log("Autossh started.")
-    end
-end
+--function networking.reconnectProxy()
+--    _log("Reconnecting to proxy")
+--
+--    proxyPid = hs.execute("/usr/bin/pgrep autossh")
+--
+--    if proxyPid ~= "" then
+--        hs.execute("/usr/bin/pgrep autossh | xargs /bin/kill -s SIGUSR1")
+--        _log("SIGUSR1 sent to pid: " .. proxyPid .. " to restart proxy.")
+--    elseif proxyPid == "" then
+--        _log("No proxy running.")
+--        _log("Killing off any errant autossh processes.")
+--        hs.execute("killall autossh")
+--
+--        _log("Starting proxy.")
+--        local conn = "localhost:" .. secrets.networking.proxyPort
+--        local config = os.getenv("HOME") .. "/.ssh/config"
+--        local args = {
+--            "-M", "0", "-N", "-f", "-F", config, "-v", "-D", conn, "proxy"
+--        }
+--        local env = {AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log"}
+--
+--        local reconnect = hs.task.new("/opt/homebrew/bin/autossh",
+--                                      executeHelpers.callback, args):waitUntilExit()
+--        reconnect:setEnvironment(env)
+--        reconnect:start()
+--
+--        proxyPid = reconnect:pid()
+--        _log("Autossh started.")
+--    end
+--end
 
 function networking.init()
     local initStart = os.clock()

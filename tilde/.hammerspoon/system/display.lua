@@ -19,7 +19,7 @@ function display.setAllBrightness(brightness)
         else
             _log("Setting " .. display:name() .. " brightness to " .. brightness)
             -- Use ddcctl to set the brightness of all external displays
-            local cmd = "/usr/local/bin/ddcctl -d 1 -b " .. brightness
+            local cmd = "/opt/homebrew/bin/ddcctl -d 1 -b " .. brightness
             hs.execute(cmd)
         end
     end

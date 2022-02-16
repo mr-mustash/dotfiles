@@ -95,7 +95,6 @@ charging = require("system/charging")
 display = require("system/display")
 dock = require("system/dock")
 networking = require("system/networking")
-turboboost = require("system/turboboost")
 
 audioControl.init()
 caffeine.init()
@@ -103,7 +102,6 @@ charging.init()
 display.init()
 dock.init()
 networking.init()
-turboboost.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
