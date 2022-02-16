@@ -208,7 +208,7 @@ let g:mapleader = "\<Space>"
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
-" vim made this default in 0.6.0
+" nvim made this default in 0.6.0
 if !has('nvim')
     " make Y consistent with C and D.
     nnoremap Y y$
@@ -413,7 +413,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
 if has('nvim')
-    set signcolumn=auto:1-2
+    set signcolumn=auto:1-3
 else
     set signcolumn=auto
 end

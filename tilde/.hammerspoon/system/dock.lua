@@ -9,7 +9,7 @@ local function docked()
     hs.execute("blueutil --connect " .. secrets.dock.mouseID)
 
     networking.disableWifiSlowly()
-    networking.reconnectProxy()
+    --networking.reconnectProxy()
 
     local lan = networking.checkForLAN()
     ethernetMenubar:returnToMenuBar()
@@ -24,7 +24,7 @@ local function undocked()
     _log("Undocked")
     is_docked = false
     hs.wifi.setPower(true)
-    networking.reconnectProxy()
+    --networking.reconnectProxy()
 
     hs.execute("blueutil --disconnect " .. secrets.dock.mouseID)
 
