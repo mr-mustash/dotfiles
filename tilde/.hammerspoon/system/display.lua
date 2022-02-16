@@ -26,7 +26,9 @@ function display.setAllBrightness(brightness)
 end
 
 function display.init()
-    _log("Display config loaded.")
+    local initStart = os.clock()
+
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return display

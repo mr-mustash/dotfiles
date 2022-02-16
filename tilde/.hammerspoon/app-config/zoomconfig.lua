@@ -13,8 +13,7 @@ local function zoomStart()
     -- hs.spotify.pause()
     if hs.application.find("Stretchly") ~= nil then
         _log("Pausing stretchly")
-        hs.execute(
-            "/Applications/Stretchly.app/Contents/MacOS/Stretchly pause 2>/dev/null")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly pause 2>/dev/null")
     end
 end
 
@@ -24,8 +23,7 @@ local function zoomEnd()
     hs.execute("/opt/homebrew/bin/calm-notifications off")
     if hs.application.find("Stretchly") ~= nil then
         _log("Resuming stretchly")
-        hs.execute(
-            "/Applications/Stretchly.app/Contents/MacOS/Stretchly resume 2>/dev/null")
+        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly resume 2>/dev/null")
     end
     elgato.zoomEnd()
     -- sleep(1)
@@ -39,16 +37,16 @@ local function updateZoomStatus(event)
     _log("Zoom status: " .. event)
     if event == "from-running-to-meeting" then
         zoomStart()
-    elseif (event == "from-meeting-to-running") or
-        (event == "from-running-to-closed") then
+    elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
         zoomEnd()
     end
 end
 
 function zoomconfig.init()
+    local initStart = os.clock()
     spoon.Zoom:setStatusCallback(updateZoomStatus)
     spoon.Zoom:start()
-    _log("Zoom config loaded")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return zoomconfig

@@ -1,6 +1,8 @@
 urls = {}
 
 function urls.init()
+    local initStart = os.clock()
+
     spoon.URLDispatcher:start()
 
     local workBrowser = appID(secrets.urls.workBrowser)
@@ -49,7 +51,7 @@ function urls.init()
         --{"https?://youtu.be/", videoPlayer}, {"https?://zoom.us/j/", meetings}
     }
 
-    _log("URL Dispatcher config loaded.")
+    _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 
 return urls

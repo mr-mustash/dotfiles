@@ -4,6 +4,13 @@ function! Cond(cond, ...)
     return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
+function! PlugLoaded(name)
+    return (
+        \ has_key(g:plugs, a:name) &&
+        \ isdirectory(g:plugs[a:name].dir) &&
+        \ stridx(&runtimepath, trim(g:plugs[a:name].dir, '/')) >= 0)
+endfunction
+
 call plug#begin()
     " Colorshceme
     Plug 'overcache/NeoSolarized'
@@ -15,8 +22,10 @@ call plug#begin()
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
+    Plug 'godlygeek/tabular'
 
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb' "https://github.com/jbranchaud/til/blob/ad29a186c389a1d463cee40679d48141181d69e0/vim/open-the-selected-lines-in-github-with-gbrowse.md
     Plug 'airblade/vim-gitgutter'
 
     Plug 'dense-analysis/ale'
@@ -32,11 +41,23 @@ call plug#begin()
     Plug 'reedes/vim-pencil'
     Plug 'micarmst/vim-spellsync'
 
-    Plug 'github/copilot.vim', Cond(has('nvim'))
+    " All of this is here so that we do not load Copilot for specific
+    " directories. Add more lines to the NoCopilot augroup to exclude more
+    " directories.
+    Plug 'github/copilot.vim', Cond(has('nvim'), { 'on': [] })
+    augroup NoCopilot
+        autocmd!
+        autocmd VimEnter */dev/github.com/pelotoncycle* autocmd! LoadCopilot
+    augroup END
 
-    Plug 'junegunn/fzf'
+    augroup LoadCopilot
+        autocmd!
+        autocmd VimEnter * call plug#load('copilot.vim')
+    augroup END
 
-    Plug 'voldikss/vim-floaterm'
+    Plug 'junegunn/fzf.vim'
+
+    Plug 'petertriho/nvim-scrollbar', Cond(has('nvim'))
 
     "Plug 'neovim/nvim-lspconfig'
     "Plug 'nvim-lua/completion-nvim'

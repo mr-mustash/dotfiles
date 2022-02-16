@@ -17,8 +17,8 @@ defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Dock
 defaults write com.apple.dock autohide-delay -int 0
-defaults write com.apple.dock autohide-time-modifier -float 0.1
-killall Dock
+defaults write com.apple.dock autohide-time-modifier -float 0
+defaults write com.apple.dock autohide -bool true
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -27,6 +27,9 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
@@ -87,6 +90,11 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
+# Set Desktop as the default location for new Finder windows
+# For other paths, use `PfLo` and `file:///full/path/here/`
+defaults write com.apple.finder NewWindowTarget -string "PfDe"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
+
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
@@ -95,6 +103,19 @@ sudo chflags nohidden /Volumes
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Enable snap-to-grid for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
+# Set grid spacing for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+
+# Empty Trash securely by default
+defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -107,6 +128,9 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.1
 
 # Bottom left screen corner → Start screen saver
 defaults write com.apple.dock wvous-bl-corner -int 5
@@ -146,8 +170,14 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Set tab width to 4 instead of the default 8
 defaults write com.apple.TextEdit "TabWidth" '4'
 
-# Bring back the startup chime!
-sudo nvram StartupMute=%00
+# Disable hibernation (speeds up entering sleep mode)
+sudo pmset -a hibernatemode 0
+
+# Only use UTF-8 in Terminal.app
+defaults write com.apple.terminal StringEncodings -array 4
 
 # Add message to login screen.
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "This computer is attached to an iCloud account and permanently locked. Please return by calling 503-805-4667. Reward included, and no questions asked."
+
+killall Dock
+killall Finder
