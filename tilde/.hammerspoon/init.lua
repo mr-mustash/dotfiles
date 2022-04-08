@@ -23,8 +23,8 @@ spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 
-menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
-menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
+menubarStyle = { font = { name = "DejaVuSansMono Nerd Font", size = 14 } }
+menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font", size = 20 } }
 
 defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
 
@@ -36,14 +36,14 @@ function notification(notification, image)
         hs.notify.new({
             title = "Hammerspoon",
             informativeText = notification,
-            withdrawAfter = 3,
+            withdrawAfter = 5,
         }):send()
     else
         hs.notify.new({
             title = "Hammerspoon",
             informativeText = notification,
             contentImage = image,
-            withdrawAfter = 3,
+            withdrawAfter = 5,
         }):send()
     end
 end
@@ -69,10 +69,10 @@ end
 -- ========================================================================= }}}
 
 -- Important functions ===================================================== {{{
-executeHelpers = require("functions/executeHelpers")
+run = require("functions/run")
 reload = require("functions/reload")
 
-executeHelpers.init()
+run.init()
 reload.init()
 
 -- ========================================================================= }}}

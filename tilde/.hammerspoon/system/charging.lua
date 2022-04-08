@@ -5,22 +5,17 @@ local previousPowerStateTime
 
 local function stopDocker()
     _log("Stopping docker containers.")
-    hs.execute(
-        "sudo /usr/bin/renice 19 -p $(/usr/bin/pgrep com.apple.Virtualization.VirtualMachine)")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
-        local cmd = "/usr/local/bin/docker stop " .. container
-        hs.execute(cmd)
+        run.cmd("/usr/local/bin/docker", {"stop", container})
     end
 end
 
 local function startDocker()
     _log("Starting docker containers.")
-    hs.execute("sudo /usr/bin/renice 5 -p $(/usr/bin/pgrep com.apple.Virtualization.VirtualMachine)")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
-        local cmd = "/usr/local/bin/docker start " .. container
-        hs.execute(cmd)
+        run.cmd("/usr/local/bin/docker", {"start", container})
     end
     notification("Docker Containers Started", docker_logo)
 end
@@ -31,7 +26,8 @@ local function batteryPower()
     previousPowerStateTime = os.time()
     _log("On battery power.")
 
-    hs.execute("tmutil stopbackup")
+    run.cmd("/usr/bin/tmutil", {"stopbackup"})
+    run.cmd("/usr/local/bin/maestral", {"pause"})
 
     display.setInternalBrightness(60)
     stopDocker()
@@ -43,6 +39,8 @@ local function acPowerFullyCharged()
     currentTime = os.time()
     _log("On AC Power: Full fully charged.")
 
+    run.cmd("/usr/local/bin/maestral", {"resume"})
+
     display.setInternalBrightness(90)
     startDocker()
 end
@@ -51,6 +49,9 @@ local function acPowerCharging()
     previousPowerState = "chargingNominal"
     previousPowerStateTime = os.time()
     _log("On AC Power: Charging.")
+
+    run.cmd("/usr/local/bin/maestral", {"resume"})
+
 
     display.setInternalBrightness(75)
     startDocker()
@@ -63,7 +64,7 @@ local function onWallPower()
         -- hs.battery.isCharging() changes between the two calls.
         _log("Plugged in after battery power. Entering post_bat to get get accurate power state.")
         previousPowerState = "post_bat"
-        previousPowerStateTime = os.time() - 601 -- Don't debounce right after battery
+        previousPowerStateTime = os.time()
         sleep(3)
         return
     end
@@ -158,13 +159,7 @@ local function setPowerStateOnLoad()
         if hs.battery.isCharged() == true then
             acPowerFullyCharged()
         elseif charging then
-            if currentBatteryPercentage >= 50.0 then
-                acPowerFullSpeedNominal()
-            else
-                acPowerFullSpeedLowBat()
-            end
-        else
-            acPowerTrickle()
+            acPowerCharging()
         end
     else
         _log(
@@ -193,6 +188,7 @@ end
 
 function charging.init()
     local initStart = os.clock()
+    setPowerStateOnLoad()
     batteryWatcher = hs.battery.watcher.new(powerStateChanged)
     chargingMenubarIndicator = hs.menubar.new(nil)
 
