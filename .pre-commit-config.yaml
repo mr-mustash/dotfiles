@@ -42,7 +42,7 @@ repos:
       - id: fish_syntax
       - id: fish_indent
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.9.3
+    rev: v2.10.0
     hooks:
       - id: hadolint
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
