@@ -3,49 +3,83 @@ networking = {}
 wifiWatcher = nil
 homeSSID = secrets.networking.homeSSID
 workSSID = secrets.networking.workSSID
-lastSSID = hs.wifi.currentNetwork()
+lastSSID = "startup"
 
 proxyPid = nil
 
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.homeDNS
-    hs.execute(_cmd)
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.homeDNS})
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
 end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.publicDNS
-    hs.execute(_cmd)
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
+    sleep(1)
+    run.cmd("/usr/bin/curl", {secrets.networking.link})
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")
 end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Wi-Fi' " .. secrets.networking.publicDNS
-    hs.execute(_cmd)
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
+    sleep(1)
+    run.cmd("/usr/bin/curl", {secrets.networking.link})
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
+end
+
+local function captiveWifiNetwork()
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+    notification("Known captive network.")
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", "Empty"})
+    run.cmd("/usr/bin/dscacheutil", {"-flushcache"})
+
+    -- Open the captive portal in a browser
+    sleep(3)
+    hs.osascript.applescript('tell application "Safari" to open location "http://captive.apple.com/"')
+    sleep(1)
+    hs.application.launchOrFocus("Safari.app")
+
+    _log("Connected to known captive wifi network.")
+end
+
+local function captiveWifi(ssid)
+    _log("Testing for captive SSID.")
+
+    for _, s in ipairs(secrets.networking.captiveSSIDs) do
+        if s == ssid then
+            return true
+        end
+    end
+
+    return false
 end
 
 local function ssidChangedCallback()
     newSSID = hs.wifi.currentNetwork()
 
     if newSSID ~= nil then
-        if newSSID == homeSSID and lastSSID ~= homeSSID then
+        _log("SSID changed to " .. newSSID .. " from " .. lastSSID .. ".")
+
+        if newSSID == homeSSID then
             -- We just joined our home WiFi network
             homeWifiConnected()
-        elseif newSSID == workSSID and lastSSID ~= workSSID then
+        elseif newSSID == workSSID then
             -- Connected to work Wifi
             workWifiConnected()
-        elseif newSSID ~= homeSSID and lastSSID == homeSSID or newSSID ~= workSSID and lastSSID == workSSID then
+        elseif captiveWifi(newSSID) == true then
+            -- Captive wifi network
+            captiveWifiNetwork()
+        elseif newSSID ~= homeSSID or  newSSID ~= workSSID then
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
     else
+        _log("No SSID found.")
         return
     end
 
@@ -71,6 +105,7 @@ function networking.disableWifiSlowly()
     _log("Wifi disabled after being docked.")
 end
 
+--TODO: refactor this to use `run.cmd` instead of `hs.execute`
 --function networking.reconnectProxy()
 --    _log("Reconnecting to proxy")
 --
@@ -92,7 +127,7 @@ end
 --        }
 --        local env = {AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log"}
 --
---        local reconnect = hs.task.new("/opt/homebrew/bin/autossh",
+--        local reconnect = hs.task.new("$brewbin/autossh",
 --                                      executeHelpers.callback, args):waitUntilExit()
 --        reconnect:setEnvironment(env)
 --        reconnect:start()
