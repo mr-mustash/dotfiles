@@ -2,28 +2,20 @@ zoomconfig = {}
 
 local function zoomStart()
     _log("Staring Zoom meeting")
-    -- hs.application.launchOrFocus("OBS")
-    -- sleep(5)
-    -- local sceneJSON=[[{ "scene-name": "Webcam Only" }]]
-    -- local command=("/usr/local/bin/obs-cli SetCurrentScene=" .. sceneJSON .. " >> ~/Desktop/obsout.txt 2>&1")
-    -- hs.execute(command, with_user_env)
-    -- hs.execute("/usr/local/bin/obs-cli StartVirtualCam", with_user_env)
-    elgato.zoomStart()
-    hs.execute("/opt/homebrew/bin/calm-notifications on")
+    run.cmd("/usr/bin/shortcuts", {"run", "'Meeting Start'"})
     -- hs.spotify.pause()
     if hs.application.find("Stretchly") ~= nil then
         _log("Pausing stretchly")
-        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly pause 2>/dev/null")
+        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", {"pause"})
     end
 end
 
 local function zoomEnd()
     _log("Ending Zoom meeting")
-    -- hs.execute("/usr/local/bin/obs-cli StopVirtualCam", with_user_env)
-    hs.execute("/opt/homebrew/bin/calm-notifications off")
+    run.cmd("/usr/bin/shortcuts", {"run", "'Meeting End'"})
     if hs.application.find("Stretchly") ~= nil then
         _log("Resuming stretchly")
-        hs.execute("/Applications/Stretchly.app/Contents/MacOS/Stretchly resume 2>/dev/null")
+        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", {"resume"})
     end
     elgato.zoomEnd()
     -- sleep(1)

@@ -3,10 +3,9 @@ local dock = {}
 local function docked()
     _log("Docked")
     is_docked = true
-    local _cmd = "sudo /usr/sbin/networksetup -setdnsservers 'Akitio Thunder3 Dock Pro' " .. secrets.networking.homeDNS
-    hs.execute(_cmd)
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", secrets.dock.LAN, secrets.networking.homeDNS})
 
-    hs.execute("blueutil --connect " .. secrets.dock.mouseID)
+    run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
     networking.disableWifiSlowly()
     --networking.reconnectProxy()
@@ -26,7 +25,7 @@ local function undocked()
     hs.wifi.setPower(true)
     --networking.reconnectProxy()
 
-    hs.execute("blueutil --disconnect " .. secrets.dock.mouseID)
+    run.brewcmd("blueutil", {"--disconnect", secrets.dock.mouseID})
 
     ethernetMenubar:removeFromMenuBar()
 end
