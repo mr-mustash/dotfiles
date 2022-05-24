@@ -40,6 +40,7 @@ call plug#begin()
     Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
     Plug 'reedes/vim-pencil'
     Plug 'micarmst/vim-spellsync'
+    Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
 
     " All of this is here so that we do not load Copilot for specific
     " directories. Add more lines to the NoCopilot augroup to exclude more
@@ -47,7 +48,7 @@ call plug#begin()
     Plug 'github/copilot.vim', Cond(has('nvim'), { 'on': [] })
     augroup NoCopilot
         autocmd!
-        autocmd VimEnter */dev/github.com/pelotoncycle* autocmd! LoadCopilot
+        autocmd VimEnter */dev/gitlab.com/replicant-ai* autocmd! LoadCopilot
     augroup END
 
     augroup LoadCopilot
