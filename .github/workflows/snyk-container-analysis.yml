@@ -49,6 +49,6 @@ jobs:
         image: mrmustash/homedir
         args: --file=Dockerfile --severity-threshold=high
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@f0705a6d6f9c8ebf64b5188fdd89bc4cd20313bc
+      uses: github/codeql-action/upload-sarif@ccf479d3364c81503741a6f927bf29c573e35c82
       with:
         sarif_file: snyk.sarif
