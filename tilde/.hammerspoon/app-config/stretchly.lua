@@ -6,7 +6,7 @@ local function stretchlyCall(name, eventType, app)
         audioControl.muteInputs()
         audioControl.muteOutputs()
 
-        display.setAllBrightness(10)
+        display.setAllBrightness(30)
     end
 
     if name == "Stretchly" and eventType == hs.application.watcher.deactivated then

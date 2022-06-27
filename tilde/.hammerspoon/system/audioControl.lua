@@ -82,11 +82,11 @@ local function trapVolumeControls()
                 if event["key"] == "MUTE" then
                     if isMuted == false then
                         isMuted = true
-                        run.cmd("/Users/pking/bin/m1ddc", {"set", "mute", "on"})
+                        run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
                         _log("Muted external monitor.")
                     else
                         isMuted = false
-                        run.cmd("/Users/pking/bin/m1ddc", {"set", "mute", "off"})
+                        run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
                         _log("Unmuted external monitor.")
                     end
                     return true
@@ -94,11 +94,11 @@ local function trapVolumeControls()
 
                 -- Send volume up to external monitor if connected and it's the default audio output
                 if event["key"] == "SOUND_UP" then
-                    run.cmd("/Users/pking/bin/m1ddc", {"chg", "volume", "+10"})
+                    run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "+5" })
                     return true
                 end
                 if event["key"] == "SOUND_DOWN" then
-                    run.cmd("/Users/pking/bin/m1ddc", {"chg", "volume", "-10"})
+                    run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "-5" })
                     return true
                 end
             end
@@ -139,7 +139,7 @@ end
 function audioControl.muteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/pking/bin/m1ddc", {"set", "mute", "on"})
+            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
             _log("External display " .. device:name() .. " muted")
             return
         end
@@ -154,7 +154,7 @@ end
 function audioControl.unmuteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/pking/bin/m1ddc", {"set", "mute", "off"})
+            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
             _log("External display " .. device:name() .. " unmuted")
             return
         end
