@@ -7,36 +7,45 @@ lastSSID = "startup"
 
 proxyPid = nil
 
+local function networkReconnect(dns)
+    run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", dns))
+
+    run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
+    run.cmd("/usr/bin/curl", { secrets.networking.link })
+end
+
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.homeDNS})
+
+    networkReconnect(secrets.networking.homeDNS)
+
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
 end
 
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
-    sleep(1)
-    run.cmd("/usr/bin/curl", {secrets.networking.link})
+
+    networkReconnect(secrets.networking.publicDNS)
+
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")
 end
 
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
-    sleep(1)
-    run.cmd("/usr/bin/curl", {secrets.networking.link})
+
+    networkReconnect(secrets.networking.publicDNS)
+
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
 end
 
 local function captiveWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
+
     notification("Known captive network.")
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", "Empty"})
-    run.cmd("/usr/bin/dscacheutil", {"-flushcache"})
+    networkReconnect("Empty")
 
     -- Open the captive portal in a browser
     sleep(3)
@@ -62,6 +71,11 @@ end
 local function ssidChangedCallback()
     newSSID = hs.wifi.currentNetwork()
 
+    if newSSID == lastSSID then
+        _log("Reconnected to same network.")
+        return 0
+    end
+
     if newSSID ~= nil then
         _log("SSID changed to " .. newSSID .. " from " .. lastSSID .. ".")
 
@@ -74,7 +88,7 @@ local function ssidChangedCallback()
         elseif captiveWifi(newSSID) == true then
             -- Captive wifi network
             captiveWifiNetwork()
-        elseif newSSID ~= homeSSID or  newSSID ~= workSSID then
+        elseif newSSID ~= homeSSID or newSSID ~= workSSID then
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end

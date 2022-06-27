@@ -7,7 +7,7 @@ local function stopDocker()
     _log("Stopping docker containers.")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
-        run.cmd("/usr/local/bin/docker", {"stop", container})
+        run.cmd("/usr/local/bin/docker", { "stop", container })
     end
 end
 
@@ -15,7 +15,7 @@ local function startDocker()
     _log("Starting docker containers.")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
-        run.cmd("/usr/local/bin/docker", {"start", container})
+        run.cmd("/usr/local/bin/docker", { "start", container })
     end
     notification("Docker Containers Started", docker_logo)
 end
@@ -26,11 +26,11 @@ local function batteryPower()
     previousPowerStateTime = os.time()
     _log("On battery power.")
 
-    run.cmd("/usr/bin/tmutil", {"stopbackup"})
-    run.cmd("/usr/local/bin/maestral", {"pause"})
+    run.cmd("/usr/bin/tmutil", { "stopbackup" })
+    run.brewcmd("maestral", { "pause" })
 
     display.setInternalBrightness(60)
-    stopDocker()
+    --stopDocker()
 end
 
 local function acPowerFullyCharged()
@@ -39,10 +39,10 @@ local function acPowerFullyCharged()
     currentTime = os.time()
     _log("On AC Power: Full fully charged.")
 
-    run.cmd("/usr/local/bin/maestral", {"resume"})
+    run.brewcmd("maestral", { "resume" })
 
     display.setInternalBrightness(90)
-    startDocker()
+    --startDocker()
 end
 
 local function acPowerCharging()
@@ -50,11 +50,10 @@ local function acPowerCharging()
     previousPowerStateTime = os.time()
     _log("On AC Power: Charging.")
 
-    run.cmd("/usr/local/bin/maestral", {"resume"})
-
+    run.brewcmd("maestral", { "resume" })
 
     display.setInternalBrightness(75)
-    startDocker()
+    --startDocker()
 end
 
 local function onWallPower()
@@ -70,17 +69,22 @@ local function onWallPower()
     end
 
     -- Checking for fully charged first
-    if hs.battery.isCharged() == true and hs.battery.percentage == 100.0 -- Annoying, but hs.battery.isCharged() returns true even when the battery isn't at 100%
-    and previousPowerState ~= "fullyCharged" then
+    if
+        hs.battery.isCharged() == true
+        and hs.battery.percentage == 100.0 -- Annoying, but hs.battery.isCharged() returns true even when the battery isn't at 100%
+        and previousPowerState ~= "fullyCharged"
+    then
         acPowerFullyCharged()
         return
-    elseif hs.battery.isCharging() == true and hs.battery.percentage() <=
-        99.0 and previousPowerState ~= "chargingNominal" then
+    elseif
+        hs.battery.isCharging() == true
+        and hs.battery.percentage() <= 99.0
+        and previousPowerState ~= "chargingNominal"
+    then
         acPowerCharging()
         return
     else
-        _log("Not changing power state. Current state: " ..
-                 previousPowerState)
+        _log("Not changing power state. Current state: " .. previousPowerState)
         return
     end
 
@@ -136,7 +140,9 @@ local function menubarUpdate()
     end
 
     if percentage ~= 100 then
-        if debouncing == true then icon = icon .. " " end
+        if debouncing == true then
+            icon = icon .. " "
+        end
         local text = hs.styledtext.new(icon, menubarStyle)
 
         stylizedPercentage = hs.styledtext.new(percentage .. "% ", defaultStyle)
@@ -162,8 +168,7 @@ local function setPowerStateOnLoad()
             acPowerCharging()
         end
     else
-        _log(
-            "Something is broken in the battery module and we're not on AC or battery power.")
+        _log("Something is broken in the battery module and we're not on AC or battery power.")
     end
 
     _log("Power state on load: " .. previousPowerState)
@@ -179,11 +184,15 @@ function powerStateChanged()
         onWallPower()
     end
 
-    _log("Battery currently at " .. string.format("%s", batPercent) ..
-             "% and power state is " .. previousPowerState ..
-             " and has been for " ..
-             string.format("%s", os.time() - previousPowerStateTime) ..
-             " seconds.")
+    _log(
+        "Battery currently at "
+            .. string.format("%s", batPercent)
+            .. "% and power state is "
+            .. previousPowerState
+            .. " and has been for "
+            .. string.format("%s", os.time() - previousPowerStateTime)
+            .. " seconds."
+    )
 end
 
 function charging.init()

@@ -2,20 +2,21 @@ zoomconfig = {}
 
 local function zoomStart()
     _log("Staring Zoom meeting")
-    run.cmd("/usr/bin/shortcuts", {"run", "'Meeting Start'"})
+    hs.shortcuts.run("Meeting Start")
     -- hs.spotify.pause()
     if hs.application.find("Stretchly") ~= nil then
         _log("Pausing stretchly")
-        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", {"pause"})
+        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", { "pause" })
     end
+    elgato.zoomStart()
 end
 
 local function zoomEnd()
     _log("Ending Zoom meeting")
-    run.cmd("/usr/bin/shortcuts", {"run", "'Meeting End'"})
+    hs.shortcuts.run("Meeting End")
     if hs.application.find("Stretchly") ~= nil then
         _log("Resuming stretchly")
-        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", {"resume"})
+        run.cmd("/Applications/Stretchly.app/Contents/MacOS/Stretchly", { "resume" })
     end
     elgato.zoomEnd()
     -- sleep(1)
