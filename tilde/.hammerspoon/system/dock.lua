@@ -3,7 +3,7 @@ local dock = {}
 local function docked()
     _log("Docked")
     is_docked = true
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", secrets.dock.LAN, secrets.networking.homeDNS})
+    run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", secrets.networking.homeDNS))
 
     run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
