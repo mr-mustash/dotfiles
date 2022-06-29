@@ -10,6 +10,10 @@ function fish_right_prompt --description 'Display the right side of the interact
         __fish_right_prompt_signal $exit
     end
 
+    if test $COLUMNS -gt 132 && set -q __gproject && set -q __gzone
+        __fish_right_prompt_gc_context
+    end
+
     if test $COLUMNS -gt 132
         set -lx __date (date +%s)
         if set -q __kubectl_run
