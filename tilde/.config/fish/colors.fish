@@ -57,6 +57,7 @@ if not set -q __pking_init_colors
     set -U fish_prompt_color_docker_icon 3158E5 --bold
     set -U fish_prompt_color_golang_icon 89CBDA --bold
     set -U fish_prompt_color_k8s 3158E5 --bold
+    set -U fish_prompt_color_gc f7d161 --bold
     set -U fish_prompt_color_python_icon ffd43b --bold
     set -U fish_prompt_color_vim_icon 41913F --bold
 

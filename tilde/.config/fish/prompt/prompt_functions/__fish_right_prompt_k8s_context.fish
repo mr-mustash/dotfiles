@@ -17,5 +17,5 @@ function __fish_right_prompt_k8s_context -d "Show the kubectl current context af
     set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
     [ -z $ns ]; and set -l ns default
 
-    echo (set_color $fish_prompt_color_k8s)$KUBECTL_PROMPT_ICON" "(set_color normal)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns) "
+    echo (set_color $fish_prompt_color_k8s)$KUBECTL_PROMPT_ICON" "(set_color normal)"$ctx$KUBECTL_PROMPT_SEPARATOR$ns "
 end
