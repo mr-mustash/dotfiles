@@ -9,9 +9,11 @@ set -x HOMEBREW_NO_ANALYTICS 1
 # Docker
 set -x DOCKER_BUILDKIT 1
 
-# Location
-set -x LC_ALL "en_US.UTF-8"
-set -x TZ America/Los_Angeles
+# Localization
+set -gx LC_ALL "en_US.UTF-8"
+set -gx LANG "en_US.UTF-8"
+set -gx TZ America/Los_Angeles
+
 
 # Don't judge me, I just like VIM, OK?!
 set -x MANPAGER "vim -c MANPAGER -"
