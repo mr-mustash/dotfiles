@@ -1,14 +1,14 @@
 scriptencoding utf-8
 
-nmap <Leader>gd :GoDebugStart<CR>
-nmap <Leader>gr :GoDebugRestart<CR>
-nmap <Leader>gx :GoDebugStop<CR>
-nmap <Leader>gt :GoDebugTest<CR>
-nmap <Leader>gb :GoDebugBreakpoint<CR>
-nmap <Leader>gc :GoDebugContinue<CR>
-nmap <Leader>gs :GoDebugStep<CR>
-nmap <Leader>go :GoDebugStepOut<CR>
-nmap <Leader>gn :GoDebugNext<CR>
+"nmap <Leader>gd :GoDebugStart<CR>
+"nmap <Leader>gr :GoDebugRestart<CR>
+"nmap <Leader>gx :GoDebugStop<CR>
+"nmap <Leader>gt :GoDebugTest<CR>
+"nmap <Leader>gb :GoDebugBreakpoint<CR>
+"nmap <Leader>gc :GoDebugContinue<CR>
+"nmap <Leader>gs :GoDebugStep<CR>
+"nmap <Leader>go :GoDebugStepOut<CR>
+"nmap <Leader>gn :GoDebugNext<CR>
 
 " === CONFIGURATION ===
 " See ftplugin/go.vim for most of the go configuration

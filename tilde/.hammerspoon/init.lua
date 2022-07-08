@@ -78,13 +78,10 @@ reload.init()
 -- ========================================================================= }}}
 --
 -- Load & Configure Spoons ================================================= {{{
-hs.loadSpoon("EjectMenu")
 hs.loadSpoon("URLDispatcher")
 hs.loadSpoon("Zoom")
 
-eject = require("spoon-config/eject")
 urls = require("spoon-config/urls")
-eject.init()
 urls.init()
 -- ========================================================================= }}}
 

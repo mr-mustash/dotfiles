@@ -58,8 +58,6 @@ call plug#begin()
 
     Plug 'junegunn/fzf.vim'
 
-    Plug 'petertriho/nvim-scrollbar', Cond(has('nvim'))
-
     "Plug 'neovim/nvim-lspconfig'
     "Plug 'nvim-lua/completion-nvim'
     "Plug 'nvim-lua/lsp-status.nvim'

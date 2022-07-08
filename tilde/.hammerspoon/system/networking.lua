@@ -3,6 +3,7 @@ networking = {}
 wifiWatcher = nil
 homeSSID = secrets.networking.homeSSID
 workSSID = secrets.networking.workSSID
+workSSID = secrets.networking.phoneSSID
 lastSSID = "startup"
 
 proxyPid = nil
@@ -20,6 +21,15 @@ local function homeWifiConnected()
     networkReconnect(secrets.networking.homeDNS)
 
     notification("Welcome home!", home_logo)
+    _log("Connected to home WiFi")
+end
+
+local function phoneWifiConnected()
+    hs.audiodevice.defaultOutputDevice():setVolume(50)
+    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
+    sleep(1)
+    run.cmd("/usr/bin/curl", {secrets.networking.link})
+    notification("Teathered to Phone", home_logo)
     _log("Connected to home WiFi")
 end
 
@@ -85,10 +95,13 @@ local function ssidChangedCallback()
         elseif newSSID == workSSID then
             -- Connected to work Wifi
             workWifiConnected()
+        elseif newSSID == phoneSSID then
+            -- Tethered to iPhone
+            phoneWifiConnected()
         elseif captiveWifi(newSSID) == true then
             -- Captive wifi network
             captiveWifiNetwork()
-        elseif newSSID ~= homeSSID or newSSID ~= workSSID then
+        elseif newSSID ~= homeSSID or newSSID ~= workSSID or newSSID ~= phoneSSID then
             -- Connected to unknown WiFi networ
             unknownWifiNetwork()
         end
