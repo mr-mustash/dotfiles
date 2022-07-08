@@ -1,12 +1,10 @@
 # Patrick King's homedir container
 # Includes typical client utilities for percona, postgres and redis.
-ARG ARCH=amd64
 FROM ubuntu:21.10
 
 ENV TZ=US/Pacific
 ENV DEBIAN_FRONTEND=noninteractive
 
-# hadolint ignore=DL3008
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common \
@@ -15,11 +13,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
     && add-apt-repository ppa:neovim-ppa/stable \
     && apt-get update && apt-get install --no-install-recommends -y \
                        git fish vim neovim curl golang wget \
-                       build-essential file sudo rsync dstat lua5.4 \
+                       build-essential file sudo rsync dstat  \
                        jq less sysstat fzf highlight python3 python3-pip \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu impish stable" \
-    && apt-get install --no-install-recommends -y docker-ce-cli \
+    && apt-get install --no-install-recommends -y docker-ce \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
