@@ -234,10 +234,10 @@ sudo defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -b
 ## Do not log downloaded files
 file_to_lock=~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2
 if [ -f "$file_to_lock" ]; then
-    sudo chflags schg "$file_to_lock"
-        echo "Made file immutable at \"$file_to_lock\""
-    else
-        echo "No action is needed, file does not exist at \"$file_to_lock\""
+	sudo chflags schg "$file_to_lock"
+	echo "Made file immutable at \"$file_to_lock\""
+else
+	echo "No action is needed, file does not exist at \"$file_to_lock\""
 fi
 
 # Only use UTF-8 in Terminal.app

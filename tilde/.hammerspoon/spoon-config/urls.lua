@@ -22,6 +22,7 @@ function urls.init()
         {"https?://%w+.zoom.us/j/", meetings},
         {"https?://%w+w2g.tv", builtin},
         {"https?://twitter.com/", builtin},
+        {"https?://twitter.com/", builtin},
         {"https?://w2g.tv", builtin},
         {"https?://www.beatsense.com", builtin},
         {"https?://www.youtube.com/watch?v=", videoPlayer},
