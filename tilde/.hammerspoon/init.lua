@@ -22,6 +22,7 @@ docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
 spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
+phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
 
 menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
 menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }

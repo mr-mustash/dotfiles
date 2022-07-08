@@ -3,7 +3,7 @@ networking = {}
 wifiWatcher = nil
 homeSSID = secrets.networking.homeSSID
 workSSID = secrets.networking.workSSID
-workSSID = secrets.networking.phoneSSID
+phoneSSID = secrets.networking.phoneSSID
 lastSSID = "startup"
 
 proxyPid = nil
@@ -29,7 +29,7 @@ local function phoneWifiConnected()
     run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
     sleep(1)
     run.cmd("/usr/bin/curl", {secrets.networking.link})
-    notification("Teathered to Phone", home_logo)
+    notification("Teathered to Phone", phone_logo)
     _log("Connected to home WiFi")
 end
 
