@@ -44,7 +44,7 @@ USER pking
 WORKDIR /home/pking
 
 # Get homemaker
-RUN go get foosoft.net/projects/homemaker
+RUN go install foosoft.net/projects/homemaker
 
 # Get my homedir
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
