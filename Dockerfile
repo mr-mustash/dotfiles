@@ -15,9 +15,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
                        git fish vim neovim curl golang wget \
                        build-essential file sudo rsync dstat  \
                        jq less sysstat fzf highlight python3 python3-pip \
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
-    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu impish stable" \
-    && apt-get install --no-install-recommends -y docker-ce \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
