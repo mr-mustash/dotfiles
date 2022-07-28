@@ -7,8 +7,12 @@ local function stopDocker()
     _log("Stopping docker containers.")
 
     for _, container in ipairs(secrets.charging.toggleContainers) do
-        run.cmd("/usr/local/bin/docker", { "stop", container })
+        run.cmd("/usr/local/bin/docker", {"stop", container})
     end
+    --for _, container in ipairs(secrets.charging.toggleContainers) do
+    --    run.cmd("/usr/local/bin/docker", {"pause", container})
+    --end
+    _log("Not stopping docker containers due to them not really being compatible with M1.")
 end
 
 local function startDocker()
@@ -18,6 +22,11 @@ local function startDocker()
         run.cmd("/usr/local/bin/docker", { "start", container })
     end
     notification("Docker Containers Started", docker_logo)
+    --for _, container in ipairs(secrets.charging.toggleContainers) do
+    --    run.cmd("/usr/local/bin/docker", {"unpause", container})
+    --end
+    --notification("Docker Containers Started", docker_logo)
+    _log("Not starting docker containers due to them not really being compatible with M1.")
 end
 
 local function batteryPower()
