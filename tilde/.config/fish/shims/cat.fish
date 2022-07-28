@@ -1,4 +1,4 @@
-function cat --wraps cat -d "Use bat instead of cat unless it's a Markdown file, then use markcat"
+function cat --wraps cat -d "Use bat instead of cat."
     if status is-interactive
         if in-path bat
             # Here we are testing if the output is a terminal or a pipe. If

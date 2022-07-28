@@ -70,7 +70,8 @@ set hlsearch
 function! MyHighlights() abort
     " Only highlight the 121st character when it's visible on the screen.
     highlight ColorColumn guibg=#e75480 guifg=#b58900
-    autocmd customaugroup Filetype * if &ft!="man" | call matchadd('ColorColumn', '\%121v',100) | endif
+    let g:noColumnHighlight = ['man', 'fzf']
+    autocmd customaugroup Filetype * if index(g:noColumnHighlight, &ft) == -1 | call matchadd('ColorColumn', '\%121v',100) | endif
 
     "highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
     "highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
@@ -188,7 +189,6 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set autoindent
-
 
 " ========================================================================= }}}
 " 16 folding ============================================================== {{{
