@@ -1,7 +1,12 @@
 /encoding=utf-8
 /regions=us
+ARM64
+Hammerspoon
+M1
 config
 configs
+dotfiles
+executables
 hostname
 hostnames
 mysql
@@ -12,6 +17,8 @@ peloton
 pelotoncycle
 postgres
 redis
+repo
+repos
 runbook
 runbooks
 submodules

@@ -44,7 +44,6 @@ function trash -d "Take out the trash from rip."
             set -l __escaped (echo $file | string escape --style=regex | sed -e "s.\/.\\\/.g")
             command rm $file && command gsed -i "/$__escaped/d" /Users/$USER/.local/graveyard/.record
         end
-
     end
 
 end

@@ -1,21 +1,19 @@
 # Dotfiles
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg)](https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main) [![Snyk Container Analysis](https://img.shields.io/github/workflow/status/mr-mustash/dotfiles/Snyk%20Container?label=Snyk%20Container%20Check&logo=Snyk)](https://github.com/mr-mustash/dotfiles/actions/workflows/snyk-container-analysis.yml) [![Docker Image Build](https://img.shields.io/github/workflow/status/mr-mustash/dotfiles/Docker%20Image%20Build?label=Docker%20Image%20Build&logo=Docker)](https://github.com/mr-mustash/dotfiles/actions/workflows/docker-image.yml) [![mrmustash/homedir:latest](https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=mrmustash%2Fhomedir%3Alatest&logo=docker)](https://hub.docker.com/repository/docker/mrmustash/homedir)
 
-Welcome to Patrick King's dotfiles repo.
+Welcome to Patrick King's dotfiles repo. These configurations have evolved from originally [committing](https://github.com/mr-mustash/dotfiles/tree/9c2b4e315b7a37742b1d2c3b601c3b184c3e9459) my `.config/fish` and `.vimrc` directories to now being a fully automated deployment for when I set up a new machine.
 
-There are a few things you should know about these dotfiles:
-1) I use fish as my default shell, and you'll find the configuration under .config/fish/
-2) My vim config is very opinionated. Only options listed under vim's ":options" command are in my .vimrc. The rest are located in the appropriate sub-directory under .vim/
-3) There are large parts of my vimrc that require vim 8.0+, and in some cases, vim 8.2+.
-4) Certain commands and key bindings might seem strange, but on top of my terminal I'm running Amethyst as window manager and Alfred as a launcher. All of the bindings are in place so everything plays nicely together.
+My configuration has, at this point, been _very_ tailored to the way that I work and I *do not* recommend that you just check this repo out and use it wholesale for yourself. However, if you find any parts of my configuration you are welcome to use them as your own! I have decided to use the [Unlicense](https://unlicense.org/) for this repo so that there are no constraints as to how anyone can use code that they find here. I do hope that people will find parts of this repo useful, just as I have found many other dotfiles repos useful on my journey.
 
-## Homemaker
+## Configuration Specific READMEs.
+* [Fish](tilde/.config/fish/README.md)
+* [Neovim](tile/.config/nvim/README.md)
+* [Hammerspoon](tile/.hammerspoon/README.md)
 
 ## Docker
-I have provided a Dockerfile so that anyone can try out my environment without modifying theirs. It is also [available on Dockerhub](https://hub.docker.com/repository/docker/mrmustash/homedir/) for a convenient way to run it.
+I very much *DO NOT* recommend that people just use these dotfiles wholesale for themselves. However, if you'd like to try them out I have published a container [available on Dockerhub](https://hub.docker.com/repository/docker/mrmustash/homedir/) for a convenient way to test out what my environment is like.
 
-Just run `docker run -it -e TERM=xterm-256color --net host mrmustash/homedir:latest` to try my homedir out!
+The best experience can by had by running `docker run -it -e TERM=xterm-256color --net host mrmustash/homedir:latest`.
 
 ## Terminal Settings
-
 I have always used DejaVu Sans Mono, but have recently switched to using [Nerd Fonts](https://www.nerdfonts.com/#home) DejaVu Sans Mono.
