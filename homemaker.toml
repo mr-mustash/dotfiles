@@ -40,7 +40,7 @@ accepts = [["which", "go"]]
             ["GO111MODULE", "on"],
         ]
     cmds = [
-        ["go", "get", "golang.org/x/tools/gopls@latest"],
+        ["go", "install", "golang.org/x/tools/gopls@latest"],
     ]
 
 [tasks.fish]

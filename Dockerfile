@@ -1,6 +1,6 @@
 # Patrick King's homedir container
 # Includes typical client utilities for percona, postgres and redis.
-FROM ubuntu:21.10
+FROM ubuntu:22.04
 
 ENV TZ=US/Pacific
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,9 +15,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
                        git fish vim neovim curl golang wget \
                        build-essential file sudo rsync dstat  \
                        jq less sysstat fzf highlight python3 python3-pip \
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
-    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu impish stable" \
-    && apt-get install --no-install-recommends -y docker-ce \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -47,7 +44,7 @@ USER pking
 WORKDIR /home/pking
 
 # Get homemaker
-RUN go get github.com/FooSoft/homemaker
+RUN go install foosoft.net/projects/homemaker@latest
 
 # Get my homedir
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

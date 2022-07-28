@@ -4,6 +4,10 @@ if has('nvim')
     imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
     let g:copilot_no_tab_map = v:true
 
+    imap <C-l> <Plug>(copilot-next)
+    imap <C-h>  <Plug>(copilot-previous)
+    inoremap <C-p>  <Esc>:Copilot<CR>i
+
     " Disable copilot when working on text files
     let g:copilot_filetypes = {
       \ 'markdown':     v:false,

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # Get updates in background.
 softwareupdate --download >/dev/null
 
@@ -136,6 +136,9 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 defaults write com.apple.dock wvous-bl-corner -int 5
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
+# Do not show recent apps on dock
+defaults write com.apple.dock show-recents -bool false
+
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
 defaults write com.apple.Safari SuppressSearchSuggestions -bool true
@@ -172,6 +175,70 @@ defaults write com.apple.TextEdit "TabWidth" '4'
 
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
+
+# Privacy - https://privacy.sexy/
+## Diactivate remote management service
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+## Disable everything siri
+defaults write com.apple.assistant.support 'Siri Data Sharing Opt-In Status' -int 2
+defaults write com.apple.assistant.support 'Assistant Enabled' -bool false
+defaults write com.apple.assistant.backedup 'Use device speaker for TTS' -int 3
+launchctl disable "user/$UID/com.apple.assistantd"
+launchctl disable "gui/$UID/com.apple.assistantd"
+sudo launchctl disable 'system/com.apple.assistantd'
+launchctl disable "user/$UID/com.apple.Siri.agent"
+launchctl disable "gui/$UID/com.apple.Siri.agent"
+sudo launchctl disable 'system/com.apple.Siri.agent'
+defaults write com.apple.SetupAssistant 'DidSeeSiriSetup' -bool True
+defaults write com.apple.systemuiserver 'NSStatusItem Visible Siri' 0
+defaults write com.apple.Siri 'StatusMenuVisible' -bool false
+defaults write com.apple.Siri 'UserHasDeclinedEnable' -bool true
+## Disable internet based spellcheck
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
+## Disable remote apple events
+sudo systemsetup -setremoteappleevents off
+
+# Security
+## Enable application firewall
+/usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -bool true
+defaults write com.apple.security.firewall EnableFirewall -bool true
+/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -bool true
+/usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
+defaults write com.apple.security.firewall EnableStealthMode -bool true
+## Prevent automatic acceptance of incoming connections to signed apps
+sudo defaults write /Library/Preferences/com.apple.alf allowdownloadsignedenabled -bool false
+sudo defaults write /Library/Preferences/com.apple.screensaver askForPassword -bool true
+## Disable guest account
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+## Disable remote login
+sudo systemsetup -setremotelogin off
+sudo launchctl disable 'system/com.apple.tftpd'
+## Disable Bonjour
+sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
+## Disable telnet
+sudo launchctl disable system/com.apple.telnetd
+## Disable printer sharing
+cupsctl --no-share-printers
+cupsctl --no-remote-any
+cupsctl --no-remote-admin
+## Disable captive portal
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control.plist Active -bool false
+## Disable firefox telemetry
+sudo defaults write /Library/Preferences/org.mozilla.firefox EnterprisePoliciesEnabled -bool TRUE
+sudo defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool TRUE
+## Do not log downloaded files
+file_to_lock=~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2
+if [ -f "$file_to_lock" ]; then
+	sudo chflags schg "$file_to_lock"
+	echo "Made file immutable at \"$file_to_lock\""
+else
+	echo "No action is needed, file does not exist at \"$file_to_lock\""
+fi
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
