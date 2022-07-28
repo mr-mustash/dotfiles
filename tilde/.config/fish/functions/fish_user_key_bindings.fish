@@ -26,14 +26,6 @@ function user_misc_key_bindings
     bind -M insert -m insert \cp 'prevd | commandline -f repaint'
 end
 
-# For some reason my vim man pager doesn't work with __fish_man_page.
-# This is a quick hack so that I can at least use the feature for now.
-function quick_man_page
-    set -x MANPAGER "less -X"
-    __fish_man_page
-    set -x MANPAGER "vim -c MANPAGER -"
-end
-
 function fish_user_key_bindings
     # VIM ALL THE THINGS
     fish_vi_key_bindings

@@ -30,16 +30,20 @@ function trash -d "Take out the trash from rip."
         set _days 7
     end
 
-    # TODO: We have to also delete the files from `record` file in the
-    # graveyard directory. Otherwise `rip -s` will still report them as
-    # existing and my prompt will get all fucky.
     if test $_list -eq 0 -a $_empty -eq 1
         echo -e "Files in trash older than $_days days:"
-        find /Users/pking/.local/graveyard -ctime +$_days ! -path '/Users/pking/.local/graveyard/.record' -type f -print
+        find /Users/$USER/.local/graveyard -ctime +$_days -type f -print | egrep -v .record
     else if test $_list -eq 1 -a $_empty -eq 0
         echo -e "Emptying the following files:"
-        find /Users/pking/.local/graveyard -ctime +$_days ! -path '/Users/pking/.local/graveyard/.record' -type f -print
-        find /Users/pking/.local/graveyard -ctime +$_days ! -path '/Users/pking/.local/graveyard/.record' -type f -delete
+
+        set -l __files (find /Users/$USER/.local/graveyard -ctime +$_days -type f -print | egrep -v .record)
+        echo $__files
+
+        # Delete the files and remove from .record
+        for file in $__files
+            set -l __escaped (echo $file | string escape --style=regex | sed -e "s.\/.\\\/.g")
+            command rm $file && command gsed -i "/$__escaped/d" /Users/$USER/.local/graveyard/.record
+        end
     end
 
 end

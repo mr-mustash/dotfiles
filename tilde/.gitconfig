@@ -3,8 +3,8 @@
 # automatically created from a template file.
 [user]
 	name  = Patrick King
-{{- if eq (or .Env.USER "pking") "patrick.king" }}
-	email = patrick.king@onepeloton.com
+{{- if eq (or .Env.USER "pking") "patrickking" }}
+	email = patrick.king@replicant.ai
 	username = patrick.king
     signingkey = 0x944E36F397047609
 {{else}}
@@ -34,7 +34,7 @@
 	gpgsign = true
 
 [core]
-	editor=vim
+	editor=nvim
 	whitespace=all
 	eol = lf
 	excludesfile = ~/.global_gitignore

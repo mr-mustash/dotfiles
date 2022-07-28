@@ -31,7 +31,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "markcat", "bash-language-server", "obs-cli", "ipfs-deploy", "vim-language-server", ],
+        ["npm", "install", "markcat", "bash-language-server", "ipfs-deploy", "vim-language-server", ],
     ]
 
 [tasks.go]
