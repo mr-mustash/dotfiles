@@ -8,7 +8,13 @@ lastSSID = "startup"
 proxyPid = nil
 
 local function networkReconnect(dns)
-    run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", dns))
+    currentDNS = hs.execute("/usr/sbin/networksetup -getdnsservers Wi-Fi")
+    if currentDNS ~= dns then
+        _log("Need to change DNS to " .. dns)
+        run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", dns))
+    else
+        _log("DNS is already " .. dns)
+    end
 
     run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
     run.cmd("/usr/bin/curl", { secrets.networking.link })
@@ -26,7 +32,7 @@ end
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
 
-    networkReconnect(secrets.networking.publicDNS)
+    networkReconnect(secrets.networking.homeDNS)
 
     notification("Welcome back to the office!")
     _log("Connected to work WiFi")

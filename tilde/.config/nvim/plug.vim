@@ -36,6 +36,8 @@ call plug#begin()
     Plug 'machakann/vim-highlightedyank'
     Plug 'RRethy/vim-illuminate'
 
+    " Prose Plugins
+    Plug 'tpope/vim-markdown'
     Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
     Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
     Plug 'reedes/vim-pencil'
@@ -56,9 +58,8 @@ call plug#begin()
         autocmd VimEnter * call plug#load('copilot.vim')
     augroup END
 
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-
-    Plug 'petertriho/nvim-scrollbar', Cond(has('nvim'))
 
     "Plug 'neovim/nvim-lspconfig'
     "Plug 'nvim-lua/completion-nvim'
@@ -68,11 +69,7 @@ call plug#begin()
 
 
     " Filetype specific
-    Plug 'rhysd/committia.vim' " Git commit with Vim
-    Plug 'lambdalisue/vim-manpager'
-    Plug 'tpope/vim-markdown'
-    Plug 'cespare/vim-toml'
-    Plug 'maralla/vim-toml-enhance'
+    Plug 'rhysd/committia.vim', { 'for': 'gitcommit' }
     Plug 'dag/vim-fish'
     Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
     Plug 'pearofducks/ansible-vim'
