@@ -8,7 +8,7 @@ function cat --wraps cat -d "Use bat instead of cat unless it's a Markdown file,
             if test -t 1
                 bat "$argv"
             else
-               command cat "$argv"
+                command cat "$argv"
             end
         else
             command cat "$argv"
