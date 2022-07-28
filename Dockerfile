@@ -5,8 +5,8 @@ FROM ubuntu:21.10
 ENV TZ=US/Pacific
 ENV DEBIAN_FRONTEND=noninteractive
 
-# hadolint ignore=DL3008
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common \
     && apt-get install --no-install-recommends -y gpg gpg-agent \
     && apt-add-repository ppa:fish-shell/release-3 \

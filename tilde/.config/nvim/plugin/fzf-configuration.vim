@@ -9,24 +9,16 @@ nnoremap <silent><leader>fm :Maps<cr>
 nnoremap <silent><leader>f: :History:<cr>
 nnoremap <silent><leader>ft :Filetypes<cr>
 
-" === CONFIGURATION ===
-if isdirectory('/usr/local/opt/fzf/')
-    set runtimepath+=/usr/local/opt/fzf/
-    source /usr/local/opt/fzf/plugin/fzf.vim
-endif
+" === CONFIG ===
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'border': 'rounded'} }
 
-command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-if !exists('g:fzf_layout')
-    autocmd! customaugroup FileType fzf
-    autocmd  customaugroup FileType fzf set laststatus=0 noshowmode noruler
-                \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-endif
+autocmd customaugroup FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " === FUNCTIONS ===
+" Use ripgrep to search in files in current directory
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 function! RipgrepFzf(query, fullscreen)
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
