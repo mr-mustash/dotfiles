@@ -27,18 +27,28 @@ let g:ale_fixers = {
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = '1'
 
+" Testing out virtual text to display errors
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '  '
+let g:ale_virtualtext_delay = 500
+let g:ALEVirtualTextError = ''
+let g:ALEVirtualTextWarning = ''
+let g:ALEVirtualTextInfo = ''
+let g:ALEVirtualTextStyleError = ''
+let g:ALEVirtualTextStyleWarning = ''
+
 " Floating error windows
-let g:ale_cursor_detail = 1
-let g:ale_floating_preview = 1
-let g:ale_detail_to_floating_preview = 1
-let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+"let g:ale_cursor_detail = 1
+"let g:ale_floating_preview = 1
+"let g:ale_detail_to_floating_preview = 1
+"let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 
 " ALE only for linting
 let g:ale_autocomplete = 0
 let g:ale_completion_autoimport = 0
 
 " Enable ALE everywhere
-let g:ale_enabled = 1
+let g:ale_enabled = 0
 
 " This makes sure that ale disables itself when we open an internal buffer
 " g:internal_buffers can be found in .vimrc in the "26 various" section
