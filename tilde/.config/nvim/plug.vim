@@ -12,26 +12,42 @@ function! PlugLoaded(name)
 endfunction
 
 call plug#begin()
+    " Lua functions
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'lewis6991/impatient.nvim'
+
     " Colorshceme
     Plug 'overcache/NeoSolarized'
 
-    " Global
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    " Status Line
+    Plug 'nvim-lualine/lualine.nvim'
 
+    " Movement
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'godlygeek/tabular'
 
+    " Git
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb' "https://github.com/jbranchaud/til/blob/ad29a186c389a1d463cee40679d48141181d69e0/vim/open-the-selected-lines-in-github-with-gbrowse.md
-    Plug 'airblade/vim-gitgutter'
+    Plug 'lewis6991/gitsigns.nvim'
 
-    Plug 'dense-analysis/ale'
+    " Language server
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'VonHeikemen/lsp-zero.nvim'
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
 
+    " Code Visualization
+    Plug 'wellle/context.vim'
+
+    " Undo
     Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
+    " Highlighting
     Plug 't9md/vim-quickhl'
     Plug 'machakann/vim-highlightedyank'
     Plug 'RRethy/vim-illuminate'
@@ -58,15 +74,9 @@ call plug#begin()
         autocmd VimEnter * call plug#load('copilot.vim')
     augroup END
 
+    " Fuzzy Finding
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-
-    "Plug 'neovim/nvim-lspconfig'
-    "Plug 'nvim-lua/completion-nvim'
-    "Plug 'nvim-lua/lsp-status.nvim'
-    "Plug 'nvim-lua/diagnostic-nvim'
-    "Plug 'williamboman/nvim-lsp-installer'
-
 
     " Filetype specific
     Plug 'rhysd/committia.vim', { 'for': 'gitcommit' }

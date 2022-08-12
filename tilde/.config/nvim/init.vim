@@ -26,6 +26,9 @@ let g:datadir = has('nvim') ? expand(stdpath('data')) : expand('~/.vim/local')
 
 :execute 'source '.fnameescape(g:configdir . '/plug.vim')
 
+" Speed up nvim startup time https://github.com/lewis6991/impatient.nvim
+lua require('impatient')
+
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
@@ -302,9 +305,6 @@ set wildmenu
 
 " No line numbers or signs in the command line window.
 autocmd customaugroup CmdwinEnter * setlocal nonumber norelativenumber signcolumn=no
-" This is a hack to get airline to display correctly when
-" entering the cmd window in insert mode.
-autocmd customaugroup CmdwinEnter * silent call airline#update_statusline()
 " Automatically enter insert mode when entering the command window
 autocmd customaugroup CmdwinEnter * startinsert
 " I only want to have to press <C-c> once to exit
@@ -424,8 +424,14 @@ autocmd customaugroup VimEnter * echo "<^.^>"
 " 26 neovim  ============================================================== {{{
 set guicursor=
 
-"lua << EOF
-"    require('plugin/nvim-scrollbar-configuration')
-"EOF
+lua << EOF
+    require('plugin.mason-config')
+    require('plugin.lsp-zero-config')
+    require('plugin.lsp_lines-config')
+    require('plugin.null-ls-config')
+    require('plugin.lspconfig-config')
+    require('plugin.lualine-config')
+    require('plugin.gitsigns-config')
+EOF
 " ========================================================================= }}}
 " vim: set foldmethod=marker foldlevel=99 foldlevelstart=99

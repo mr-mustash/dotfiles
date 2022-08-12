@@ -25,13 +25,13 @@
 [tasks.pip]
     accepts = [["which", "pip3"]]
     cmds = [
-        ["pip3", "install", "vim-vint", "gmail-yaml-filters", "pynvim"],
+        ["pip3", "install", "gmail-yaml-filters", "pynvim"],
     ]
 
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "markcat", "bash-language-server", "ipfs-deploy", "vim-language-server", ],
+        ["npm", "install", "markcat", "ipfs-deploy"],
     ]
 
 [tasks.go]
@@ -50,19 +50,6 @@ accepts = [["which", "go"]]
         ]
     cmds = [["chsh", "-s", "/usr/bin/fish"]]
 
-
-[tasks.nvim2vim]
-    cmds = [
-        ["mkdir", "-p", "$HOME/.vim"],
-        ["ln", "-s", "$HOME/.config/nvim/init.vim", "$HOME/.vimrc"],
-        ["ln", "-s", "$HOME/.config/nvim/autoload", "$HOME/.vim/autoload"],
-        ["ln", "-s", "$HOME/.config/nvim/ftdetect", "$HOME/.vim/ftdetect"],
-        ["ln", "-s", "$HOME/.config/nvim/ftplugin", "$HOME/.vim/ftplugin"],
-        ["ln", "-s", "$HOME/.config/nvim/plug.vim", "$HOME/.vim/plug.vim"],
-        ["ln", "-s", "$HOME/.config/nvim/plugin",   "$HOME/.vim/plugin"],
-        ["ln", "-s", "$HOME/.config/nvim/spell",    "$HOME/.vim/spell"],
-    ]
-
 [tasks.vimplug]
     cmds = [
         ["vim", "-es", "-u", "~/.vimrc", "-i", "NONE", "-c" , "'PlugInstall'", "-c", "'qa'"],
@@ -80,7 +67,7 @@ accepts = [["which", "go"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo", "nvim2vim"]
+    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{

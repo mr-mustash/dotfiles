@@ -39,6 +39,7 @@ endfunction
 " - FuncUndefined
 
 let s:aulist = [
+      \ 'BufEnter',
       \ 'BufNewFile',
       \ 'BufReadPre',
       \ 'BufRead',
