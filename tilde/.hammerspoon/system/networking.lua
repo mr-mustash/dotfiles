@@ -17,7 +17,7 @@ local function networkReconnect(dns)
         _log("DNS is already " .. dns)
     end
 
-    run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
+    --run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
     run.cmd("/usr/bin/curl", { secrets.networking.link })
 end
 

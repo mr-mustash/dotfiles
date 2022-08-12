@@ -1,5 +1,6 @@
 if has('nvim')
     "let g:autoloaded_copilot_log = '/dev/null'
+    let g:copilot_node_command = '/opt/homebrew/Cellar/node@16/16.16.0/bin/node'
 
     imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
     let g:copilot_no_tab_map = v:true
