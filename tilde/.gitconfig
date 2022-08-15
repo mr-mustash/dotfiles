@@ -3,22 +3,12 @@
 # automatically created from a template file.
 [user]
 	name  = Patrick King
-{{- if eq (or .Env.USER "pking") "patrickking" }}
-	email = patrick.king@replicant.ai
-	username = patrick.king
-    signingkey = 0x944E36F397047609
-{{else}}
 	email = patrick@patrickcking.com
 	username = mr-mustash
 	signingkey = 0x944E36F397047609
-{{end}}
 
 [gpg]
-{{- if eq (or (.Env.OSTYPE | printf "%.6s") "Linux") "darwin"}}
 	program = /usr/local/MacGPG2/bin/gpg
-{{else}}
-	program = /usr/bin/qubes-gpg-client-wrapper
-{{end}}
 
 # Non-template things
 [alias]
