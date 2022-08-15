@@ -8,7 +8,9 @@
         [".config/nvim"],
         [".config/terminal"],
         [".config/tmux"],
+        [".gitconfig"],
         [".global_gitignore"],
+        [".gnupg/gpg-agent.conf"],
         [".gnupg/gpg.conf"],
         [".mytop"],
         [".psqlrc"],
@@ -16,10 +18,6 @@
         [".tmux.conf"],
         [".vintrc"],
         [".yamllint"],
-    ]
-    templates = [
-        [".gitconfig"],
-        [".gnupg/gpg-agent.conf"],
     ]
 
 [tasks.pip]
