@@ -3,12 +3,11 @@ local dock = {}
 local function docked()
     _log("Docked")
     is_docked = true
-    run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", secrets.networking.homeDNS))
-
-    run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
     networking.disableWifiSlowly()
-    --networking.reconnectProxy()
+    networking.networkReconnect(secrets.networking.homeDNS)
+
+    run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
     local lan = networking.checkForLAN()
     ethernetMenubar:returnToMenuBar()
@@ -23,7 +22,6 @@ local function undocked()
     _log("Undocked")
     is_docked = false
     hs.wifi.setPower(true)
-    --networking.reconnectProxy()
 
     run.brewcmd("blueutil", {"--disconnect", secrets.dock.mouseID})
 
