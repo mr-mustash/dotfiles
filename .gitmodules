@@ -1,6 +1,3 @@
-[submodule "tilde/.hammerspoon/Spoons/Zoom.spoon"]
-	path = tilde/.hammerspoon/Spoons/Zoom.spoon
-	url = https://github.com/jpf/Zoom.spoon.git
 [submodule "tilde/.config/terminal/dircolors/dircolors-solarized"]
 	path = tilde/.config/terminal/dircolors/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git

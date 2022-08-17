@@ -1,24 +1,27 @@
 networking = {}
 
-wifiWatcher = nil
-homeSSID = secrets.networking.homeSSID
-workSSID = secrets.networking.workSSID
-phoneSSID = secrets.networking.phoneSSID
-lastSSID = "startup"
+local wifiWatcher = nil
+local homeSSID = secrets.networking.homeSSID
+local workSSID = secrets.networking.workSSID
+local phoneSSID = secrets.networking.phoneSSID
+local officeSSID = secrets.networking.officeSSID
+local lastSSID = "startup"
 
 proxyPid = nil
 
-local function networkReconnect(dns)
-    currentDNS = hs.execute("/usr/sbin/networksetup -getdnsservers Wi-Fi")
-    if currentDNS ~= dns then
-        _log("Need to change DNS to " .. dns)
-        run.privileged(string.format("/usr/sbin/networksetup -setdnsservers 'Wi-Fi' %s", dns))
+function networking.networkReconnect(dns)
+    local desiredDNS = string.format("%s", dns)
+    local defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
+    local currentDNS = string.gsub(hs.execute(string.format("/usr/sbin/networksetup -getdnsservers '%s'", defaultInterface)),"\n","")
+
+    if currentDNS ~= desiredDNS then
+        _log("Need to change DNS to " .. desiredDNS .. " from " .. currentDNS)
+        run.privileged(string.format("/usr/sbin/networksetup -setdnsservers '%s' %s", defaultInterface, desiredDNS))
     else
-        _log("DNS is already " .. dns)
+        _log("DNS is already " .. desiredDNS)
     end
 
-    --run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
-    run.cmd("/usr/bin/curl", { secrets.networking.link })
+    run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
 end
 
 local function homeWifiConnected()
@@ -31,8 +34,8 @@ local function homeWifiConnected()
 end
 
 local function phoneWifiConnected()
-    hs.audiodevice.defaultOutputDevice():setVolume(50)
-    run.cmd("/usr/sbin/networksetup", {"-setdnsservers", "Wi-Fi", secrets.networking.publicDNS})
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+    networkReconnect(secrets.networking.phoneDNS)
     sleep(1)
     run.cmd("/usr/bin/curl", {secrets.networking.link})
     notification("Teathered to Phone", phone_logo)
@@ -40,11 +43,20 @@ local function phoneWifiConnected()
 end
 
 local function workWifiConnected()
-    hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.audiodevice.defaultOutputDevice():setVolume(50)
 
     networkReconnect(secrets.networking.homeDNS)
 
-    notification("Welcome back to the office!")
+    notification("Have a good day working from home!")
+    _log("Connected to home work network")
+end
+
+local function officeWifiConnected()
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+
+    networkReconnect("Empty")
+
+    notification("Have a good day working from the office!")
     _log("Connected to work WiFi")
 end
 
@@ -99,6 +111,9 @@ local function ssidChangedCallback()
             -- We just joined our home WiFi network
             homeWifiConnected()
         elseif newSSID == workSSID then
+            -- Connected to work Wifi
+            workWifiConnected()
+        elseif newSSID == officeSSID then
             -- Connected to work Wifi
             workWifiConnected()
         elseif newSSID == phoneSSID then
