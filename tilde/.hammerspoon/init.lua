@@ -80,7 +80,6 @@ reload.init()
 --
 -- Load & Configure Spoons ================================================= {{{
 hs.loadSpoon("URLDispatcher")
-hs.loadSpoon("Zoom")
 
 urls = require("spoon-config/urls")
 urls.init()
@@ -93,6 +92,7 @@ charging = require("system/charging")
 display = require("system/display")
 dock = require("system/dock")
 networking = require("system/networking")
+videoCalls = require("system/videoCalls")
 
 audioControl.init()
 caffeine.init()
@@ -100,18 +100,15 @@ charging.init()
 display.init()
 dock.init()
 networking.init()
+videoCalls.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
 elgato = require("app-config/elgato")
--- spotifyconfig = require("app-config/spotifyconfig")
 stretchly = require("app-config/stretchly")
-zoomconfig = require("app-config/zoomconfig")
 
 elgato.init()
--- spotifyconfig.init()
 stretchly.init()
-zoomconfig.init()
 -- ========================================================================= }}}
 
 ---------- testing ------------
