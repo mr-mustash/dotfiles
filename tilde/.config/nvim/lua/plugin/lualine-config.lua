@@ -9,6 +9,87 @@ custom_solarized.normal.b.bg = '#586e75'
 custom_solarized.normal.b.fg = '#fdf6e3'
 custom_solarized.normal.c.fg = '#fdf6e3'
 
+-- Functions for status line
+local function lsp_client_names()
+    local client_names = {}
+    for _, client in ipairs(vim.lsp.get_active_clients()) do
+        if client.name ~= 'null-ls' and client.name ~= 'copilot' then
+            table.insert(client_names, client.name)
+        end
+    end
+    if next(client_names) then
+        return "ﮧ " .. table.concat(client_names, " • ")
+    else
+        return ''
+    end
+end
+
+local function null_ls_diagnostics()
+    local client_names = {}
+    for _, client in ipairs(require("null-ls.sources").get_available(vim.bo.filetype)) do
+        if client.filetypes._all ~= true and client.methods.NULL_LS_DIAGNOSTICS == true then
+            table.insert(client_names, client.name)
+        end
+    end
+
+    if next(client_names) then
+        return " " .. table.concat(client_names, " • ")
+    else
+        return nil
+    end
+end
+
+local function null_ls_formatting()
+    local client_names = {}
+    for _, client in ipairs(require("null-ls.sources").get_available(vim.bo.filetype)) do
+        if client.filetypes._all ~= true and client.methods.NULL_LS_FORMATTING == true then
+            table.insert(client_names, client.name)
+        end
+    end
+
+    if next(client_names) then
+        return " " .. table.concat(client_names, " • ")
+    else
+        return nil
+    end
+end
+
+local function null_ls_code_actions()
+    local client_names = {}
+    for _, client in ipairs(require("null-ls.sources").get_available(vim.bo.filetype)) do
+        if client.filetypes._all ~= true and client.methods.NULL_LS_CODE_ACTION == true then
+            table.insert(client_names, client.name)
+        end
+    end
+
+    if next(client_names) then
+        return " " .. table.concat(client_names, " • ")
+    else
+        return nil
+    end
+end
+
+local function null_ls_attached_sources() -- Show actuive null-ls sources
+    local full_status = {}
+    local actions = null_ls_code_actions()
+    local diagnostics = null_ls_diagnostics()
+    local formatting = null_ls_formatting()
+
+
+    if actions ~= "" then table.insert(full_status, actions) end
+    if diagnostics ~= "" then table.insert(full_status, diagnostics) end
+    if formatting ~= "" then table.insert(full_status, formatting) end
+
+    local lualine = table.concat(full_status, "  ")
+
+    if lualine ~= "" then
+        return lualine
+    else
+        return ""
+    end
+end
+
+-- Status line config
 require('lualine').setup {
     options = {
         icons_enabled = true,
@@ -24,5 +105,33 @@ require('lualine').setup {
         'man',
         'fzf',
         'mundo',
+    },
+    sections = {
+        lualine_b = {
+            'branch',
+            'diff'
+        },
+        lualine_c = {
+            {
+                'filename',
+                file_status = true,
+                newfile_status = true,
+                symbols = {
+                    modified = '  ',      -- Text to show when the file is modified.
+                    readonly = '  ',      -- Text to show when the file is non-modifiable or readonly.
+                    unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                    newfile = '  ',     -- Text to show for new created file before first writting
+                }
+            },
+            'lsp_progress',
+        },
+        lualine_y = {
+            separator = nil,
+            lsp_client_names,
+            null_ls_attached_sources,
+        },
+        lualine_z = {
+            'diagnostics',
+        }
     }
 }
