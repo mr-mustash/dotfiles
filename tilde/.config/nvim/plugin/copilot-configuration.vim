@@ -23,7 +23,5 @@ if has('nvim')
       \ '*COMMIT*':     v:false,
       \ }
 
-    if PlugLoaded('copilot.vim')
-        let g:copilot_enabled = 1
-    endif
+    let g:copilot_enabled = 1
 endif
