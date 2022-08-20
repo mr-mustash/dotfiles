@@ -21,8 +21,8 @@ augroup customaugroup
     autocmd!
 augroup END
 
-let g:configdir = has('nvim') ? expand(stdpath('config')) : expand('~/.vim')
-let g:datadir = has('nvim') ? expand(stdpath('data')) : expand('~/.vim/local')
+let g:configdir = expand(stdpath('config'))
+let g:datadir = expand(stdpath('data'))
 
 :execute 'source '.fnameescape(g:configdir . '/plug.vim')
 
@@ -32,8 +32,6 @@ lua require('impatient')
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
-" vint: next-line -ProhibitSetNoCompatible
-set nocompatible
 autocmd customaugroup InsertLeave * set nopaste
 
 " ========================================================================= }}}
@@ -50,8 +48,9 @@ set regexpengine=1
 " 4 displaying text ======================================================= {{{
 
 set wrap
-"vint: next-line -ProhibitUnnecessaryDoubleQuote
+"vint: -ProhibitUnnecessaryDoubleQuote
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"vint: +ProhibitUnnecessaryDoubleQuote
 set list
 set numberwidth=2
 set number
@@ -76,8 +75,6 @@ function! MyHighlights() abort
     let g:noColumnHighlight = ['man', 'fzf']
     autocmd customaugroup Filetype * if index(g:noColumnHighlight, &ft) == -1 | call matchadd('ColorColumn', '\%121v',100) | endif
 
-    "highlight PmenuSel cterm=bold guifg=#ffb6c1 guibg=#e75480
-    "highlight Pmenu cterm=none guifg=#e75480 guibg=#ffb6c1
     highlight SearchHighlight ctermfg=3
     highlight CursorLineNR    cterm=bold guifg=#b58900
     highlight CursorLine      cterm=none ctermbg=0 ctermfg=none
@@ -98,14 +95,13 @@ autocmd customaugroup ColorScheme * call MyHighlights()
 set termguicolors
 
 let g:neosolarized_vertSplitBgTrans = 0
-let g:neosolarized_italic = 1
+let g:neosolarized_italic = 0
 let g:neosolarized_termBoldAsBright = 0
 colorscheme NeoSolarized
 
 " Only display the cursorline on the active buffer.
 autocmd customaugroup VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal cursorline
 autocmd customaugroup WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
-
 
 set spelllang=en_us
 
@@ -341,7 +337,6 @@ endif
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
 
-" vint: next-line -ProhibitEncodingOptionAfterScriptEncoding
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
@@ -412,11 +407,7 @@ set viminfo='50,\"5000,h,/0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
-if has('nvim')
-    set signcolumn=auto:1-3
-else
-    set signcolumn=auto
-end
+set signcolumn=auto:1-3
 
 autocmd customaugroup VimEnter * echo "<^.^>"
 
@@ -432,6 +423,8 @@ lua << EOF
     require('plugin.lspconfig-config')
     require('plugin.lualine-config')
     require('plugin.gitsigns-config')
+    require('plugin.mini-config')
+    require('plugin.lsp-signature-config')
 EOF
 " ========================================================================= }}}
 " vim: set foldmethod=marker foldlevel=99 foldlevelstart=99
