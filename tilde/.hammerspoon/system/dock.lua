@@ -1,8 +1,15 @@
 local dock = {}
+dock.Is_docked = nil
 
 local function docked()
-    _log("Docked")
-    is_docked = true
+    _log(string.format("Docked is: %s", dock.Is_docked))
+    if dock.Is_docked == true then
+        _log("Docked, but dock.Is_docked already true. Not running thrugh setup again.")
+        return
+    end
+
+    dock.Is_docked = true
+    _log("Docked, Setting up docked mode.")
 
     networking.disableWifiSlowly()
     networking.networkReconnect(secrets.networking.homeDNS)
@@ -16,16 +23,24 @@ local function docked()
     elseif lan == "none" then
         ethernetMenubar:setTitle(hs.styledtext.new("", menubarLargeStyle))
     end
+
+    for _, app in ipairs(secrets.dock.dockedApps) do
+        run.startApp(app, true)
+    end
 end
 
 local function undocked()
     _log("Undocked")
-    is_docked = false
+    dock.Is_docked = false
     hs.wifi.setPower(true)
 
     run.brewcmd("blueutil", {"--disconnect", secrets.dock.mouseID})
 
     ethernetMenubar:removeFromMenuBar()
+
+    for _, app in ipairs(secrets.dock.dockedApps) do
+        run.closeApp(app)
+    end
 end
 
 local function dockChangedState(state)
@@ -58,20 +73,22 @@ end
 
 function dock.init()
     local initStart = os.clock()
-    usbWatcher = hs.usb.watcher.new(usbkWatcherCallback)
-    usbWatcher:start()
-
     ethernetMenubar = hs.menubar.new()
 
+    -- Check for dock on reload first
     if dock.isDocked() == true then
         dockChangedState("added")
-        is_docked = true
+        dock.Is_docked = true
         _log("Dock present on reload.")
     else
         dockChangedState("removed")
-        is_docked = false
+        dock.Is_docked = false
         _log("Dock not found on reload.")
     end
+
+    -- Set up watcher for future dock connects/disconnects
+    usbWatcher = hs.usb.watcher.new(usbkWatcherCallback)
+    usbWatcher:start()
 
     _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
