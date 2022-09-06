@@ -1,7 +1,7 @@
 local elgato = {}
 
 function elgato.cameraStart()
-    if is_docked == false then
+    if Dock.Is_docked == false then
         _log("Not changing light because we are not docked.")
         return
     end
@@ -22,7 +22,7 @@ function elgato.cameraStart()
 end
 
 function elgato.cameraEnd()
-    if is_docked == false then
+    if Dock.Is_docked == false then
         _log("Not changing light because we are not docked.")
         return
     end

@@ -90,7 +90,7 @@ audioControl = require("system/audioControl")
 caffeine = require("system/caffeine")
 charging = require("system/charging")
 display = require("system/display")
-dock = require("system/dock")
+Dock = require("system/dock")
 networking = require("system/networking")
 videoCalls = require("system/videoCalls")
 
@@ -98,18 +98,23 @@ audioControl.init()
 caffeine.init()
 charging.init()
 display.init()
-dock.init()
+Dock.init()
 networking.init()
 videoCalls.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
-elgato = require("app-config/elgato")
-stretchly = require("app-config/stretchly")
+Elgato = require("app-config/elgato")
+Stretchly = require("app-config/stretchly")
+Zoom = require("app-config/zoom")
 
-elgato.init()
-stretchly.init()
+Elgato.init()
+Stretchly.init()
+Zoom.init()
 -- ========================================================================= }}}
+
+-- Always have at the end
+notification("Config reload finished.")
 
 ---------- testing ------------
 -- applicationEventMap = {

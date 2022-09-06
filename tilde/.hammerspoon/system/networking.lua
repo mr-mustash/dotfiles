@@ -27,7 +27,7 @@ end
 local function homeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
 
-    networkReconnect(secrets.networking.homeDNS)
+    networking.networkReconnect(secrets.networking.homeDNS)
 
     notification("Welcome home!", home_logo)
     _log("Connected to home WiFi")
@@ -35,7 +35,7 @@ end
 
 local function phoneWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
-    networkReconnect(secrets.networking.phoneDNS)
+    networking.networkReconnect(secrets.networking.phoneDNS)
     sleep(1)
     run.cmd("/usr/bin/curl", {secrets.networking.link})
     notification("Teathered to Phone", phone_logo)
@@ -45,7 +45,7 @@ end
 local function workWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
 
-    networkReconnect(secrets.networking.homeDNS)
+    networking.networkReconnect(secrets.networking.homeDNS)
 
     notification("Have a good day working from home!")
     _log("Connected to home work network")
@@ -54,7 +54,7 @@ end
 local function officeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
 
-    networkReconnect("Empty")
+    networking.networkReconnect("Empty")
 
     notification("Have a good day working from the office!")
     _log("Connected to work WiFi")
@@ -63,7 +63,7 @@ end
 local function unknownWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
 
-    networkReconnect(secrets.networking.publicDNS)
+    networking.networkReconnect(secrets.networking.publicDNS)
 
     notification("Unknown WiFi Network")
     _log("Connected to unknown WiFi")
@@ -73,7 +73,7 @@ local function captiveWifiNetwork()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
 
     notification("Known captive network.")
-    networkReconnect("Empty")
+    networking.networkReconnect("Empty")
 
     -- Open the captive portal in a browser
     sleep(3)
