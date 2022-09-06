@@ -68,6 +68,60 @@ function run.cmd(command, args)
     _execute:start()
 end
 
+function run.startApp(application, isHidden)
+    local app = application
+
+    if isHidden == nil then
+        isHidden = false
+    end
+
+    if hs.application.get(app) ~= nil then
+        _log("Application " .. app .. " is already running")
+        if isHidden == true then
+            _log("Hiding " .. app .. " just to be sure.")
+            hs.application.find(app):hide()
+        end
+
+        return
+    end
+
+    if isHidden == true then
+        _log("Starting application hidden: " .. app)
+        hs.application.open(app, 5, true)
+        running = hs.application.find(app)
+        if running ~= nil then
+            running:hide()
+        else
+            _log("Failed to hide " .. app)
+        end
+    else
+        _log("Starting application: " .. app)
+        local _app = hs.application.open(app, 5, true)
+    end
+
+    if running == nil then
+        _log("Application not found: " .. app)
+        return 1
+    end
+end
+
+function run.closeApp(app)
+    _log("Closing application: " .. app)
+    local _app = hs.application.find(app)
+
+    if _app == nil then
+        _log("Application not found: " .. app)
+        return 1
+    end
+
+    _app:kill()
+end
+
+function run.startApplication(app, is)
+    _log("Starting application: " .. app)
+    hs.application.launchOrFocus(app)
+end
+
 function run.init()
     _log("Loaded hs.task helper functions.")
 end

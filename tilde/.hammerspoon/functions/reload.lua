@@ -9,7 +9,7 @@ local function reloadConfig(paths)
         end
     end
     if doReload then
-        notification("Config reloaded")
+        notification("Config reloading.")
         hs.reload()
     end
 end

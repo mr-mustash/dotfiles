@@ -75,31 +75,33 @@ local function trapVolumeControls()
         local flags = hs.eventtap.checkKeyboardModifiers()
         if event["down"] == false or event["repeat"] == true then
             if hs.audiodevice.defaultOutputDevice():name() == secrets.audioControl.monitorOutput then
-                _log("Trapped volume control and sending to external monitor.")
-                _log("Keycode: " .. event["key"] .. ", Monitor: " .. hs.audiodevice.defaultOutputDevice():name())
+                    if event["key"] == "MUTE" or event["key"] == "SOUND_UP" or event["key"] == "SOUND_DOWN" then
+                    _log("Trapped volume control and sending to external monitor.")
+                    _log("Keycode: " .. event["key"] .. ", Monitor: " .. hs.audiodevice.defaultOutputDevice():name())
 
-                -- Send mute to external monitor if connected and it's the default audio output
-                if event["key"] == "MUTE" then
-                    if isMuted == false then
-                        isMuted = true
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
-                        _log("Muted external monitor.")
-                    else
-                        isMuted = false
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
-                        _log("Unmuted external monitor.")
+                    -- Send mute to external monitor if connected and it's the default audio output
+                    if event["key"] == "MUTE" then
+                        if isMuted == false then
+                            isMuted = true
+                            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
+                            _log("Muted external monitor.")
+                        else
+                            isMuted = false
+                            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
+                            _log("Unmuted external monitor.")
+                        end
+                        return true
                     end
-                    return true
-                end
 
-                -- Send volume up to external monitor if connected and it's the default audio output
-                if event["key"] == "SOUND_UP" then
-                    run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "+5" })
-                    return true
-                end
-                if event["key"] == "SOUND_DOWN" then
-                    run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "-5" })
-                    return true
+                    -- Send volume up to external monitor if connected and it's the default audio output
+                    if event["key"] == "SOUND_UP" then
+                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "+5" })
+                        return true
+                    end
+                    if event["key"] == "SOUND_DOWN" then
+                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "-5" })
+                        return true
+                    end
                 end
             end
         end
@@ -108,12 +110,21 @@ local function trapVolumeControls()
     systemeventtap:start()
 end
 
+
+function audioControl.mediaControls(key)
+    hs.eventtap.event.newSystemKeyEvent(string.upper(key), true):post()
+    hs.eventtap.event.newSystemKeyEvent(string.upper(key), false):post()
+end
+
 function audioControl.init()
     local initStart = os.clock()
     hs.audiodevice.watcher.setCallback(audioDeviceChanged)
     hs.audiodevice.watcher.start()
 
     trapVolumeControls()
+    hs.hotkey.bind({'cmd', 'shift'}, "k", function() audioControl.mediaControls("PLAY") end)
+    hs.hotkey.bind({'cmd', 'shift'}, "j", function() audioControl.mediaControls("PREVIOUS") end)
+    hs.hotkey.bind({'cmd', 'shift'}, "l", function() audioControl.mediaControls("NEXT") end)
 
     _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
