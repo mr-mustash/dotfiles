@@ -34,15 +34,11 @@ function trash -d "Take out the trash from rip."
         echo -e "Files in trash older than $_days days:"
         find /Users/$USER/.local/graveyard -ctime +$_days -type f -print | egrep -v .record
     else if test $_list -eq 1 -a $_empty -eq 0
-        echo -e "Emptying the following files:"
-
-        set -l __files (find /Users/$USER/.local/graveyard -ctime +$_days -type f -print | egrep -v .record)
-        echo $__files
-
         # Delete the files and remove from .record
         for file in $__files
+            echo -e "Deleting $file"
             set -l __escaped (echo $file | string escape --style=regex | sed -e "s.\/.\\\/.g")
-            command rm $file && command gsed -i "/$__escaped/d" /Users/$USER/.local/graveyard/.record
+            command rm -f $file && command gsed -i "/$__escaped/d" /Users/$USER/.local/graveyard/.record
         end
     end
 

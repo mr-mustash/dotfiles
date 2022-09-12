@@ -6,31 +6,6 @@ hs.crash.crashLogToNSLog = false
 hs.application.enableSpotlightForNameSearches(true) -- Search for application names better
 -- ========================================================================= }}}
 
--- Global Variables ======================================================== {{{
--- Load secrets first
-require("secrets")
-
-hyper = { "⌘", "⌥", "ctrl" }
-shyper = { "⌘", "⌥", "⇧", "ctrl" }
-
--- Disable auto reload while testing
-auto_reload = true
-
--- Assets
-home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
-docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
-spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
-coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
-sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
-phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
-
-menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
-menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
-
-defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
-
--- ========================================================================= }}}
-
 -- Global Functions ======================================================== {{{
 function notification(notification, image)
     if image == nil or image == "" then
@@ -48,6 +23,12 @@ function notification(notification, image)
         }):send()
     end
 end
+
+function File_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
 
 function getFunctionLocation()
     local w = debug.getinfo(3, "S")
@@ -69,6 +50,37 @@ end
 
 -- ========================================================================= }}}
 
+-- Global Variables ======================================================== {{{
+-- Load secrets first
+
+if File_exists(basePath .. "local.lua") then
+    require("local")
+end
+
+if File_exists(basePath .. "secrets.lua") then
+    require("secrets")
+end
+
+hyper = { "⌘", "⌥", "ctrl" }
+shyper = { "⌘", "⌥", "⇧", "ctrl" }
+
+-- Disable auto reload while testing
+auto_reload = true
+
+-- Assets
+home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
+docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
+spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
+coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
+sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
+phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
+
+menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
+menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
+
+defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
+
+-- ========================================================================= }}}
 -- Important functions ===================================================== {{{
 run = require("functions/run")
 reload = require("functions/reload")
