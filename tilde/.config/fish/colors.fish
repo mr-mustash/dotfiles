@@ -64,6 +64,10 @@ if not set -q __pking_init_colors
     # Number of jobs running in prompt
     set -U fish_prompt_color_jobs yellow --bold
 
+    # Change color of 'screen' prompt based on if we're in a screen
+    set -U fish_prompt_color_screen yellow --bold
+    set -U fish_prompt_color_in_screen green --bold
+
     # Misc
     set -U fish_prompt_color_graveyard ffa500 --bold
 
