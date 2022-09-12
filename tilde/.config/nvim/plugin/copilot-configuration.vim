@@ -1,13 +1,14 @@
 if has('nvim')
     "let g:autoloaded_copilot_log = '/dev/null'
-    let g:copilot_node_command = '/opt/homebrew/Cellar/node@16/16.16.0/bin/node'
+    let g:copilot_node_command = glob('/opt/homebrew/Cellar/node@16/**/bin/node')
 
     imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
     let g:copilot_no_tab_map = v:true
 
-    imap <C-l> <Plug>(copilot-next)
-    imap <C-h>  <Plug>(copilot-previous)
-    inoremap <C-p>  <Esc>:Copilot<CR>i
+    " Copilot suggestions
+    inoremap <C-p>  <Esc>:Copilot<CR>i " List all sugestions
+    imap <silent><script><expr> <C-l> <Plug>(copilot-next)
+    imap <silent><script><expr> <C-h> <Plug>(copilot-previous)
 
     " Disable copilot when working on text files
     let g:copilot_filetypes = {
