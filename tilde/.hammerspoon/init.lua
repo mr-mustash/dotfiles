@@ -68,12 +68,14 @@ shyper = { "⌘", "⌥", "⇧", "ctrl" }
 auto_reload = true
 
 -- Assets
-home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
-docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
-spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
+castle_image = hs.image.imageFromPath(hs.configdir .. "/assets/castle.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
-sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
+docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
+home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
 phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
+sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
+spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
+work_logo = hs.image.imageFromPath(hs.configdir .. "/assets/replicant.png")
 
 menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
 menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
