@@ -2,7 +2,6 @@ local zoom = {}
 local zoomRunningTimer = nil
 
 local function zoomTimerCallback()
-
     if
         hs.dialog.blockAlert(
         "Long Running Zoom",
@@ -66,8 +65,8 @@ end
 
 function zoom.init()
     local initStart = os.clock()
-    stretchlyWatcher = hs.application.watcher.new(zoomCall)
-    stretchlyWatcher:start()
+    zoomWatcher = hs.application.watcher.new(zoomCall)
+    zoomWatcher:start()
     _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
 end
 return zoom

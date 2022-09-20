@@ -1,6 +1,6 @@
 local stretchly = {}
 
-local function stretchlyCall(name, eventType, app)
+local function stretchlyCall(name, eventType, _)
     if name == "Stretchly" and eventType == hs.application.watcher.activated then
         _log("Stretchly running")
         audioControl.muteInputs()
