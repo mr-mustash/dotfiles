@@ -1,4 +1,4 @@
-networking = {}
+local networking = {}
 
 local wifiWatcher = nil
 local homeSSID = secrets.networking.homeSSID
@@ -10,8 +10,14 @@ local lastSSID = "startup"
 proxyPid = nil
 
 function networking.networkReconnect(dns)
-    local desiredDNS = string.format("%s", dns)
+    -- Right after swapping interfaces the result can be nil. We want to retrun until it's not
     local defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
+    while (defaultInterface == nil) do
+        defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
+        sleep(1)
+    end
+
+    local desiredDNS = string.format("%s", dns)
     local currentDNS = string.gsub(hs.execute(string.format("/usr/sbin/networksetup -getdnsservers '%s'", defaultInterface)),"\n","")
 
     if currentDNS ~= desiredDNS then
@@ -22,6 +28,7 @@ function networking.networkReconnect(dns)
     end
 
     run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
+    run.cmd("/usr/bin/curl", {secrets.networking.link})
 end
 
 local function homeWifiConnected()
@@ -37,7 +44,6 @@ local function phoneWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
     networking.networkReconnect(secrets.networking.phoneDNS)
     sleep(1)
-    run.cmd("/usr/bin/curl", {secrets.networking.link})
     notification("Teathered to Phone", phone_logo)
     _log("Connected to home WiFi")
 end
@@ -56,7 +62,7 @@ local function officeWifiConnected()
 
     networking.networkReconnect("Empty")
 
-    notification("Have a good day working from the office!")
+    notification("Have a good day working from the office!", work_logo)
     _log("Connected to work WiFi")
 end
 
@@ -65,7 +71,7 @@ local function unknownWifiNetwork()
 
     networking.networkReconnect(secrets.networking.publicDNS)
 
-    notification("Unknown WiFi Network")
+    notification("Unknown WiFi Network", coffee_image)
     _log("Connected to unknown WiFi")
 end
 
@@ -74,6 +80,7 @@ local function captiveWifiNetwork()
 
     notification("Known captive network.")
     networking.networkReconnect("Empty")
+    _log("Connected to known captive wifi network.", castle_image)
 
     -- Open the captive portal in a browser
     sleep(3)
@@ -81,7 +88,6 @@ local function captiveWifiNetwork()
     sleep(1)
     hs.application.launchOrFocus("Safari.app")
 
-    _log("Connected to known captive wifi network.")
 end
 
 local function captiveWifi(ssid)
@@ -97,7 +103,7 @@ local function captiveWifi(ssid)
 end
 
 local function ssidChangedCallback()
-    newSSID = hs.wifi.currentNetwork()
+    local newSSID = hs.wifi.currentNetwork()
 
     if newSSID == lastSSID then
         _log("Reconnected to same network.")
@@ -115,7 +121,7 @@ local function ssidChangedCallback()
             workWifiConnected()
         elseif newSSID == officeSSID then
             -- Connected to work Wifi
-            workWifiConnected()
+            officeWifiConnected()
         elseif newSSID == phoneSSID then
             -- Tethered to iPhone
             phoneWifiConnected()
@@ -187,6 +193,7 @@ end
 
 function networking.init()
     local initStart = os.clock()
+
     wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
     wifiWatcher:start()
 

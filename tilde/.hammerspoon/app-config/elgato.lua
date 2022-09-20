@@ -16,6 +16,7 @@ function elgato.cameraStart()
         local settings = hs.json.decode(body)
         settings.lights[1].on = 1
         local status, response, header = hs.http.doRequest(url, "PUT", hs.json.encode(settings))
+        _log("Elgato turned on with response: " .. response)
     end
 
     _log("Zoom lighting turned on.")
