@@ -14,21 +14,20 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
+      # - id: detect-aws-credentials
       - id: check-added-large-files
       - id: check-executables-have-shebangs
-      - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
       - id: check-symlinks
       - id: check-toml
       - id: check-yaml
-      # - id: detect-aws-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: no-commit-to-branch
         args: [--branch, main]
-      - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/Kuniwak/vint
     rev: v0.4a3
@@ -51,7 +50,6 @@ repos:
       - id: git-check
       - id: shellcheck
       - id: shfmt
-
 # - repo: https://github.com/lunarmodules/luacheck
 #   rev: c795cbec5cbf022f2eb52f42cd1861c32d2b180f
 #   hooks:
