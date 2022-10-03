@@ -29,6 +29,9 @@ if status --is-interactive
     # Misc
     abbr --add ag rg # some habits are too hard to break
 
+    # Terraform on M1
+    alias terraform-amd64="TF_DEMUX_ARCH=amd64 terraform-demux"
+
     # tmux
     abbr --add t tmux
     abbr --add tt tmux_for_ticket
