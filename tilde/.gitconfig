@@ -71,7 +71,7 @@
 
 # Override settings when working on work-related projects
 # on a personal machine.
-[includeIf "gitdir:~dev/github.com/pelotoncycle/"]
+[includeIf "gitdir:~/dev/gitlab.com/replicant-ai/"]
 	path = ~/.gitconfig.work
 
 # Override machine-specific settings.
