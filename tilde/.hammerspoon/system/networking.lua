@@ -7,8 +7,6 @@ local phoneSSID = secrets.networking.phoneSSID
 local officeSSID = secrets.networking.officeSSID
 local lastSSID = "startup"
 
-proxyPid = nil
-
 function networking.networkReconnect(dns)
     -- Right after swapping interfaces the result can be nil. We want to retrun until it's not
     local defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
@@ -43,7 +41,7 @@ end
 local function phoneWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
     networking.networkReconnect(secrets.networking.phoneDNS)
-    sleep(1)
+
     notification("Teathered to Phone", phone_logo)
     _log("Connected to home WiFi")
 end
@@ -158,38 +156,6 @@ function networking.disableWifiSlowly()
     hs.wifi.setPower(false)
     _log("Wifi disabled after being docked.")
 end
-
---TODO: refactor this to use `run.cmd` instead of `hs.execute`
---function networking.reconnectProxy()
---    _log("Reconnecting to proxy")
---
---    proxyPid = hs.execute("/usr/bin/pgrep autossh")
---
---    if proxyPid ~= "" then
---        hs.execute("/usr/bin/pgrep autossh | xargs /bin/kill -s SIGUSR1")
---        _log("SIGUSR1 sent to pid: " .. proxyPid .. " to restart proxy.")
---    elseif proxyPid == "" then
---        _log("No proxy running.")
---        _log("Killing off any errant autossh processes.")
---        hs.execute("killall autossh")
---
---        _log("Starting proxy.")
---        local conn = "localhost:" .. secrets.networking.proxyPort
---        local config = os.getenv("HOME") .. "/.ssh/config"
---        local args = {
---            "-M", "0", "-N", "-f", "-F", config, "-v", "-D", conn, "proxy"
---        }
---        local env = {AUTOSSH_DEBUG = "1", AUTOSSH_LOGFILE = "/tmp/autossh.log"}
---
---        local reconnect = hs.task.new("$brewbin/autossh",
---                                      executeHelpers.callback, args):waitUntilExit()
---        reconnect:setEnvironment(env)
---        reconnect:start()
---
---        proxyPid = reconnect:pid()
---        _log("Autossh started.")
---    end
---end
 
 function networking.init()
     local initStart = os.clock()
