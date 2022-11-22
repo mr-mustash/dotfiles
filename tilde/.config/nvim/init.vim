@@ -174,6 +174,11 @@ endif
 au customaugroup BufWritePre /tmp/* setlocal noundofile
 au customaugroup BufWritePre /run/shm/* setlocal noundofile
 
+" TODO: Fix this so it works everywhere. Currently overwritten in some files,
+" most likely by vim-pencil or another plugin.
+set textwidth=80 " Wrap comments at 80 characters
+set formatoptions=caqlj " options defined in :h fo-table
+
 if has('nvim')
     set completeopt=menu,menuone,noselect,noinsert
 else
@@ -337,7 +342,9 @@ endif
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
 
+" vint: -ProhibitEncodingOptionAfterScriptEncoding
 set encoding=utf-8
+" vint: +ProhibitEncodingOptionAfterScriptEncoding
 set fileencoding=utf-8
 set termencoding=utf-8
 
