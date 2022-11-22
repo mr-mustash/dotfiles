@@ -1,1 +1,1 @@
-/Users/patrickking/.local/share/nvim/plugged/fzf/shell/key-bindings.fish
+/Users/pking/.local/share/nvim/plugged/fzf/shell/key-bindings.fish

@@ -7,8 +7,11 @@ function urls.init()
 
     local builtin = appID(secrets.urls.builtin)
     local default = appID(secrets.urls.default)
-    local videoPlayer = appID(secrets.urls.videoPlayer)
-    local meetings = appID(secrets.urls.meetings)
+    if Local.env == "work" then
+        local meetings = appID(secrets.urls.meetings)
+    else
+        local meetings = appID(secrets.urls.default)
+    end
 
     spoon.URLDispatcher.default_handler = default
     spoon.URLDispatcher.decode_slack_redir_urls = true
@@ -18,15 +21,11 @@ function urls.init()
         {"https://captive.apple.com/", builtin},
         {"https?://%w+.beatsense.com", builtin},
         {"https?://%w+.twitter.com/", builtin},
-        {"https?://%w+.youtube.com/watch?v=", videoPlayer},
         {"https?://%w+.zoom.us/j/", meetings},
         {"https?://%w+w2g.tv", builtin},
         {"https?://twitter.com/", builtin},
-        {"https?://twitter.com/", builtin},
         {"https?://w2g.tv", builtin},
         {"https?://www.beatsense.com", builtin},
-        {"https?://www.youtube.com/watch?v=", videoPlayer},
-        {"https?://youtu.be/", videoPlayer},
         {"https?://zoom.us/j/", meetings},
     }
 
