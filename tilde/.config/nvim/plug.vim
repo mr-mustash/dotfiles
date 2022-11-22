@@ -18,7 +18,7 @@ call plug#begin()
     " Lua functions
     Plug 'nvim-lua/plenary.nvim'
     Plug 'lewis6991/impatient.nvim'
-    Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
+    Plug 'echasnovski/mini.nvim'
 
     " Colorshceme
     " Plug 'overcache/NeoSolarized'
