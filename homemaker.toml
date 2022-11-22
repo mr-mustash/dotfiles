@@ -18,6 +18,7 @@
         [".tmux.conf"],
         [".vintrc"],
         [".yamllint"],
+        ["Library/LaunchAgents/com.local.KeyRemapping.plist"],
     ]
 
 [tasks.pip]
