@@ -1,5 +1,7 @@
 function __fish_prompt_screen --description 'Helper function for fish_prompt'
-    set -l screen_count (screen -ls | egrep -v 'Socket|There is a screen|^[[:space:]]*$' | wc -l)
+    # Yes this grep could be nicer, but it's easier to just have both the
+    # single and plural options.
+    set -l screen_count (screen -ls | egrep -v 'Socket|Sockets|There is a screen|There are screens|^[[:space:]]*$' | wc -l)
     if test $screen_count = 0
         return
     end
