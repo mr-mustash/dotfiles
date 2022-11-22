@@ -69,7 +69,7 @@ local function null_ls_code_actions()
     end
 end
 
-local function null_ls_attached_sources() -- Show actuive null-ls sources
+local function null_ls_attached_sources() -- Show active null-ls sources
     local full_status = {}
     local actions = null_ls_code_actions()
     local diagnostics = null_ls_diagnostics()
