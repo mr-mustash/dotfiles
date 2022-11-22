@@ -69,7 +69,7 @@ local function null_ls_code_actions()
     end
 end
 
-local function null_ls_attached_sources() -- Show actuive null-ls sources
+local function null_ls_attached_sources() -- Show active null-ls sources
     local full_status = {}
     local actions = null_ls_code_actions()
     local diagnostics = null_ls_diagnostics()
@@ -89,6 +89,18 @@ local function null_ls_attached_sources() -- Show actuive null-ls sources
     end
 end
 
+-- Display number of serach results
+function searchCount()
+    local search = vim.fn.searchcount({maxcount = 0}) -- maxcount = 0 makes the number not be capped at 99
+    local searchCurrent = search.current
+    local searchTotal = search.total
+    if searchCurrent > 0 and vim.v.hlsearch ~= 0 then
+        return "/"..vim.fn.getreg("/").." ["..searchCurrent.."/"..searchTotal.."]"
+    else
+        return ""
+    end
+end
+
 -- Status line config
 require('lualine').setup {
     options = {
@@ -102,8 +114,8 @@ require('lualine').setup {
     },
     extensions = {
         'fugitive',
-        'man',
         'fzf',
+        'man',
         'mundo',
     },
     sections = {
@@ -124,6 +136,11 @@ require('lualine').setup {
                 }
             },
             'lsp_progress',
+        },
+        lualine_x = {
+            { searchCount },
+            'fileformat',
+            'filetype'
         },
         lualine_y = {
             separator = nil,

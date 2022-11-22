@@ -1,6 +1,12 @@
-autocmd customaugroup FileType markdown,mkd,md,tex,text
-                    \ | call pencil#init()
+autocmd customaugroup FileType markdown,mkd,md call pencil#init()
+            \ | call pencil#init()
+            \ | call ProseSetup()
+
+autocmd customaugroup FileType text,tex
+            \ | call pencil#init({'wrap': 'hard'})
+            \ | call ProseSetup()
 
 autocmd customaugroup Filetype git,gitsendemail,*commit*,*COMMIT*
-                    \   call pencil#init({'wrap': 'hard', 'textwidth': 72})
-                    \ | setl spell spl=en_us et sw=2 ts=2 noai
+            \ | setl expandtab noswapfile noautoindent
+            \   call pencil#init({'wrap': 'hard', 'textwidth': 80})
+            \ | call ProseSetup()
