@@ -1,7 +1,7 @@
-# `~/.config/fish`
+# Fish
 
 <p align="center">
-    <img src="https://i.imgur.com/WidJ8uW.jpg">
+    <img src="https://i.imgur.com/rcIasR6.png">
 </p>
 
 Hello, and welcome to my overly complicated Fish config. This has been evolving over the last 10 years and it's now in a place where I find it both extensible and performant. Please see the individual sections below for more detail about how it all works.
