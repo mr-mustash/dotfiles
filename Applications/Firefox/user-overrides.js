@@ -3,7 +3,10 @@ user_pref("_user.js.parrot", "overrides section syntax error");
 /*** Tuning user.js defaults ***/
 // https://github.com/arkenfox/user.js/wiki/1.3-Implementation
 user_pref("browser.safebrowsing.downloads.remote.enabled", true); // 0401
-user_pref("browser.safebrowsing.downloads.remote.url", "https://sb-ssl.google.com/safebrowsing/clientreport/download?key=%GOOGLE_API_KEY%"); // 0401
+user_pref(
+  "browser.safebrowsing.downloads.remote.url",
+  "https://sb-ssl.google.com/safebrowsing/clientreport/download?key=%GOOGLE_API_KEY%"
+); // 0401
 user_pref("privacy.clearOnShutdown.cookies", true); // 2811
 
 /*** Moar security ***/
@@ -30,7 +33,9 @@ user_pref("browser.urlbar.suggest.topsites", false);
 user_pref("browser.download.forbid_open_with", true); //5009
 user_pref("signon.rememberSignons", false); //5003
 
-/*** For Twitch ***/
+/*** Use GPU ***/
 user_pref("gfx.webrender.all", true);
+user_pref("gfx.webrender.software", false);
+user_pref("gfx.webrender.software.d3d11", false);
 
 user_pref("_user.js.parrot", "SUCCESS loaded user-overrides.js");
