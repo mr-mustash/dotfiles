@@ -1,1 +1,1 @@
-markdown.vim
+prose.vim
