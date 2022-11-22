@@ -342,9 +342,9 @@ endif
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
 
-" vint: -ProhibitMissingScriptEncoding
+" vint: -ProhibitEncodingOptionAfterScriptEncoding
 set encoding=utf-8
-" vint: +ProhibitMissingScriptEncoding
+" vint: +ProhibitEncodingOptionAfterScriptEncoding
 set fileencoding=utf-8
 set termencoding=utf-8
 
