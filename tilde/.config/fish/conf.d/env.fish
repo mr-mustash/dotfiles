@@ -38,6 +38,7 @@ fish_add_path $HOME/bin
 fish_add_path $HOME/.yarn/bin
 fish_add_path $HOME/.config/yarn/global/node_modules/.bin
 fish_add_path $HOME/go/bin
+fish_add_path $HOME/.cargo/bin
 
 # Using rip instead of vim
 set -x GRAVEYARD "$HOME/.local/graveyard"

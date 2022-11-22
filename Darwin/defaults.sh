@@ -1,9 +1,12 @@
-#!/bin/bash -x
+#!/bin/bash -xe
 # Get updates in background.
 softwareupdate --download >/dev/null
 
 # Ask for the administrator password upfront
-sudo -v
+if ! sudo -v; then
+	echo "ERROR: Need to provide sudo password."
+	exit 1
+fi
 
 # Keep-alive: update existing `sudo` time stamp until `osx.sh` has finished
 while true; do
@@ -11,6 +14,12 @@ while true; do
 	sleep 60
 	kill -0 "$$" || exit
 done 2>/dev/null &
+
+# Agree to the Xcode license
+sudo xcodebuild -license accept
+
+# Synt time
+sudo sntp -sS -t 10 pool.ntp.org
 
 # App Store
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -50,6 +59,7 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 25
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
+#defaults write /Library/Preferences/com.apple.screensaver askForPassword -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
@@ -114,9 +124,6 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
 
-# Empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool true
-
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
@@ -176,6 +183,17 @@ defaults write com.apple.TextEdit "TabWidth" '4'
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
 
+# Time Machine preferences
+sudo tmutil addexclusion ~/.local
+sudo tmutil addexclusion ~/.Trash
+sudo tmutil addexclusion ~/Downloads
+sudo tmutil addexclusion ~/Dropbox
+sudo tmutil addexclusion ~/Library/Caches
+sudo tmutil addexclusion ~/Library/Logs
+sudo tmutil addexclusion ~/Library/Application\ Support/MacUpdater/OldAppBackups
+sudo tmutil addexclusion ~/Library/Application\ Support/MacUpdater/NewDownloadBackups
+sudo tmutil addexclusion ~/Library/Application\ Support/Steam
+
 # Privacy - https://privacy.sexy/
 ## Diactivate remote management service
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
@@ -199,6 +217,8 @@ defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 sudo systemsetup -setremoteappleevents off
 
 # Security
+## Disable root user
+dsenableroot -d
 ## Enable application firewall
 /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -bool true
@@ -210,13 +230,14 @@ sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
 defaults write com.apple.security.firewall EnableStealthMode -bool true
 ## Prevent automatic acceptance of incoming connections to signed apps
 sudo defaults write /Library/Preferences/com.apple.alf allowdownloadsignedenabled -bool false
-sudo defaults write /Library/Preferences/com.apple.screensaver askForPassword -bool true
+sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool false
 ## Disable guest account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
 sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
 ## Disable remote login
-sudo systemsetup -setremotelogin off
+echo 'yes' | sudo systemsetup -setremotelogin off
+## Disable TFTP
 sudo launchctl disable 'system/com.apple.tftpd'
 ## Disable Bonjour
 sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
@@ -226,11 +247,17 @@ sudo launchctl disable system/com.apple.telnetd
 cupsctl --no-share-printers
 cupsctl --no-remote-any
 cupsctl --no-remote-admin
-## Disable captive portal
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control.plist Active -bool false
 ## Disable firefox telemetry
 sudo defaults write /Library/Preferences/org.mozilla.firefox EnterprisePoliciesEnabled -bool TRUE
 sudo defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool TRUE
+## Uninstall Google Update
+googleUpdateFile=~/Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/ksinstall
+if [ -f "$googleUpdateFile" ]; then
+	$googleUpdateFile --nuke
+	echo Uninstalled google update
+else
+	echo Google update file does not exist
+fi
 ## Do not log downloaded files
 file_to_lock=~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2
 if [ -f "$file_to_lock" ]; then
