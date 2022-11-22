@@ -119,10 +119,12 @@ videoCalls.init()
 
 -- App configuration ======================================================= {{{
 Elgato = require("app-config/elgato")
+Mailmate = require("app-config/mailmate")
 Stretchly = require("app-config/stretchly")
 Zoom = require("app-config/zoom")
 
 Elgato.init()
+Mailmate.init()
 Stretchly.init()
 Zoom.init()
 -- ========================================================================= }}}
