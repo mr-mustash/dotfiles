@@ -51,8 +51,7 @@ accepts = [["which", "go"]]
 
 [tasks.vimplug]
     cmds = [
-        ["vim", "-es", "-u", "~/.vimrc", "-i", "NONE", "-c" , "'PlugInstall'", "-c", "'qa'"],
-        ["nvim", "-es", "-u", "~/.config/nvim/init.vim", "-i", "NONE", "-c" , "'PlugInstall'", "-c", "'qa'"],
+        ["nvim", "-es", "-u", "~/.config/nvim/init.vim", "-i", "NONE", "-c" , "'PlugUpdate'", "-c", "'qa'"],
     ]
 
 [tasks.terminfo]
@@ -63,10 +62,16 @@ accepts = [["which", "go"]]
         ["tic", "$HOME/.terminfo/xterm-256color.terminfo"],
     ]
 
+[tasks.fish_links]
+    cmds = [
+        ["ln", "-s", "$HOME/.local/share/nvim/plugged/fzf/shell/key-bindings.fish", "$HOME/.config/fish/functions/fzf_key_bindings.fish"],
+    ]
+
+
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "terminfo"]
+    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "fish_links", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
@@ -93,7 +98,7 @@ envs = [["CHECKOUT", "$HOME/.local/homemaker"]]
 [macros.install__darwin]
     prefix = ["brew", "install"]
 # ========================================================================= }}}
-# *nix =-================================================================== {{{
+# *nix ==================================================================== {{{
 [tasks.keybase__nix]
     accepts = [["which", "keybase"]]
         cmds = [
