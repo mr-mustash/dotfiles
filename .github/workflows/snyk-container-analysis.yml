@@ -32,14 +32,14 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@bf085276cecdb0cc76fbbe0687a5a0e786646936
+    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
     - name: Build a Docker image
       run: docker build -t mrmustash/homedir .
     - name: Run Snyk to check Docker image for vulnerabilities
       # Snyk can be used to break the build when it detects vulnerabilities.
       # In this case we want to upload the issues to GitHub Code Scanning
       continue-on-error: true
-      uses: snyk/actions/docker@a8dd587d8a94f5663fa3d67d51abd0cc66aff244
+      uses: snyk/actions/docker@e25b2e6f5658d1bb7a6671b113260f13134cc3af
       env:
         # In order to use the Snyk Action you will need to have a Snyk API token.
         # More details in https://github.com/snyk/actions#getting-your-snyk-token
@@ -49,6 +49,6 @@ jobs:
         image: mrmustash/homedir
         args: --file=Dockerfile --severity-threshold=high
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@9dac9f748a23bc6702673c2ca9f5c9edff8db684
+      uses: github/codeql-action/upload-sarif@40a75182e7deaa2546a7ae157d51e29952f70622
       with:
         sarif_file: snyk.sarif
