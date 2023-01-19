@@ -46,17 +46,17 @@ if status --is-interactive
 
     # Git expansions
     abbr --add gco 'git checkout'
-    abbr --add gpom 'git pull origin master || git pull origin main'
     abbr --add gcub 'git checkout -b u/(whoami)/'
     abbr --add gpib 'git push origin HEAD:i/(whoami)/'
     abbr --add gcam 'git commit -a -m'
     abbr --add gs 'git status'
     abbr --add gd 'git diff'
-    abbr --add gcm 'git checkout master || git checkout main'
     abbr --add gb 'git branch'
     abbr --add ga 'git add'
-    abbr --add gdm 'git diff master || git diff main'
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
     abbr --add gbf fuzzy_git_branch
+    # `gpom`, `gdm`, and `gcm` are now set in:
+    # prompt/prompt_functions/__fish_prompt_git_checkout_default.fish
+
 end
