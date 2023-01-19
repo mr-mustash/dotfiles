@@ -34,11 +34,11 @@ if test -e /opt/homebrew/opt/fish/share/fish/__fish_build_paths.fish
 end
 
 # Local binaries
-fish_add_path $HOME/bin
-fish_add_path $HOME/.yarn/bin
-fish_add_path $HOME/.config/yarn/global/node_modules/.bin
-fish_add_path $HOME/go/bin
-fish_add_path $HOME/.cargo/bin
+fish_add_path --path $HOME/bin
+fish_add_path --path $HOME/.yarn/bin
+fish_add_path --path $HOME/.config/yarn/global/node_modules/.bin
+fish_add_path --path $HOME/go/bin
+fish_add_path --path $HOME/.cargo/bin
 
 # Using rip instead of vim
 set -x GRAVEYARD "$HOME/.local/graveyard"
@@ -56,15 +56,15 @@ if test $__uname = Darwin
         if which brew >/dev/null
             if set -q __brew_coreutils_path
                 if test "$__brew_coreutils_path" != ""
-                    fish_add_path $__brew_coreutils_path
+                    fish_add_path --path $__brew_coreutils_path
                 else
                     set -Ux __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-                    fish_add_path $__brew_coreutils_path
+                    fish_add_path --path $__brew_coreutils_path
                 end
             else
                 if test -e (brew --prefix coreutils)/libexec/gnubin
                     set -Ux __brew_coreutils_path (brew --prefix coreutils)/libexec/gnubin
-                    fish_add_path $__brew_coreutils_path
+                    fish_add_path --path $__brew_coreutils_path
                 end
             end
         end
