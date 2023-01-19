@@ -9,8 +9,8 @@ local function mailmateCall(name, eventType, app)
         end
     end
 
-    if name == "MialMate" and eventType == hs.application.watcher.terminated then
-        _log("Stretchly closed")
+    if name == "MailMate" and eventType == hs.application.watcher.terminated then
+        _log("MailMate closed")
         for _, app in ipairs(secrets.mail.companionApps) do
             _log(string.format("Closing %s after closing mailmate", app))
             run.startApp(app, true)
