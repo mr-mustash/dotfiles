@@ -1,6 +1,6 @@
 # Patrick King's homedir container
 # Includes typical client utilities for percona, postgres and redis.
-FROM ubuntu:22.04
+FROM ubuntu:22.10
 
 ENV TZ=US/Pacific
 ENV DEBIAN_FRONTEND=noninteractive
