@@ -1,4 +1,5 @@
-<p align="center">
+<div align="center">
+
     <img src="https://i.imgur.com/WidJ8uW.jpg">
 
     <a href="https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main"><img src="https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg" alt="pre-commit.ci status"></a>
@@ -8,7 +9,7 @@
 
     <p><a href="https://unlicense.org/"><img src="https://img.shields.io/github/license/mr-mustash/dotfiles?color=blue&label=Licence&logo=Unlicense" alt="license"></a></p>
 
-</p>
+</div>
 
 # Dotfiles
 
