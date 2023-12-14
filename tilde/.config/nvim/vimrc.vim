@@ -24,10 +24,7 @@ augroup END
 let g:configdir = expand(stdpath('config'))
 let g:datadir = expand(stdpath('data'))
 
-:execute 'source '.fnameescape(g:configdir . '/plug.vim')
-
-" Speed up nvim startup time https://github.com/lewis6991/impatient.nvim
-lua require('impatient')
+" :execute 'source '.fnameescape(g:configdir . '/plug.vim')
 
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
@@ -49,7 +46,7 @@ set regexpengine=1
 
 set wrap
 "vint: -ProhibitUnnecessaryDoubleQuote
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+let &listchars="tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "vint: +ProhibitUnnecessaryDoubleQuote
 set list
 set numberwidth=2
@@ -67,43 +64,13 @@ filetype plugin indent on
 syntax enable
 set hlsearch
 
-" Load custom highlights after colorscheme is loaded
-" https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
-function! MyHighlights() abort
-    " Only highlight the 121st character when it's visible on the screen.
-    highlight ColorColumn guibg=#e75480 guifg=#b58900
-    let g:noColumnHighlight = ['man', 'fzf']
-    autocmd customaugroup Filetype * if index(g:noColumnHighlight, &ft) == -1 | call matchadd('ColorColumn', '\%121v',100) | endif
-
-    highlight SearchHighlight ctermfg=3
-    highlight CursorLineNR    cterm=bold guifg=#b58900
-    highlight CursorLine      cterm=none ctermbg=0 ctermfg=none
-    highlight SignColumn      guibg=#073642
-
-    highlight SpellBad   ctermbg=7 guifg=#ef3b3b
-    highlight SpellLocal ctermbg=7 guifg=#ef3b3b
-    highlight SpellRare  ctermbg=7 guifg=#ef3b3b
-    highlight SpellCap   ctermbg=7 guifg=#ef3b3b
-
-    highlight GitGutterDelete guifg=#dc322f guibg=#073642
-    highlight GitGutterAdd    guifg=#859900 guibg=#073642
-    highlight GitGutterChange guifg=#b58900 guibg=#073642
-endfunction
-
-autocmd customaugroup ColorScheme * call MyHighlights()
-
-set termguicolors
-
-let g:neosolarized_vertSplitBgTrans = 0
-let g:neosolarized_italic = 0
-let g:neosolarized_termBoldAsBright = 0
-colorscheme NeoSolarized
 
 " Only display the cursorline on the active buffer.
 autocmd customaugroup VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal cursorline
 autocmd customaugroup WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
 
-set spelllang=en_us
+set spelllang=en_us,programming
+set spell
 
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
@@ -342,9 +309,7 @@ endif
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
 
-" vint: -ProhibitEncodingOptionAfterScriptEncoding
 set encoding=utf-8
-" vint: +ProhibitEncodingOptionAfterScriptEncoding
 set fileencoding=utf-8
 set termencoding=utf-8
 
@@ -420,18 +385,8 @@ autocmd customaugroup VimEnter * echo "<^.^>"
 
 " ========================================================================= }}}
 " 26 neovim  ============================================================== {{{
-set guicursor=
-
-lua << EOF
-    require('plugin.mason-config')
-    require('plugin.lsp-zero-config')
-    require('plugin.lsp_lines-config')
-    require('plugin.null-ls-config')
-    require('plugin.lspconfig-config')
-    require('plugin.lualine-config')
-    require('plugin.gitsigns-config')
-    require('plugin.mini-config')
-    require('plugin.lsp-signature-config')
-EOF
 " ========================================================================= }}}
+set guicursor=
+let g:vimsyn_embed = 'l'
+
 " vim: set foldmethod=marker foldlevel=99 foldlevelstart=99
