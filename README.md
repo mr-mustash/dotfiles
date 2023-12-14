@@ -1,14 +1,11 @@
 <div align="center">
-
     <img src="https://i.imgur.com/WidJ8uW.jpg">
-
+    <p>
     <a href="https://results.pre-commit.ci/latest/github/mr-mustash/dotfiles/main"><img src="https://results.pre-commit.ci/badge/github/mr-mustash/dotfiles/main.svg" alt="pre-commit.ci status"></a>
     <a href="https://github.com/mr-mustash/dotfiles/actions/workflows/snyk-container-analysis.yml"><img src="https://img.shields.io/github/actions/workflow/status/mr-mustash/dotfiles/snyk-container-analysis.yml?label=Snyk%20Container%20Check&logo=Snyk" alt="Snyk container analysis"></a>
     <a href="https://github.com/mr-mustash/dotfiles/actions/workflows/docker-image.yml"><img src="https://img.shields.io/github/actions/workflow/status/mr-mustash/dotfiles/docker-image.yml?label=Docker%20Image%20Build&logo=Docker" alt="docker image build"></a>
-    #<a href="https://hub.docker.com/repository/docker/mrmustash/homedir"><img src="https://img.shields.io/docker/cloud/build/mrmustash/homedir?label=mrmustash%2Fhomedir%3Alatest&logo=docker" alt="docker cloud build"></a>
-
+    </p>
     <p><a href="https://unlicense.org/"><img src="https://img.shields.io/github/license/mr-mustash/dotfiles?color=blue&label=Licence&logo=Unlicense" alt="license"></a></p>
-
 </div>
 
 # Dotfiles
