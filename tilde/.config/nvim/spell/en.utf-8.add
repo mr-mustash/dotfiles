@@ -1,11 +1,19 @@
 /encoding=utf-8
 /regions=us
 ARM64
+Autovaccum
+ETL
 Hammerspoon
 M1
+Lua
+Replicant
+Terraform
+terraform
+autovacuum
 config
 configs
 dotfiles
+downtime
 executables
 hostname
 hostnames
@@ -21,4 +29,7 @@ repo
 repos
 runbook
 runbooks
+runtime
 submodules
+uptime
+lua

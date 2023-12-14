@@ -1,8 +1,8 @@
-" Check to see if g:isprose is set by `pking#plugins#prose#prose()`.
+" Check to see if g:isprose is set by prose.vim
 if exists('g:isprose')
     set spelloptions-=noplainbuffer
 else
-    set spelloptions+=noplainbuffer
+    set spelloptions+=noplainbuffer,camel
 endif
 
 set spell
