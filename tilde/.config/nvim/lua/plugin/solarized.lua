@@ -27,6 +27,11 @@ return {
                 highlight GitGutterDelete guifg=#dc322f guibg=#073642
                 highlight GitGutterAdd    guifg=#859900 guibg=#073642
                 highlight GitGutterChange guifg=#b58900 guibg=#073642
+
+                highlight DiagnosticSignError guifg=#dc322f guibg=#073642
+                highlight DiagnosticSignWarn guifg=#b58900 guibg=#073642
+                highlight DiagnosticSignHint guifg=#859900 guibg=#073642
+                highlight DiagnosticSignInfo guifg=#268bd2 guibg=#073642
             endfunction
 
             autocmd customaugroup ColorScheme * call MyHighlights()
