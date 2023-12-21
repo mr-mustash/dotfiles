@@ -1,7 +1,11 @@
 return{
     {
         "https://github.com/gbprod/yanky.nvim",
-        event = { 'BufReadPre', 'BufNewFile' },
+        keys = {
+            { "yy", mode = { "n",}, "yy", desc = "yank" },
+            { "y", mode = { "x",}, "y", desc = "yank" },
+            { "Y", mode = { "n", "x", }, "y$", desc = "yank" },
+        },
         config = function()
             require("yanky").setup({
                 system_clipboard = {
