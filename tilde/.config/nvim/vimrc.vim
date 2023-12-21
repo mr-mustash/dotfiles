@@ -102,30 +102,18 @@ endif
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
 
-
-
 " ========================================================================= }}}
-" 10 GUI ================================================================== {{{
-
-
-
-" ========================================================================= }}}
-" 11 printing ============================================================= {{{
-
-
-
-" ========================================================================= }}}
-" 12 messages and info ==================================================== {{{
+" 10 messages and info ==================================================== {{{
 
 set noshowcmd
 
 " ========================================================================= }}}
-" 13 selecting text ======================================================= {{{
+" 11 selecting text ======================================================= {{{
 
 
 
 " ========================================================================= }}}
-" 14 editing text ========================================================= {{{
+" 12 editing text ========================================================= {{{
 
 set undofile
 set backspace=2
@@ -153,7 +141,7 @@ else
 endif
 
 " ========================================================================= }}}
-" 15 tabs and indenting =================================================== {{{
+" 13 tabs and indenting =================================================== {{{
 
 set tabstop=4
 set shiftwidth=4
@@ -162,34 +150,28 @@ set expandtab
 set autoindent
 
 " ========================================================================= }}}
-" 16 folding ============================================================== {{{
+" 14 folding ============================================================== {{{
+"
+set foldmethod=marker
+set foldlevel=99
+set foldlevelstart=99
+
+" ========================================================================= }}}
+" 15 diff mode ============================================================ {{{
 
 
 
 " ========================================================================= }}}
-" 17 diff mode ============================================================ {{{
-
-
-
-" ========================================================================= }}}
-" 18 mapping ============================================================== {{{
+" 16 mapping ============================================================== {{{
 
 let g:mapleader = "\<Space>"
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
-" nvim made this default in 0.6.0
-if !has('nvim')
-    " make Y consistent with C and D.
-    nnoremap Y y$
-end
-
-" Lets save our hands and use jk to leave insert and visual mode.
+" Lets save our hands and use jk to leave insert mode
 inoremap <esc> <nop>
 inoremap jk <esc>
-" vnoremap <esc> <nop>
-" vnoremap jk <esc>
 
 " Remap n and N to use special highlighting function during search.
 nnoremap <silent> n  nzz:call pking#plugins#search#HLNext(0.03)<cr>
@@ -206,21 +188,11 @@ nnoremap <Leader>es :Vexplore<CR>
 " Run current line in terminal
 nnoremap Q !!sh<CR>
 
-" Make paste better with auto reformatting
-noremap p p=`]
-noremap P P=`]
-
 " Make it easy to move between windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" Resize windwos with Animate.vim
-nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
-nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
-nnoremap <silent> <Left>  :call animate#window_delta_width(10)<CR>
-nnoremap <silent> <Right> :call animate#window_delta_width(-10)<CR>
 
 " Move lines with leader-{j,k}, indent with leader-{h,l}
 nnoremap <leader>k :m-2<CR>==
@@ -244,19 +216,19 @@ cnoremap w!! w !sudo tee > /dev/null %<CR>
 nnoremap <silent> <Leader>nn :set invnumber invrelativenumber<CR>
 
 " Use C-t to create a new tab and C-g to close it
-nnoremap <silent> <C-t> :tabnew<CR>
 nnoremap <silent> <C-g> :tabclose<CR>
+nnoremap <silent> <C-t> :tabnew<CR>
 
 " Align text to 80 column in current selection
 vnoremap <silent> <leader>a gq
 
 " ========================================================================= }}}
-" 19 reading and writing files ============================================ {{{
+" 17 reading and writing files ============================================ {{{
 set fsync
 
 
 " ========================================================================= }}}
-" 20 the swap file ======================================================== {{{
+" 18 the swap file ======================================================== {{{
 "
 if !has('nvim')
     set swapsync=fsync
@@ -264,7 +236,7 @@ endif
 set updatetime=500
 
 " ========================================================================= }}}
-" 21 command line editing ================================================= {{{
+" 19 command line editing ================================================= {{{
 
 set history=5000
 set wildmode=list:longest
@@ -292,29 +264,29 @@ autocmd customaugroup CmdwinLeave * setlocal hlsearch
 
 
 " ========================================================================= }}}
-" 22 executing external commands ========================================== {{{
+" 20 executing external commands ========================================== {{{
 
 if &shell =~# 'fish$'
     set shell=fish
 endif
 
 " ========================================================================= }}}
-" 23 running make and jumping to errors =================================== {{{
+" 21 running make and jumping to errors =================================== {{{
 
 
 " ========================================================================= }}}
-" 24 language specific ==================================================== {{{
+" 22 language specific ==================================================== {{{
 
 
 " ========================================================================= }}}
-" 25 multi-byte characters ================================================ {{{
+" 23 multi-byte characters ================================================ {{{
 
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
 
 " ========================================================================= }}}
-" 26 various ============================================================== {{{
+" 24 various ============================================================== {{{
 
 " Skip vim internal buffers
 let g:internal_buffers = [
@@ -384,9 +356,6 @@ set signcolumn=auto:1-3
 autocmd customaugroup VimEnter * echo "<^.^>"
 
 " ========================================================================= }}}
-" 26 neovim  ============================================================== {{{
+" 25 neovim  ============================================================== {{{
 " ========================================================================= }}}
 set guicursor=
-let g:vimsyn_embed = 'l'
-
-" vim: set foldmethod=marker foldlevel=99 foldlevelstart=99

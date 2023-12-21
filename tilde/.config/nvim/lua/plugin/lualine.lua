@@ -1,7 +1,9 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
-    event = { 'BufReadPre', 'BufNewFile' },
+    -- The Buf* commands are for when executing `nvim $FILENAME` and UIEnter is
+    -- when executing `nvim` with no filename.
+    event = { 'BufReadPre', 'BufNewFile', 'UIEnter' },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         {
