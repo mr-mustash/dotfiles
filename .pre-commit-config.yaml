@@ -30,7 +30,7 @@ repos:
         args: [--branch, main]
       - id: trailing-whitespace
   - repo: https://github.com/Kuniwak/vint
-    rev: v0.4a3
+    rev: 94d2cb3fd9526a89911b7c1e083a1fd78bace729
     hooks:
       - id: vint
         args: [--enable-neovim]

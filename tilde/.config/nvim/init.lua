@@ -22,7 +22,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugin", {
+require("lazy").setup({{import = "plugin"}, {import = "plugin.lsp"}}, {
     performance = {
         rtp = {
             -- disable some rtp plugins
@@ -35,5 +35,11 @@ require("lazy").setup("plugin", {
             },
         },
     },
-
+    checker = {
+        enabled = true,
+        notify = false,
+    },
+    change_detection = {
+        notify = false,
+    },
 })
