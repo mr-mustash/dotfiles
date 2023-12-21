@@ -12,8 +12,17 @@ return {
                     enable = true,
                     additional_vim_regex_highlighting = false,
                 },
+                indent = { enable = true },
                 sync_install = false,
             }
+        end,
+    },
+    {
+        "hiphish/rainbow-delimiters.nvim",
+        event = { 'BufReadPre', 'BufNewFile' },
+        dependancies = { "nvim-treesitter/nvim-treesitter" },
+        config = function ()
+            require('rainbow-delimiters.setup').setup {}
         end,
     },
 }

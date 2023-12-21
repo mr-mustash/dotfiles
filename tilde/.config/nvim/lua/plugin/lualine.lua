@@ -167,7 +167,7 @@ return {
                             modified = '  ',      -- Text to show when the file is modified.
                             readonly = '  ',      -- Text to show when the file is non-modifiable or readonly.
                             unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                            newfile = '  ',     -- Text to show for new created file before first writting
+                            newfile = '  ',       -- Text to show for new created file before first writting
                         }
                     },
                     'lsp_progress',
