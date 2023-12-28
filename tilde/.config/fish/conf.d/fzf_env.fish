@@ -1,4 +1,4 @@
-function fzf_env
+if status --is-interactive
     set -l base03 234
     set -l base02 235
     set -l base01 240
@@ -24,5 +24,4 @@ function fzf_env
 
     set -gx FZF_DEFAULT_COMMAND 'rg --files --no-messages --no-ignore --hidden --follow --glob "!.git/*"'
     set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
-
 end

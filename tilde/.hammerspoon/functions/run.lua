@@ -60,7 +60,7 @@ function run.cmd(command, args)
     if args == nil then
         args = {}
     else
-        _log("With args: " .. table.concat(args), " ")
+        _log("With args: " .. table.concat(args, " "))
     end
 
     local _execute = hs.task.new(_cmd, callback, args)
@@ -87,8 +87,9 @@ function run.startApp(application, isHidden)
 
     if isHidden == true then
         _log("Starting application hidden: " .. app)
-        hs.application.open(app, 5, true)
+        hs.application.open(app)
         running = hs.application.find(app)
+        sleep(1)
         if running ~= nil then
             running:hide()
         else
