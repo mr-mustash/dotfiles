@@ -1,6 +1,6 @@
 function __fish_prompt_git_status --description 'Display git info in the fish prompt'
-    set -l dirty_file_count (git status --porcelain -b 2>/dev/null | wc -l)
-    if test $dirty_file_count -gt 0
+    set -l index $argv
+    if test (count $index) -gt 1 # gt 1 because of `# main...origin/main` line
         set -l icon_untracked "?"
         set -l icon_added "+"
         set -l icon_modified "~"
@@ -11,39 +11,25 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         set -l icon_diverged "↕"
         set -l icon_ahead "⇡"
         set -l icon_behind "⇣"
-
         set -l icon_clean "√"
 
         set -l GIT_PROMPT_ORDER untracked added modified renamed deleted stashed unmerged diverged ahead behind
-
-        set -l index (git status --porcelain 2>/dev/null -b)
         set -l trimmed_index (string split \n $index | string sub --start 1 --length 2)
-
 
         for i in $trimmed_index
             if test (string match '\?\?' $i)
                 set git_status untracked $git_status
-            end
-            if test (string match '*A*' $i)
+            else if test (string match '*A*' $i)
                 set git_status added $git_status
-            end
-            if test (string match '*M*' $i)
+            else if test (string match '*M*' $i)
                 set git_status modified $git_status
-            end
-            if test (string match '*R*' $i)
+            else if test (string match '*R*' $i)
                 set git_status renamed $git_status
-            end
-            if test (string match '*D*' $i)
+            else if test (string match '*D*' $i)
                 set git_status deleted $git_status
-            end
-            if test (string match '*U*' $i)
+            else if test (string match '*U*' $i)
                 set git_status unmerged $git_status
             end
-        end
-
-        # Check for stashes
-        if test -n (echo (command git rev-parse --verify refs/stash 2>/dev/null))
-            set git_status stashed $git_status
         end
 
         # Check whether the branch is ahead
@@ -52,9 +38,9 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
         end
 
         # Check whether the branch is behind
-        #if test (string match '*behind*' $index)
-        #    set is_behind true
-        #end
+        if test (string match '*behind*' $index)
+            set is_behind true
+        end
 
         # Check whether the branch has diverged
         if test "$is_ahead" = true -a "$is_behind" = true
@@ -79,18 +65,9 @@ function __fish_prompt_git_status --description 'Display git info in the fish pr
             end
         end
 
-        if test "$full_git_status" != ""
-            set -g __git_is_dirty (echo -ns "[$full_git_status]")
-        else
-            set -e __git_is_dirty
-        end
-    else
-        set -e __git_is_dirty
+        set -l status_trimmed (echo $full_git_status | tr -d '[:blank:]')
+        echo -ns " [$status_trimmed]"
     end
 
-    if set -q __git_is_dirty
-        echo -ns " "
-        echo -ns $__git_is_dirty | tr -d '[:blank:]'
-    end
 
 end

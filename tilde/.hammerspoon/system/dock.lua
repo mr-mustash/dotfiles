@@ -16,12 +16,12 @@ local function docked()
 
     run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
-    local lan = networking.checkForLAN()
     ethernetMenubar:returnToMenuBar()
+    local lan = networking.checkForLAN()
     if lan == "lan" then
-        ethernetMenubar:setTitle(hs.styledtext.new("", menubarLargeStyle))
+        ethernetMenubar:setTitle(hs.styledtext.new("󰈀", menubarLargeStyle))
     elseif lan == "none" then
-        ethernetMenubar:setTitle(hs.styledtext.new("", menubarLargeStyle))
+        ethernetMenubar:setTitle(hs.styledtext.new("󰌙", menubarLargeStyle))
     end
 
     for _, app in ipairs(secrets.dock.dockedApps) do
@@ -36,7 +36,10 @@ local function undocked()
     dock.Is_docked = false
     hs.wifi.setPower(true)
 
-    run.brewcmd("blueutil", {"--disconnect", secrets.dock.mouseID})
+    -- For some reason blueutil doesn't work on an M1 mac unless you call both
+    -- dissconnect and wait-dissconnect. Documented here:
+    -- https://github.com/toy/blueutil/issues/70
+    run.brewcmd("blueutil", {"--disconnect", secrets.dock.mouseID, "--wait-disconnect", secrets.dock.mouseID})
 
     ethernetMenubar:removeFromMenuBar()
 
@@ -81,13 +84,13 @@ function dock.init()
 
     -- Check for dock on reload first
     if dock.isDocked() == true then
+        _log("Dock present on reload.")
         dockChangedState("added")
         dock.Is_docked = true
-        _log("Dock present on reload.")
     else
+        _log("Dock not found on reload.")
         dockChangedState("removed")
         dock.Is_docked = false
-        _log("Dock not found on reload.")
     end
 
     -- Set up watcher for future dock connects/disconnects
