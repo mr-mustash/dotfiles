@@ -71,7 +71,7 @@ if not set -q __pking_init_colors
     # Misc
     set -U fish_prompt_color_graveyard ffa500 --bold
 
-    set -gx __pking_init_colors ✓
+    set -U __pking_init_colors ✓
 end
 
 # -----------------------------------------------------------------------------

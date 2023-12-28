@@ -1,4 +1,5 @@
 -- Important =============================================================== {{{
+
 hs.logger.defaultLogLevel = "debug"
 local basePath = os.getenv("HOME") .. "/.hammerspoon/"
 require("hs.crash")
@@ -25,10 +26,9 @@ function notification(notification, image)
 end
 
 function File_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+    local f = io.open(name, "r")
+    if f ~= nil then io.close(f) return true else return false end
 end
-
 
 function getFunctionLocation()
     local w = debug.getinfo(3, "S")
@@ -110,6 +110,7 @@ Dock = require("system/dock")
 networking = require("system/networking")
 -- Ping = require("system/Ping") -- needs work
 videoCalls = require("system/videoCalls")
+
 
 audioControl.init()
 caffeine.init()

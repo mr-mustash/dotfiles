@@ -1,9 +1,6 @@
 local audioControl = {}
 
--- Avoid automatically setting a bluetooth audio input device
 lastChangeTime = os.time()
-lastInputDevice = hs.audiodevice.defaultInputDevice()
-lastOutputDevice = hs.audiodevice.defaultOutputDevice()
 
 local function internalOrExternalSpeaker()
     local speakers = hs.audiodevice.findOutputByName(secrets.audioControl.internalOutput)
@@ -55,18 +52,29 @@ local function internalOrExternalMic()
 end
 
 local function audioDeviceChanged(arg)
-    local sRetval = 1
-    local mRetval = 1
-    if arg == "dev#" and os.time() - lastChangeTime > 2 then
-        sRetval = internalOrExternalSpeaker()
-        mRetval = internalOrExternalMic()
+    local outputRetval = 1
+    local micRetval = 1
 
-        if sRetval == 0 and mRetval == 0 then
-            lastSetOutputTime = os.time()
-        else
-            _log("Unable to set mic or speakers. Mic: " .. mRetval .. ", Speakers: " .. sRetval)
+    LastSetOutputTime = os.time()
+
+    -- Debounce audio device changes
+    if arg == "dev#" and os.time() - lastChangeTime > 2 then
+        -- This sleep here is a total hack. Without it macOS resets the default
+        -- audio devices to what it things should be correct. What this usually
+        -- means is that the mic on the AirPods is set as the default input
+        -- instead of the built-in mic on the laptop.
+        sleep(5)
+
+        _log("New audio device detected. Current values: Speaker: " .. hs.audiodevice.defaultOutputDevice():name() .. " Mic: " .. hs.audiodevice.defaultInputDevice():name())
+
+        outputRetval = internalOrExternalSpeaker()
+        micRetval = internalOrExternalMic()
+
+        if outputRetval ~= 0 and micRetval ~= 0 then
+            _log("Unable to set mic or speakers. Mic: " .. micRetval .. ", Speakers: " .. outputRetval)
         end
     end
+
 end
 
 local function trapVolumeControls()
