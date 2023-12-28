@@ -24,14 +24,21 @@ return {
                 highlight SpellCap   ctermbg=7 guifg=#ef3b3b
                 highlight clear SpellRare " clearing because of https://github.com/psliwka/vim-dirtytalk#known-issues
 
-                highlight GitGutterDelete guifg=#dc322f guibg=#073642
-                highlight GitGutterAdd    guifg=#859900 guibg=#073642
-                highlight GitGutterChange guifg=#b58900 guibg=#073642
-
                 highlight DiagnosticSignError guifg=#dc322f guibg=#073642
                 highlight DiagnosticSignWarn guifg=#b58900 guibg=#073642
                 highlight DiagnosticSignHint guifg=#859900 guibg=#073642
                 highlight DiagnosticSignInfo guifg=#268bd2 guibg=#073642
+
+                highlight TelescopeSelection guibg=#073642 gui=bold
+
+                highlight RainbowDelimiterRed guifg=#DE2A33
+                highlight RainbowDelimiterOrange guifg=#FFAD00
+                highlight RainbowDelimiterYellow guifg=#ffef00
+                highlight RainbowDelimiterGreen guifg=#08FF08
+                highlight RainbowDelimiterCyan guifg=#00C8F0
+                highlight RainbowDelimiterBlue guifg=#4D4DFF
+                highlight RainbowDelimiterViolet guifg=#C724B1
+
             endfunction
 
             autocmd customaugroup ColorScheme * call MyHighlights()
@@ -42,5 +49,10 @@ return {
             colorscheme solarized
             ]])
         end,
+    },
+    {
+        "NvChad/nvim-colorizer.lua",
+        event = { "BufReadPre", "BufNewFile" },
+        config = true,
     },
 }

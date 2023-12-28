@@ -59,6 +59,7 @@
 [push]
 	default = current
 	followTags = true
+	autoSetupRemote = true
 
 [rebase]
 	stat = true

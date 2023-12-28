@@ -3,12 +3,10 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        { "antosha417/nvim-lsp-file-operations", config = true },
         {
-            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             dependencies = {
-                "williamboman/mason-lspconfig.nvim",
-                "WhoIsSethDaniel/mason-tool-installer.nvim",
+                "williamboman/mason.nvim",
             },
         },
         "nvim-lua/plenary.nvim",
@@ -96,6 +94,7 @@ return {
         require("mason").setup({
             ui = {
                 border = "rounded",
+                check_outdated_packages_on_open = true,
                 icons = {
                     package_installed = "✓",
                     package_pending = "➜",
@@ -111,9 +110,5 @@ return {
                 default_setup,
             }
         })
-
-        require('mason-tool-installer').setup {
-            auto_update = true,
-        }
     end
 }

@@ -1,0 +1,5 @@
+---
+policies:
+  # I have become a neovim convert.
+  env:
+    neovim: true

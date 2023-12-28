@@ -13,7 +13,7 @@ local function mailmateCall(name, eventType, app)
         _log("MailMate closed")
         for _, app in ipairs(secrets.mail.companionApps) do
             _log(string.format("Closing %s after closing mailmate", app))
-            run.startApp(app, true)
+            run.closeApp(app)
         end
     end
 end

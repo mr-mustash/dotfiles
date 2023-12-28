@@ -29,8 +29,12 @@ if status --is-interactive
     # Misc
     abbr --add ag rg # some habits are too hard to break
 
-    # Terraform on M1
-    alias terraform-amd64="TF_DEMUX_ARCH=amd64 terraform-demux"
+    # Terraform
+    abbr --add tf 'terraform fmt'
+    abbr --add tp 'terraform fmt ; terraform plan'
+
+    # History
+    abbr -a !! --position anywhere --function last_history_item
 
     # tmux
     abbr --add t tmux
