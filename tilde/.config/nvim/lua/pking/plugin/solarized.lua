@@ -31,10 +31,16 @@ return {
                 highlight DiagnosticSignError guifg=#dc322f guibg=#073642
                 highlight DiagnosticSignWarn guifg=#b58900 guibg=#073642
                 highlight DiagnosticSignHint guifg=#859900 guibg=#073642
-                highlight DiagnosticSignInfo guifg=#268bd2 guibg=#073642
+                highlight DiagnosticSignInfo guifg=#2aa198 guibg=#073642
+
+                highlight FloatBorder guibg=#002b36
+                highlight NormalFloat guibg=#002b36
             endfunction
 
-            autocmd customaugroup ColorScheme * call MyHighlights()
+            augroup MyColors
+                autocmd!
+                autocmd ColorScheme * call MyHighlights()
+            augroup END
 
             set termguicolors
 

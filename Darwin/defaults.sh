@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 # Get updates in background.
-softwareupdate --download >/dev/null
+#softwareupdate --download --install --all
 
 # Ask for the administrator password upfront
 if ! sudo -v; then
@@ -8,10 +8,10 @@ if ! sudo -v; then
 	exit 1
 fi
 
-# Keep-alive: update existing `sudo` time stamp until `osx.sh` has finished
+# Keep-alive: update existing `sudo` time stamp until `defaults.sh` has finished
 while true; do
 	sudo -n true
-	sleep 60
+	sleep 120
 	kill -0 "$$" || exit
 done 2>/dev/null &
 
@@ -194,7 +194,7 @@ sudo tmutil addexclusion ~/Library/Application\ Support/MacUpdater/OldAppBackups
 sudo tmutil addexclusion ~/Library/Application\ Support/MacUpdater/NewDownloadBackups
 sudo tmutil addexclusion ~/Library/Application\ Support/Steam
 
-# Privacy - https://privacy.sexy/
+# ---- Privacy - https://privacy.sexy/ ----
 ## Diactivate remote management service
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
 ## Disable everything siri
@@ -266,6 +266,7 @@ if [ -f "$file_to_lock" ]; then
 else
 	echo "No action is needed, file does not exist at \"$file_to_lock\""
 fi
+# --------------------------------------------------
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4

@@ -31,9 +31,8 @@ end
 
 local function batteryPower()
     previousPowerState = "battery"
-    debouncing = false
     previousPowerStateTime = os.time()
-    _log("On battery power.")
+    _log("CHARGING: Changed to battery power.")
 
     run.cmd("/usr/bin/tmutil", { "stopbackup" })
     run.brewcmd("maestral", { "pause" })
@@ -43,32 +42,14 @@ local function batteryPower()
 end
 
 local function acPower()
-    previousPowerState = "ac power"
-    debouncing = false
-    currentTime = os.time()
-    _log("On AC Power: Full fully charged.")
+    previousPowerState = "ac"
+    previousPowerStateTime = os.time()
+    _log("CHARGING: Changed to AC power.")
 
     run.brewcmd("maestral", { "resume" })
 
     display.setInternalBrightness(90)
     --startDocker()
-end
-
-local function setPowerStateOnLoad()
-    local currentPowerSource = hs.battery.powerSource()
-    local currentBatteryPercentage = hs.battery.percentage()
-    local charging = hs.battery.isCharging()
-    previousPowerStateTime = os.time()
-
-    if currentPowerSource == "Battery Power" then
-        batteryPower()
-    elseif currentPowerSource == "AC Power" then
-        acPower()
-    else
-        _log("Something is broken in the battery module and we're not on AC or battery power.")
-    end
-
-    _log("Power state on load: " .. previousPowerState)
 end
 
 function powerStateChanged()
@@ -77,19 +58,35 @@ function powerStateChanged()
 
     if currentPowerSource == "Battery Power" and previousPowerState ~= "battery" then
         batteryPower()
-    elseif currentPowerSource == "AC Power" then
+    elseif currentPowerSource == "AC Power" and previousPowerState ~= "ac" then
         acPower()
+    else
+        _log(
+        "CHARGING: Charging state unchanged. Battery charge at "
+        .. string.format("%s", batPercent)
+        .. "% using "
+        .. previousPowerState
+        .. " power for "
+        .. string.format("%s", os.time() - previousPowerStateTime)
+        .. " seconds."
+        )
     end
 
-    _log(
-        "Battery currently at "
-            .. string.format("%s", batPercent)
-            .. "% and power state is "
-            .. previousPowerState
-            .. " and has been for "
-            .. string.format("%s", os.time() - previousPowerStateTime)
-            .. " seconds."
-    )
+end
+
+local function setPowerStateOnLoad()
+    local currentPowerSource = hs.battery.powerSource()
+    previousPowerStateTime = os.time()
+
+    if currentPowerSource == "Battery Power" then
+        batteryPower()
+    elseif currentPowerSource == "AC Power" then
+        acPower()
+    else
+        _log("CHARGING: Something is broken in the battery module and we're not on AC or battery power.")
+    end
+
+    _log("Power state on load: " .. previousPowerState)
 end
 
 function charging.init()

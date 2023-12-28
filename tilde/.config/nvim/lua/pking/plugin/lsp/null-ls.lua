@@ -32,7 +32,9 @@ return {
                 vim.lsp.diagnostic.on_publish_diagnostics,
                 {
                     virtual_text = false,
-                    virtual_lines = { only_current_line = true }
+                    virtual_lines = { only_current_line = true },
+                    update_in_insert = false,
+                    severity_sort = true,
                 }
             )
         end

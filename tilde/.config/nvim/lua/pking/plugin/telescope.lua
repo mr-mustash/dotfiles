@@ -19,6 +19,7 @@ return {
                             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
                             ["<C-j>"] = actions.move_selection_next, -- move to next result
                             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<esc>"] = actions.close
                         },
                     },
                 },
@@ -32,11 +33,15 @@ return {
             vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
             vim.keymap.set('n', '<leader>rg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+            vim.keymap.set('n', '<leader>b', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
             vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
             vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
+            vim.keymap.set('n', '<leader>fl', builtin.highlights, {})
 
+            -- auto-session.nvim
+            telescope.load_extension("session-lens")
         end,
     }
 }

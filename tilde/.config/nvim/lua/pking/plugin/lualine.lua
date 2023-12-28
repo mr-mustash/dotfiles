@@ -3,15 +3,11 @@ return {
     "nvim-lualine/lualine.nvim",
     -- The Buf* commands are for when executing `nvim $FILENAME` and UIEnter is
     -- when executing `nvim` with no filename.
-    event = { 'BufReadPre', 'BufNewFile', 'UIEnter' },
+    event = { 'UIEnter' },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        {
-            "WhoIsSethDaniel/lualine-lsp-progress",
-            dependencies = {
-                "neovim/nvim-lspconfig"
-            }
-        },
+        "WhoIsSethDaniel/lualine-lsp-progress",
+        "AndreM222/copilot-lualine",
     },
     config = function()
         -- Customizing the solarized theme to look like the vim-airline theme.
@@ -127,6 +123,15 @@ return {
 
         end
 
+        local function current_session()
+            local current_session = require('auto-session.lib').current_session_name
+            if current_session ~= nil then
+                return " " .. current_session
+            else
+                return ""
+            end
+        end
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
@@ -139,12 +144,24 @@ return {
             },
             extensions = {
                 'fugitive',
+                'lazy',
                 'man',
+                'mason',
                 'mundo',
+                'telescope',
             },
-            winbar = {
+            tabline = {
                 lualine_a = {
-                    'filename'
+                    {
+                        "buffers",
+                        show_modified_status = true,
+                        mode = 4,
+                        symbols = {
+                            modified = '  ',
+                            alternate_file = ' 󱞧 ',
+                            directory =  '  ',
+                        },
+                    },
                 },
                 lualine_c = {
                     {
@@ -170,6 +187,7 @@ return {
                             newfile = '  ',       -- Text to show for new created file before first writting
                         }
                     },
+                    require('auto-session.lib').current_session_name,
                     'lsp_progress',
                 },
                 lualine_x = {
@@ -180,6 +198,17 @@ return {
                 lualine_y = {
                     separator = nil,
                     { treesitter_attached,  color = {fg= '#859900', gui='none'}, },
+                    {
+                        'copilot',
+                        symbols = { status = { hl = {
+                            enabled = "#859900",
+                            disabled = "#d70000",
+                            warning = "#859900",
+                            unknown = "#0087ff"
+                        }}},
+                        show_colors = true,
+                        show_loading = true,
+                    },
                     lsp_client_names,
                     null_ls_attached_sources,
                 },

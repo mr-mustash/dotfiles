@@ -294,8 +294,8 @@ let g:internal_buffers = [
         \ '[Input]',
         \ '[Messages]',
         \ '[Popup]',
-        \ '[Quickfix]',
         \ '[Signs]',
+        \ '[Quickfix]',
         \ '[Status Line]',
         \ '[Termcap]',
         \ '[Terminal]',
@@ -337,7 +337,6 @@ endfunction
 autocmd customaugroup BufWritePost,BufLeave ?* nested if MakeViewCheck() | silent! mkview | endif
 autocmd customaugroup BufWinEnter           ?* nested if MakeViewCheck() | silent! loadview | endif
 
-set sessionoptions-=blank sessionoptions-=options sessionoptions+=tabpages sessionoptions-=buffers
 
 let &viewdir = g:datadir . '/view'
 
@@ -350,8 +349,6 @@ set viminfo='50,\"5000,h,/0
 " Setting up explore to behaive like we expect
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-
-set signcolumn=auto:1-3
 
 autocmd customaugroup VimEnter * echo "<^.^>"
 

@@ -89,6 +89,7 @@ function run.startApp(application, isHidden)
         _log("Starting application hidden: " .. app)
         hs.application.open(app, 5, true)
         running = hs.application.find(app)
+        sleep(1)
         if running ~= nil then
             running:hide()
         else

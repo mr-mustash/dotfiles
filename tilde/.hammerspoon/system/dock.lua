@@ -12,7 +12,7 @@ local function docked()
     _log("Docked, Setting up docked mode.")
 
     networking.disableWifiSlowly()
-    networking.networkReconnect(secrets.networking.homeDNS)
+    networking.setDNS(secrets.networking.homeDNS)
 
     run.brewcmd("blueutil", {"--connect", secrets.dock.mouseID})
 
@@ -25,7 +25,9 @@ local function docked()
     end
 
     for _, app in ipairs(secrets.dock.dockedApps) do
+        _log(string.format("Opening %s after dock connected.", app))
         run.startApp(app, true)
+        sleep(1)
     end
 end
 
@@ -39,7 +41,9 @@ local function undocked()
     ethernetMenubar:removeFromMenuBar()
 
     for _, app in ipairs(secrets.dock.dockedApps) do
+        _log(string.format("Closing %s after dock disconnected.", app))
         run.closeApp(app)
+        sleep(1)
     end
 end
 
