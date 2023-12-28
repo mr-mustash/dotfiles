@@ -13,19 +13,7 @@ WHICH_BREW := $(shell which brew > /dev/null; echo $$?)
 		brew upgrade
 	endif
 
-mas_install:
-WHICH_MAS := $(shell which mas > /dev/null; echo $$?)
-	ifneq ($(WHICH_MAS),0)
-		brew install mas
-	endif
-
-mas: mas_install
-MAS_ACCOUNT := $(shell mas account > /dev/null; echo $$?)
-	ifneq ($(MAS_ACCOUNT),0)
-		$(error "You need to log in to the AppStore.")
-	endif
-
-bundle: brew mas ## Install brew and then brew bundle install
+bundle: brew  ## Install brew and then brew bundle install
 	brew bundle --file=Darwin/Brewfile install
 	brew cleanup
 	brew cask cleanup
@@ -33,7 +21,7 @@ bundle: brew mas ## Install brew and then brew bundle install
 homemaker_install:
 WHICH_HOMEMAKER := $(shell which homemaker > /dev/null; echo $$?)
 	ifeq ($(WHICH_HOMEMAKER),1)
-		GO111MODULE=on go get github.com/FooSoft/homemaker
+		GO111MODULE=on go install foosoft.net/projects/homemaker@latest
 	endif
 
 submodules:
@@ -41,6 +29,9 @@ submodules:
 
 homemaker: homemaker_install submodules ## Run homemaker to build homedir
 	homemaker --variant darwin --verbose homemaker.toml tilde/
+
+
+homedir: bundle homemaker ## Full computer setup with homedir and binaries
 
 setup: bundle homemaker ## Full computer setup with homedir and binaries
 
@@ -54,3 +45,8 @@ docker_clean: ## Build docker image without cache
 pre_commit: ## Install pre-commit hooks for this repo
 	brew install pre-commit
 	pre-commit install
+
+pre_commit_update: ## Update pre-commit hooks for this repo
+	pre-commit autoupdate
+	pre-commit autoupdate --bleeding-edge --repo https://github.com/Kuniwak/vint
+	pre-commit install --install-hooks

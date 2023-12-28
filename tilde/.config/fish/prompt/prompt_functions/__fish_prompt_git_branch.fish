@@ -1,6 +1,5 @@
 function __fish_prompt_git_branch --description "Display git the git branch name"
-    set -l git_branch (git branch | grep '^*' | awk '{print $2}')
-    or return 0
+    set -l git_branch (echo $argv[1] | string replace -r -a '\\.\\.\\..*$' '' | string replace -r -a '^## ' '')
 
     # If the branch name is too long take out the '/u/pking/'
     set -l max (math "round($COLUMNS / 8)") # maximum length = 1/8rd window width

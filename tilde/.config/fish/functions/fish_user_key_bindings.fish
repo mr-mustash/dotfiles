@@ -26,6 +26,14 @@ function user_misc_key_bindings
     bind -M insert -m insert \cp 'prevd | commandline -f repaint'
 end
 
+function source_fish_key_bindings
+    if test -f $__brew_prefix/opt/fzf/shell/key-bindings.fish
+        source $__brew_prefix/opt/fzf/shell/key-bindings.fish
+
+        fzf_key_bindings
+    end
+end
+
 function fish_user_key_bindings
     # VIM ALL THE THINGS
     fish_vi_key_bindings
@@ -36,5 +44,5 @@ function fish_user_key_bindings
 
     user_misc_key_bindings
 
-    fzf_key_bindings
+    source_fish_key_bindings
 end

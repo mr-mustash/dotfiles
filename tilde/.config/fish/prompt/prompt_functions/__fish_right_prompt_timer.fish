@@ -21,8 +21,10 @@ function __fish_right_prompt_timer -a ms
     end
 
     set_color --bold
-    echo -ns "鬒"
+    echo -ns "󰥕"
     echo -ns "$time "
     set_color normal
 
+    set -e time
+    set -e ms
 end
