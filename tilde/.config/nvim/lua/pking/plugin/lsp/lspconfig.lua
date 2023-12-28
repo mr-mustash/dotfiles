@@ -64,7 +64,7 @@ return {
             end
         })
 
-        local signs = { Error = "", Warn = "", Hint = "󰠠", Info = "" }
+        local signs = { Error = "", Warn = "", Hint = "", Info = "" }
         for type, icon in pairs(signs) do
             -- Highlights set in solarized.lua under `DiagnosticSign*`
             local hl = "DiagnosticSign" .. type

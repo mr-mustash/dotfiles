@@ -30,7 +30,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "markcat", "ipfs-deploy"],
+        ["npm", "install", "markcat", "ipfs-deploy", "tree-sitter-cli"],
     ]
 
 [tasks.go]
