@@ -16,6 +16,8 @@ set -Ux MANPAGER 'nvim +Man!'
 
 # Homebrew
 set -x HOMEBREW_NO_ANALYTICS 1
+set -x HOMEBREW_NO_INSECURE_REDIRECT 1
+set -x HOMEBREW_CASK_OPTS "--require-sha"
 
 # Docker
 set -x DOCKER_BUILDKIT 1
