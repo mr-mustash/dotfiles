@@ -76,7 +76,7 @@ function networking.networkReconnect(dns)
     -- Before setting the desired DNS we need to check for a captive portal. If
     -- we detect one we set the DNS to "empty" so we can use the local network
     -- resolver and navigate to the captive Portal.
-    if (detectCaptivePortal() == 0 and hs.wifi.currentNetwork() ~= homeSSID)then
+    if (detectCaptivePortal() == 0 and (hs.wifi.currentNetwork() ~= homeSSID or hs.wifi.currentNetwork() ~= homeOfficeSSID)) then
         captiveWifiNetwork()
     end
 
