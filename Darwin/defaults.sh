@@ -237,14 +237,18 @@ defaults write com.apple.AdLib forceLimitAdTracking -bool true
 
 sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool false
 sudo defaults write /Library/Preferences/com.apple.alf allowdownloadsignedenabled -bool false
-/usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -bool true
-defaults write com.apple.security.firewall EnableFirewall -bool true
-/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
 sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -bool true
-/usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
 sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
+defaults write com.apple.security.firewall EnableFirewall -bool true
 defaults write com.apple.security.firewall EnableStealthMode -bool true
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off
+
+sudo pkill -HUP socketfilterfw
 
 # ========================================================================= }}}
 # Security#Screensaver ==================================================== {{{
