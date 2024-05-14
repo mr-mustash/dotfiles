@@ -39,7 +39,7 @@ accepts = [["which", "npm"]]
             ["which", "fish"],
             ["echo", "$SHELL", "|", "grep", "fish"],
         ]
-    cmds = [["chsh", "-s", "/usr/bin/fish"]]
+    cmds = [["chsh", "-s", "/opt/homebrew/bin/fish"]]
 
 [tasks.terminfo]
     accepts = [["which", "tic"]]
@@ -53,7 +53,8 @@ accepts = [["which", "npm"]]
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "fish", "fish_completions", "terminfo"]
+    # deps = ["links", "systemconfig", "pip", "npm", "fish", "fish_completions", "terminfo"]
+    deps = ["links", "pip", "npm", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{
