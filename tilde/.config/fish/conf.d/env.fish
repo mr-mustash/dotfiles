@@ -39,12 +39,18 @@ set -gx QUBES_GPG_DOMAIN gpg
 set -gx HOMEBREW_PREFIX $__brew_prefix
 set -gx HOMEBREW_CELLAR $__brew_prefix/Cellar
 set -gx HOMEBREW_REPOSITORY $__brew_prefix
+set -gx HOMEBREW_GNUBIN $__brew_prefix/opt/coreutils/libexec/gnubin
+set -gx HOMEBREW_GNUMAN $__brew_prefix/opt/coreutils/libexec/gnuman
+
 set -q PATH; or set PATH ''
-set -gx PATH $__brew_prefix/bin $__brew_prefix/sbin $PATH
+set -gx PATH $HOMEBREW_GNUBIN $__brew_prefix/bin $__brew_prefix/sbin $PATH
+
 set -q MANPATH; or set MANPATH ''
-set -gx MANPATH /opt/homebrew/share/man $MANPATH
+set -gx MANPATH $HOMEBREW_GNUMAN /opt/homebrew/share/man $MANPATH
+
 set -q INFOPATH; or set INFOPATH ''
 set -gx INFOPATH $__brew_prefix/share/info $INFOPATH
+
 if test -e $__brew_prefix/opt/fish/share/fish/__fish_build_paths.fish
     source $__brew_prefix/opt/fish/share/fish/__fish_build_paths.fish
 end
@@ -55,6 +61,7 @@ fish_add_path --path $HOME/.yarn/bin
 fish_add_path --path $HOME/.config/yarn/global/node_modules/.bin
 fish_add_path --path $HOME/go/bin
 fish_add_path --path $HOME/.cargo/bin
+fish_add_path --path $HOME/.local/bin # pipx path
 fish_add_path --path $__brew_prefix/opt/homebrew/opt/coreutils/libexec/gnubin
 fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 
