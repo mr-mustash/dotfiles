@@ -7,7 +7,19 @@ return {
         event = { 'UIEnter' },
         dependencies = {
             "nvim-tree/nvim-web-devicons",
-            "WhoIsSethDaniel/lualine-lsp-progress",
+            {
+                "linrongbin16/lsp-progress.nvim",
+                config = function()
+                    require ('lsp-progress').setup()
+
+                    vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+                    vim.api.nvim_create_autocmd("User", {
+                          group = "lualine_augroup",
+                          pattern = "LspProgressStatusUpdated",
+                          callback = require("lualine").refresh,
+                    })
+                end,
+            },
             "AndreM222/copilot-lualine",
         },
         config = function()
@@ -187,7 +199,7 @@ return {
                         },
                         auto_session,
                         'location',
-                        'lsp_progress',
+                        require('lsp-progress').progress,
                     },
                     lualine_x = {
                         { searchCount },
