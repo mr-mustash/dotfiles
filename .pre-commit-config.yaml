@@ -12,7 +12,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       # - id: detect-aws-credentials
       - id: check-added-large-files
@@ -30,7 +30,7 @@ repos:
         args: [--branch, main]
       - id: trailing-whitespace
   - repo: https://github.com/Kuniwak/vint
-    rev: 94d2cb3fd9526a89911b7c1e083a1fd78bace729
+    rev: v0.4a3
     hooks:
       - id: vint
         args: [--enable-neovim]
@@ -41,7 +41,7 @@ repos:
       - id: fish_syntax
       - id: fish_indent
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.12.1-beta
+    rev: v2.13.1-beta
     hooks:
       - id: hadolint
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
