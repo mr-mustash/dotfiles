@@ -28,14 +28,16 @@ function urls.init()
     spoon.URLDispatcher.url_patterns = {
         {"https://captive.apple.com/", builtin},
         {"https?://%w+.beatsense.com", builtin},
-        {"https?://%w+.twitter.com/", builtin},
-        {"https?://%w+.zoom.us/j/", meetings},
         {"https?://%w+.tiktok.com", builtin},
+        {"https?://%w+.twitter.com/", builtin},
         {"https?://%w+.w2g.tv", builtin},
+        {"https?://%w+.x.com/", builtin},
+        {"https?://%w+.zoom.us/j/", meetings},
+        {"https?://meet.google.com", builtin},
         {"https?://tiktok.com", builtin},
-        {"https?://twitter.com/", builtin},
         {"https?://w2g.tv", builtin},
         {"https?://www.beatsense.com", builtin},
+        {"https?://x.com/", builtin},
         {"https?://zoom.us/j/", meetings},
     }
 

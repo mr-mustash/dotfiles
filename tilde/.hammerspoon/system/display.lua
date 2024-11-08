@@ -19,7 +19,7 @@ function display.setAllBrightness(brightness)
         else
             _log("Setting " .. display:name() .. " brightness to " .. brightness)
             -- Use ddcctl to set the brightness of all external displays
-            run.cmd("/Users/patrickking/bin/m1ddc", {"set", "luminance", tostring(brightness)})
+            run.cmd(string.format("%s/bin/m1ddc", Homedir), {"set", "luminance", tostring(brightness)})
         end
     end
 end
