@@ -1,4 +1,5 @@
-#!/bin/bash -xe Get updates in background.
+#!/bin/bash -xe
+
 softwareupdate --download --verbose --install --all
 
 # Ask for the administrator password upfront
@@ -130,14 +131,14 @@ defaults write com.apple.dock expose-animation-duration -float 0.1 # Speed up Mi
 # ========================================================================= }}}
 # Safari ================================================================== {{{
 
-defaults write com.apple.Safari HomePage -string "about:blank"           # Set Safari’s home page to `about:blank` for faster loading
-defaults write com.apple.Safari ShowFavoritesBar -bool false             # Hide Safari’s bookmarks bar by default
-defaults write com.apple.Safari ShowSidebarInTopSites -bool false        # Hide Safari’s sidebar in Top Sites
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true # Show the full URL in the address bar
+# defaults write com.apple.Safari HomePage -string "about:blank"           # Set Safari’s home page to `about:blank` for faster loading
+# defaults write com.apple.Safari ShowFavoritesBar -bool false             # Hide Safari’s bookmarks bar by default
+# defaults write com.apple.Safari ShowSidebarInTopSites -bool false        # Hide Safari’s sidebar in Top Sites
+# defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true # Show the full URL in the address bar
 
 # Don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+# defaults write com.apple.Safari UniversalSearchEnabled -bool false
+# defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 # ========================================================================= }}}
 
@@ -170,7 +171,6 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Time Machine ============================================================ {{{
 
 exclusions=("$HOME/.local"
-	"$HOME/.Trash"
 	"$HOME/Downloads"
 	"$HOME/Dropbox"
 	"$HOME/Library/Caches"
