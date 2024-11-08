@@ -112,6 +112,7 @@ Dock = require("system/dock")
 networking = require("system/networking")
 -- Ping = require("system/Ping") -- needs work
 videoCalls = require("system/videoCalls")
+-- Keytrap = require("system/keytrap")
 
 
 audioControl.init()
@@ -122,6 +123,7 @@ Dock.init()
 networking.init()
 -- Ping.init() -- needs work
 videoCalls.init()
+-- Keytrap.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{

@@ -105,7 +105,16 @@ return {
 
         require("mason-lspconfig").setup({
             automatic_installation = true,
-            ensure_installed = {},
+            -- Only LSPs are listed here, all of the other installs are in
+            -- null-ls.lua
+            ensure_installed = {
+                "bashls",
+                "eslint",
+                "harper_ls",
+                "lua_ls",
+                "ruff_lsp",
+                "taplo",
+            },
             handlers = {
                 default_setup,
             }
