@@ -84,6 +84,8 @@ menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20
 
 defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
 
+Homedir = os.getenv( "HOME" )
+
 -- ========================================================================= }}}
 -- Important functions ===================================================== {{{
 run = require("functions/run")

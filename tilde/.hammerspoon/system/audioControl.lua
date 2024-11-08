@@ -122,11 +122,11 @@ local function trapVolumeControls()
 
                     -- Send volume up to external monitor if connected and it's the default audio output
                     if event["key"] == "SOUND_UP" then
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "+5" })
+                        run.cmd(string.format("%s/bin/m1ddc", Homedir), { "chg", "volume", "+5" })
                         return true
                     end
                     if event["key"] == "SOUND_DOWN" then
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "-5" })
+                        run.cmd(string.format("%s/bin/m1ddc", Homedir), { "chg", "volume", "-5" })
                         return true
                     end
                 end
@@ -186,7 +186,7 @@ end
 function audioControl.muteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
+            run.cmd(string.format("%s/bin/m1ddc", Homedir), { "set", "mute", "on" })
             _log("External display " .. device:name() .. " muted")
             return
         end
@@ -201,7 +201,7 @@ end
 function audioControl.unmuteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
+            run.cmd(string.format("%s/bin/m1ddc", Homedir), { "set", "mute", "off" })
             _log("External display " .. device:name() .. " unmuted")
             return
         end
