@@ -111,7 +111,6 @@ display = require("system/display")
 Dock = require("system/dock")
 networking = require("system/networking")
 videoCalls = require("system/videoCalls")
--- Keytrap = require("system/keytrap")
 
 
 audioControl.init()
@@ -121,7 +120,6 @@ display.init()
 Dock.init()
 networking.init()
 videoCalls.init()
--- Keytrap.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{

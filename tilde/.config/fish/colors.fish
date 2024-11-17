@@ -22,7 +22,7 @@ if not set -q __pking_init_colors
     set -U fish_color_search_match --bold --background=magenta
     set -U fish_color_selection white --bold --background=brblack
     set -U fish_color_user green --bold
-    set -U fish_color_valid_path --underline
+    # set -U fish_color_valid_path --underline
     set -U fish_pager_color_description B3A06D yellow
     set -U fish_pager_color_prefix white --bold --underline
     set -U fish_pager_color_progress brwhite --background=cyan
