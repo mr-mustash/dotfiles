@@ -183,7 +183,6 @@ return {
                         },
                         'location',
                         require('auto-session.lib').current_session_name,
-                        'lsp_progress',
                     },
                     lualine_x = {
                         { searchCount },
@@ -194,12 +193,16 @@ return {
                         { treesitter_attached,  color = {fg= '#859900', gui='none'}, },
                         {
                             'copilot',
-                            symbols = { status = { hl = {
-                                enabled = "#859900",
-                                disabled = "#d70000",
-                                warning = "#b58900",
-                                unknown = "#0087ff"
-                            }}},
+                            symbols = {
+                                status = {
+                                    hl = {
+                                        enabled = "#859900",
+                                        disabled = "#d70000",
+                                        warning = "#b58900",
+                                        unknown = "#0087ff"
+                                    }
+                                },
+                            },
                             show_colors = true,
                             show_loading = true,
                         },

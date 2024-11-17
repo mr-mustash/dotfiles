@@ -1,2 +1,2 @@
 " Text
-autocmd customaugroup BufNewFile,BufRead *.{txt,text,tex} set filetype=text
+autocmd customaugroup BufNewFile,BufRead *.{txt,text} set filetype=text
