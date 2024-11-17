@@ -2,6 +2,7 @@
 /regions=us
 ARM64
 Autovaccum
+DBs
 ETL
 Golang
 Hammerspoon
@@ -12,12 +13,15 @@ Terraform
 autovacuum
 config
 configs
+datadoghq
 dotfiles
 downtime
 executables
+github
 golang
 hostname
 hostnames
+https
 lua
 mysql
 neovim
@@ -32,7 +36,9 @@ repos
 runbook
 runbooks
 runtime
+scoremedia
 submodules
-sudo
 terraform
+theScore
+sudo
 uptime

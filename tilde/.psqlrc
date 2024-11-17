@@ -2,7 +2,7 @@
 
 \set AUTOCOMMIT off
 \set COMP_KEYWORD_CASE upper
-\set HISTFILE ~/.local/psql_history/.history-:SERVER-:PORT-:DBNAME
+\set HISTFILE ~/.local/psql_history/.history-:HOST-:PORT-:DBNAME
 \set HISTSIZE 500000
 \set ON_ERROR_ROLLBACK on
 \set ON_ERROR_STOP on

@@ -3,12 +3,12 @@
 # automatically created from a template file.
 [user]
 	name  = Patrick King
-	email = patrick@patrickcking.com
-	username = mr-mustash
-	#signingkey = 0x944E36F397047609
+	email = patrick.king@thescore.com
+	username = pkingthescore
+	signingkey = 0x8B0C458889ED463C
 
 [gpg]
-	#program = /usr/local/MacGPG2/bin/gpg
+	program = /usr/local/MacGPG2/bin/gpg
 
 # Non-template things
 [alias]
@@ -21,7 +21,7 @@
 	sort = -committerdate
 
 [commit]
-	#gpgsign = true
+	gpgsign = true
 
 [core]
 	editor=nvim
@@ -72,13 +72,17 @@
 
 # Override settings when working on work-related projects
 # on a personal machine.
-[includeIf "gitdir:~/dev/gitlab.com/replicant-ai/"]
+[includeIf "gitdir:~/dev/github.com/scorebet/"]
+	path = ~/.gitconfig.work
+
+[includeIf "gitdir:~/dev/github.com/scoremedia/"]
 	path = ~/.gitconfig.work
 
 # Override machine-specific settings.
 [include]
 	path = ~/.gitconfig.local
 
-# vim: set noexpandtab tabstop=4 nolist:
 [credential]
 	helper = store
+
+# vim: set noexpandtab tabstop=4 nolist:

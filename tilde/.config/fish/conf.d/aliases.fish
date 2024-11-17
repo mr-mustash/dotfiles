@@ -28,10 +28,16 @@ if status --is-interactive
     ### Abbreviations ###
     # Misc
     abbr --add ag rg # some habits are too hard to break
+    abbr --add hub gh # I always type `hub` instead of the newer `gh` command
 
     # Terraform
     abbr --add tf 'terraform fmt'
-    abbr --add tp 'terraform fmt ; terraform plan'
+    abbr --add tp 'terraform fmt && terraform plan'
+    abbr --add tgp 'terragrunt hclfmt && terragrunt plan'
+    abbr --add tgg 'terragrunt show'
+
+    # K8s
+    abbr --add kctx 'kubectx'
 
     # History
     abbr -a !! --position anywhere --function last_history_item
@@ -60,9 +66,7 @@ if status --is-interactive
     abbr --add git-clean 'git pull ;and git remote prune origin ;and git gc'
     abbr --add grh 'git reset --hard'
     abbr --add gbf fuzzy_git_branch
-    abbr --add gpom --function git_pull_origin_default
-    abbr --add gcm --function git_checkout_default
-    abbr --add gdm --function git_diff_default
+    abbr --add grd 'cd (git rev-parse --git-dir) ; cd ..'
 
     # `gpom`, `gdm`, and `gcm` are now set in:
     # prompt/prompt_functions/__fish_prompt_git_checkout_default.fish
