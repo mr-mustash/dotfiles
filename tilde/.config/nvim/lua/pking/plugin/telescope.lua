@@ -50,9 +50,6 @@ return {
             vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
             vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
             vim.keymap.set('n', '<leader>fl', builtin.highlights, {})
-
-            -- auto-session.nvim
-            telescope.load_extension("session-lens")
         end,
     }
 }

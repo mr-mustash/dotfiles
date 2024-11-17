@@ -28,6 +28,7 @@
 --    }
 --}
 
+--[[
 return {
     {
         "zbirenbaum/copilot.lua",
@@ -59,4 +60,7 @@ return {
             })
         end
     }
-}
+ }
+]]--
+
+return {}

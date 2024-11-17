@@ -4,6 +4,7 @@ ARM64
 Autovaccum
 DBs
 ETL
+Golang
 Hammerspoon
 Lua
 M1
@@ -17,6 +18,7 @@ dotfiles
 downtime
 executables
 github
+golang
 hostname
 hostnames
 https
@@ -38,4 +40,5 @@ scoremedia
 submodules
 terraform
 theScore
+sudo
 uptime
