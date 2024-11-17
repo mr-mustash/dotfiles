@@ -1,4 +1,3 @@
-" From https://www.reddit.com/r/vim/comments/8bguck/tip_search_suggestions_auto_complete/
 function! pking#plugins#search#search_mode_start() abort
     cnoremap <tab> <c-f>a<c-n>
     let s:old_complete_opt = &completeopt

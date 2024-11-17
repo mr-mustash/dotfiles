@@ -84,13 +84,6 @@ return {
             end
         end
 
-        local default_setup = function(server)
-            lspconfig[server].setup({
-                capabilities = lsp_capabilities,
-                on_attach = on_attach,
-            })
-        end
-
         require("mason").setup({
             ui = {
                 border = "rounded",
@@ -122,8 +115,36 @@ return {
                 "yamlls",
             },
             handlers = {
-                default_setup,
-            }
+                function(server_name)
+                    local opts = {
+                        capabilities = lsp_capabilities,
+                        on_attach = on_attach,
+                    }
+
+                    if server_name == "lua_ls" then
+                        opts.settings = {
+                            Lua = {
+                                runtime = {
+                                    version = 'LuaJIT',
+                                    path = vim.split(package.path, ';'),
+                                },
+                                diagnostics = {
+                                    globals = { 'vim', 'hs' },
+                                },
+                                workspace = {
+                                    library = vim.api.nvim_get_runtime_file("", true),
+                                    checkThirdParty = false,
+                                },
+                                telemetry = {
+                                    enable = false,
+                                },
+                            },
+                        }
+                    end
+
+                    lspconfig[server_name].setup(opts)
+                end,
+            },
         })
     end
 }

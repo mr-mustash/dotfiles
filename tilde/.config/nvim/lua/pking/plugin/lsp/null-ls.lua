@@ -69,21 +69,7 @@ return {
                     null_ls.builtins.diagnostics.yamllint,
                 },
                 diagnostics_format = "#{s}: #{m} [#{c}]",
-                diagnostic_config = {
-                    virtual_text = false,
-                    virtual_lines = { only_current_line = true }
-                },
             })
-
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics,
-                {
-                    virtual_text = false,
-                    virtual_lines = { only_current_line = true },
-                    update_in_insert = false,
-                    severity_sort = true,
-                }
-            )
         end
     },
 }

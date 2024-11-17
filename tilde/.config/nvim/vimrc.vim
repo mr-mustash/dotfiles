@@ -35,7 +35,6 @@ autocmd customaugroup InsertLeave * set nopaste
 " 2 moving around, searching and patterns ================================= {{{
 
 set incsearch
-set regexpengine=1
 
 " ========================================================================= }}}
 " 3 tags ================================================================== {{{
@@ -70,6 +69,8 @@ autocmd customaugroup VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal curso
 autocmd customaugroup WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
 
 set spelllang=en_us,programming
+set spelloptions=camel,noplainbuffer
+
 set spell
 
 " ========================================================================= }}}
@@ -86,18 +87,8 @@ set splitright
 
 " ========================================================================= }}}
 " 8 terminal ============================================================== {{{
-" https://www.reddit.com/r/vim/comments/7fqpny/slow_vim_scrolling_and_cursor_moving_in_iterm_and/
-set ttyfast
 
-if has('termguicolors') && $COLORTERM ==? 'truecolor'
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
-if has('termguicolors')
-    set t_Co=256
-endif
-
+set termguicolors
 
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
@@ -129,16 +120,12 @@ endif
 au customaugroup BufWritePre /tmp/* setlocal noundofile
 au customaugroup BufWritePre /run/shm/* setlocal noundofile
 
-" TODO: Fix this so it works everywhere. Currently overwritten in some files,
-" most likely by vim-pencil or another plugin.
-set textwidth=80 " Wrap comments at 80 characters
-set formatoptions=caqlj " options defined in :h fo-table
 
-if has('nvim')
-    set completeopt=menu,menuone,noselect,noinsert
-else
-    set completeopt=menu,menuone,popup,noselect,noinsert
-endif
+set textwidth=0
+set formatoptions=ql " options defined in :h fo-table
+autocmd customaugroup FileType * setlocal formatoptions=ql textwidth=0
+
+set completeopt=menu,menuone,noselect,noinsert
 
 " ========================================================================= }}}
 " 13 tabs and indenting =================================================== {{{
@@ -210,7 +197,7 @@ nnoremap ? q?
 
 
 " Save a file as sudo
-cnoremap w!! w !sudo tee > /dev/null %<CR>
+cnoremap w!! w !sudo tee % > /dev/null<CR>
 
 " Toggle line numbers
 nnoremap <silent> <Leader>nn :set invnumber invrelativenumber<CR>
@@ -230,9 +217,6 @@ set fsync
 " ========================================================================= }}}
 " 18 the swap file ======================================================== {{{
 "
-if !has('nvim')
-    set swapsync=fsync
-endif
 set updatetime=500
 
 " ========================================================================= }}}
@@ -281,9 +265,7 @@ endif
 " ========================================================================= }}}
 " 23 multi-byte characters ================================================ {{{
 
-set encoding=utf-8
 set fileencoding=utf-8
-set termencoding=utf-8
 
 " ========================================================================= }}}
 " 24 various ============================================================== {{{

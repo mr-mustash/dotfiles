@@ -2,11 +2,9 @@ return{
     {
         "echasnovski/mini.nvim",
         version = '*',
-        --event = { 'BufReadPre', 'BufNewFile' },
         event = { 'VeryLazy' },
         config = function()
             require('mini.surround').setup()
-            --require('mini.comment').setup()
             require('mini.cursorword').setup()
             require('mini.indentscope').setup {
                 mappings = {
