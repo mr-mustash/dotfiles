@@ -5,9 +5,8 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         config = function ()
             require'nvim-treesitter.configs'.setup {
-                -- Automatically install missing parsers when entering buffer
+                -- Automatically install missing passers when entering buffer
                 auto_install = true,
-
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
