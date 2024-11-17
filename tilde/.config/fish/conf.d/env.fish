@@ -65,7 +65,7 @@ fish_add_path --path $HOME/.local/bin # pipx path
 fish_add_path --path $__brew_prefix/opt/homebrew/opt/coreutils/libexec/gnubin
 fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 
-# Using rip instead of vim
+# Using rip instead of rm
 set -x GRAVEYARD "$HOME/.local/graveyard"
 
 # Autossh

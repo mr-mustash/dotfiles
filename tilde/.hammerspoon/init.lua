@@ -72,11 +72,11 @@ castle_image = hs.image.imageFromPath(hs.configdir .. "/assets/castle.png")
 coffee_image = hs.image.imageFromPath(hs.configdir .. "/assets/coffee.png")
 docker_logo = hs.image.imageFromPath(hs.configdir .. "/assets/docker.png")
 home_logo = hs.image.imageFromPath(hs.configdir .. "/assets/me.png")
+island_image = hs.image.imageFromPath(hs.configdir .. "/assets/island.png")
 phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
-work_logo = hs.image.imageFromPath(hs.configdir .. "/assets/replicant.png")
-island_image = hs.image.imageFromPath(hs.configdir .. "/assets/island.png")
+work_logo = hs.image.imageFromPath(hs.configdir .. "/assets/thescore.jpg")
 
 menubarStyleTiny = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 8 } }
 menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
@@ -110,7 +110,6 @@ charging = require("system/charging")
 display = require("system/display")
 Dock = require("system/dock")
 networking = require("system/networking")
--- Ping = require("system/Ping") -- needs work
 videoCalls = require("system/videoCalls")
 -- Keytrap = require("system/keytrap")
 
@@ -121,24 +120,19 @@ charging.init()
 display.init()
 Dock.init()
 networking.init()
--- Ping.init() -- needs work
 videoCalls.init()
 -- Keytrap.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
 Elgato = require("app-config/elgato")
-Mailmate = require("app-config/mailmate")
---Moviest = require("app-config/moviest")
+Movies = require("app-config/movies")
 Stretchly = require("app-config/stretchly")
---Vivid = require("app-config/vivid")
 Zoom = require("app-config/zoom")
 
 Elgato.init()
-Mailmate.init()
---Moviest.init()
+Movies.init()
 Stretchly.init()
---Vivid.init()
 Zoom.init()
 -- ========================================================================= }}}
 

@@ -8,6 +8,8 @@ return {
         },
         config = function()
             local null_ls = require("null-ls")
+            -- Formatters/linters installed here. Language servers installed
+            -- with mason-lspconfig in lspconfig.lua
             null_ls.setup({
                 sources = {
                     -- Everything but LSPs are listed here. All automatic LSP
@@ -15,6 +17,8 @@ return {
                     -- `ensure_installed` for the mason-lspconfig setup.
 
                     -- Bash
+
+                    null_ls.builtins.formatting.shellharden,
                     null_ls.builtins.formatting.shfmt,
 
                     -- Docker
@@ -31,6 +35,7 @@ return {
                     -- Golang
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports,
+                    null_ls.builtins.formatting.golines,
 
                     -- Lua
                     null_ls.builtins.diagnostics.selene,
@@ -51,9 +56,6 @@ return {
                     null_ls.builtins.diagnostics.tfsec,
                     null_ls.builtins.formatting.terraform_fmt, -- Terraform formatting in .tf files
 
-                    -- TOML
-                    null_ls.builtins.formatting.taplo,
-
                     -- Typescript
                     null_ls.builtins.formatting.prettierd,
 
@@ -61,6 +63,7 @@ return {
                     null_ls.builtins.diagnostics.vint,
 
                     -- YAML
+                    null_ls.builtins.formatting.yamlfmt,
                     null_ls.builtins.diagnostics.yamllint,
                 },
                 diagnostics_format = "#{s}: #{m} [#{c}]",

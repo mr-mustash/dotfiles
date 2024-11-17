@@ -116,7 +116,7 @@ set noshowcmd
 " 12 editing text ========================================================= {{{
 
 set undofile
-set backspace=2
+set backspace=indent,eol,start
 set showmatch
 
 let &undodir = g:datadir . '/undo'

@@ -4,7 +4,7 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         {
-            "williamboman/mason-lspconfig.nvim",
+            "williamboman/mason-lspconfig.nvim", -- setup in lspconfig function
             dependencies = {
                 "williamboman/mason.nvim",
             },
@@ -105,15 +105,21 @@ return {
 
         require("mason-lspconfig").setup({
             automatic_installation = true,
-            -- Only LSPs are listed here, all of the other installs are in
-            -- null-ls.lua
+            -- Language servers installed here. Formatters/linters
+            -- installed in mull-ls.lua
             ensure_installed = {
                 "bashls",
-                "eslint",
+                "dockerls",
+                "eslint", -- Javascript
                 "harper_ls",
+                "jsonls",
                 "lua_ls",
-                "ruff_lsp",
-                "taplo",
+                "ruff_lsp", -- Python
+                "sqlls",
+                "taplo", -- TOML
+                "terraformls",
+                "vimls",
+                "yamlls",
             },
             handlers = {
                 default_setup,
