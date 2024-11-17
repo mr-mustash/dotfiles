@@ -84,6 +84,8 @@ menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20
 
 defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
 
+Homedir = os.getenv( "HOME" )
+
 -- ========================================================================= }}}
 -- Important functions ===================================================== {{{
 run = require("functions/run")
@@ -110,6 +112,7 @@ Dock = require("system/dock")
 networking = require("system/networking")
 -- Ping = require("system/Ping") -- needs work
 videoCalls = require("system/videoCalls")
+-- Keytrap = require("system/keytrap")
 
 
 audioControl.init()
@@ -120,6 +123,7 @@ Dock.init()
 networking.init()
 -- Ping.init() -- needs work
 videoCalls.init()
+-- Keytrap.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
