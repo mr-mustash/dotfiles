@@ -2,24 +2,58 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-        "hrsh7th/cmp-buffer", -- source for text in buffer
-        "hrsh7th/cmp-path", -- source for file system paths
-        "L3MON4D3/LuaSnip", -- snippet engine
-        "saadparwaiz1/cmp_luasnip", -- for autocompletion
-        "rafamadriz/friendly-snippets", -- useful snippets
-        "onsails/lspkind.nvim", -- vs-code like pictograms
-        "zbirenbaum/copilot.lua", -- copilot
-        "zbirenbaum/copilot-cmp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
         "petertriho/cmp-git",
+        "onsails/lspkind.nvim",
+        {
+            "saadparwaiz1/cmp_luasnip",
+            dependencies = {
+                {
+                    "L3MON4D3/LuaSnip",
+                    build = "make install_jsregexp",
+                    dependencies = { "rafamadriz/friendly-snippets" },
+                },
+            }
+        },
+        {
+            "zbirenbaum/copilot-cmp",
+            dependencies = { "zbirenbaum/copilot.lua" }
+        },
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local lspkind = require("lspkind")
-        require("copilot_cmp").setup()
         require("cmp_git").setup()
         require("luasnip.loaders.from_vscode").lazy_load()
 
+        require('copilot').setup({
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+            filetypes = {
+                [""] = false,
+                commit = false,
+                cvs = false,
+                git = false,
+                gitcommit = false,
+                gitrebase = false,
+                gitsendmail = false,
+                help = false,
+                hgcommit = false,
+                man = false,
+                markdown = false,
+                md = false,
+                mkd = false,
+                svn = false,
+                tex = false,
+                text = false,
+                yaml = false,
+            },
+        })
+
+        require("copilot_cmp").setup()
         -- Setup copilot icon in lspkind
         lspkind.init({
             symbol_map = {
@@ -46,18 +80,28 @@ return {
                 ["<C-e>"] = cmp.mapping.abort(), -- close completion window
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
             }),
-            -- sources for autocompletion
             sources = cmp.config.sources({
                 { name = "copilot", group_index = 2, max_item_count = 3 },
                 { name = "nvim_lsp", group_index = 2 },
                 { name = "luasnip" }, -- snippets
-                { name = "buffer" }, -- text within current buffer
                 { name = "path" }, -- file system paths
+                {
+                    name = 'buffer',
+                    option = {
+                        get_bufnrs = function()
+                        local bufs = {}
+                            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                                bufs[vim.api.nvim_win_get_buf(win)] = true
+                            end
+                        return vim.tbl_keys(bufs)
+                        end
+                    }
+                }
             }),
             -- configure lspkind for vs-code like pictograms in completion menu
             formatting = {
                 format = lspkind.cmp_format({
-                    maxwidth = 50,
+                    maxwidth = 80,
                     ellipsis_char = "...",
                 }),
             },
@@ -65,15 +109,15 @@ return {
                 priority_weight = 2,
                 comparators = {
                     require("copilot_cmp.comparators").prioritize,
-                          cmp.config.compare.offset,
-                          cmp.config.compare.exact,
-                          cmp.config.compare.sort_text,
-                          cmp.config.compare.score,
-                          cmp.config.compare.recently_used,
-                          cmp.config.compare.locality,
-                          cmp.config.compare.kind,
-                          cmp.config.compare.length,
-                          cmp.config.compare.order,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.score,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
                 },
             },
             window = {
@@ -85,23 +129,53 @@ return {
         cmp.setup.filetype('gitcommit', {
             sources = cmp.config.sources({
                 { name = 'git' },
-            }, {
                 { name = 'buffer' },
             })
         })
+
+        -- This doesn't work while using the cmd window. See below
+        --[[
         cmp.setup.cmdline({ '/', '?' }, {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = {
+            sources = cmp.config.sources({
                 { name = 'buffer' }
-            }
+            })
         })
+
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
+                { name = 'path' },
                 { name = 'cmdline' }
             })
+        })
+        ]]--
+
+        -- Hack to get cmp to work in command window https://github.com/hrsh7th/cmp-cmdline/pull/61#issuecomment-1243380455
+        vim.api.nvim_create_augroup('CMP', { clear = true })
+        vim.api.nvim_create_autocmd('CmdwinEnter', {
+          group = 'CMP',
+          pattern = '*',
+          callback = function()
+            cmp.setup.buffer({
+                sources = cmp.config.sources({
+                    { name = 'cmdline' },
+                    { name = 'path' },
+                    {
+                        name = 'buffer',
+                        option = {
+                            get_bufnrs = function()
+                                local bufs = {}
+                                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                                    bufs[vim.api.nvim_win_get_buf(win)] = true
+                                end
+                                return vim.tbl_keys(bufs)
+                            end
+                        }
+                    },
+                })
+            })
+          end
         })
     end
 }

@@ -166,6 +166,9 @@ return {
                                 modified = '  ',
                                 alternate_file = ' 󱞧 ',
                                 directory =  '  ',
+                                readonly = '  ',
+                                unnamed = '[No Name]',
+                                newfile = '  ',
                             },
                         },
                     },
@@ -187,10 +190,12 @@ return {
                             file_status = true,
                             newfile_status = true,
                             symbols = {
-                                modified = '  ',      -- Text to show when the file is modified.
-                                readonly = '  ',      -- Text to show when the file is non-modifiable or readonly.
-                                unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                                newfile = '  ',       -- Text to show for new created file before first writting
+                                modified = '  ',
+                                alternate_file = ' 󱞧 ',
+                                directory =  '  ',
+                                readonly = '  ',
+                                unnamed = '[No Name]',
+                                newfile = '  ',
                             }
                         },
                         'location',
@@ -209,9 +214,9 @@ return {
                                 status = {
                                     hl = {
                                         enabled = "#859900",
-                                        disabled = "#d70000",
+                                        disabled = "#dc322f",
                                         warning = "#b58900",
-                                        unknown = "#0087ff"
+                                        unknown = "#268bd2"
                                     }
                                 },
                             },

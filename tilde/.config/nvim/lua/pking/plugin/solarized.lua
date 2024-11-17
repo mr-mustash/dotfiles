@@ -3,7 +3,7 @@ return {
         "ishan9299/nvim-solarized-lua",
         lazy = false,
         priority = 1000, -- make sure to load this before all the other start plugins
-        commit = "8f9691b440c04325b37f8244215639939c36f285",
+        commit = "d69a263c97cbc765ca442d682b3283aefd61d4ac",
         config = function()
             -- load the colorscheme here
             vim.cmd([[
