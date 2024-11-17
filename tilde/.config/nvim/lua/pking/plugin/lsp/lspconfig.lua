@@ -114,7 +114,7 @@ return {
                 "harper_ls",
                 "jsonls",
                 "lua_ls",
-                "ruff_lsp", -- Python
+                "ruff",
                 "sqlls",
                 "taplo", -- TOML
                 "terraformls",
