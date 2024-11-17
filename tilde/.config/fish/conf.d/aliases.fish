@@ -67,6 +67,9 @@ if status --is-interactive
     abbr --add grh 'git reset --hard'
     abbr --add gbf fuzzy_git_branch
     abbr --add grd 'cd (git rev-parse --git-dir) ; cd ..'
+    abbr --add gpom --function git_pull_origin_default
+    abbr --add gcm --function git_checkout_default
+    abbr --add gcm --function git_diff_default
 
     # `gpom`, `gdm`, and `gcm` are now set in:
     # prompt/prompt_functions/__fish_prompt_git_checkout_default.fish
