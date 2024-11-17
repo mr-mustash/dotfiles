@@ -111,6 +111,7 @@ return {
                 "bashls",
                 "dockerls",
                 "eslint", -- Javascript
+                "harper_ls",
                 "jsonls",
                 "lua_ls",
                 "ruff_lsp", -- Python
