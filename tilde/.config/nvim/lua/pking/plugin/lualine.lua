@@ -139,10 +139,6 @@ return {
 
             end
 
-            local function auto_session()
-                return "󱎤 "..require('auto-session.lib').current_session_name()
-            end
-
             require('lualine').setup {
                 options = {
                     icons_enabled = true,
@@ -197,9 +193,7 @@ return {
                                 newfile = '  ',       -- Text to show for new created file before first writting
                             }
                         },
-                        auto_session,
                         'location',
-                        require('auto-session.lib').current_session_name,
                         require('lsp-progress').progress,
                     },
                     lualine_x = {
