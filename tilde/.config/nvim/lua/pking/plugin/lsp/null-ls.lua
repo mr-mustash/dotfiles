@@ -49,10 +49,9 @@ return {
 
                     -- Terraform
                     null_ls.builtins.diagnostics.tfsec,
+                    null_ls.builtins.diagnostics.terraform_validate,
+                    null_ls.builtins.diagnostics.trivy,
                     null_ls.builtins.formatting.terraform_fmt, -- Terraform formatting in .tf files
-
-                    -- TOML
-                    null_ls.builtins.formatting.taplo,
 
                     -- Typescript
                     null_ls.builtins.formatting.prettierd,

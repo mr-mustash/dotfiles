@@ -113,6 +113,7 @@ return {
                 "harper_ls",
                 "lua_ls",
                 "ruff_lsp",
+                "terraformls",
                 "taplo",
             },
             handlers = {

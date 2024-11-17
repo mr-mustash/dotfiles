@@ -16,7 +16,6 @@ WHICH_BREW := $(shell which brew > /dev/null; echo $$?)
 bundle: brew  ## Install brew and then brew bundle install
 	brew bundle --file=Darwin/Brewfile install
 	brew cleanup
-	brew cask cleanup
 
 homemaker_install:
 WHICH_HOMEMAKER := $(shell which homemaker > /dev/null; echo $$?)

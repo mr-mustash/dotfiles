@@ -12,6 +12,7 @@ function urls.init()
     local chat
 
     if Local.env == "work" then
+        default  = appID(secrets.urls.default)
         meetings = appID(secrets.urls.meetings)
         personal = appID(secrets.urls.personal)
         chat     = secrets.urls.chat -- Just need the application name, not the appID

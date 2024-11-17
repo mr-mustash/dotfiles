@@ -51,7 +51,7 @@ let &listchars="tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
 set numberwidth=2
 set number
-set relativenumber
+"set relativenumber
 
 
 " ========================================================================= }}}
