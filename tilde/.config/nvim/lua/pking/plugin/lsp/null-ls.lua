@@ -12,7 +12,12 @@ return {
             -- with mason-lspconfig in lspconfig.lua
             null_ls.setup({
                 sources = {
+                    -- Everything but LSPs are listed here. All automatic LSP
+                    -- installs can be found in lspconfig.lua under
+                    -- `ensure_installed` for the mason-lspconfig setup.
+
                     -- Bash
+
                     null_ls.builtins.formatting.shellharden,
                     null_ls.builtins.formatting.shfmt,
 
@@ -33,11 +38,11 @@ return {
                     null_ls.builtins.formatting.golines,
 
                     -- Lua
+                    null_ls.builtins.diagnostics.selene,
                     null_ls.builtins.formatting.stylua,
 
                     -- Markdown / Text
                     null_ls.builtins.code_actions.proselint,
-                    null_ls.builtins.diagnostics.vale,
                     null_ls.builtins.diagnostics.write_good.with({ filetypes = { "markdown", "text" }}),
                     null_ls.builtins.formatting.markdownlint,
 
