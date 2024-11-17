@@ -40,7 +40,7 @@ set -gx HOMEBREW_PREFIX $__brew_prefix
 set -gx HOMEBREW_CELLAR $__brew_prefix/Cellar
 set -gx HOMEBREW_REPOSITORY $__brew_prefix
 set -q PATH; or set PATH ''
-set -gx PATH $__brew_prefix/bin $__brew_prefix/sbin $PATH
+set -gx PATH $__brew_prefix/opt/gnu-sed/libexec/gnubin $__brew_prefix/bin $__brew_prefix/sbin $PATH
 set -q MANPATH; or set MANPATH ''
 set -gx MANPATH /opt/homebrew/share/man $MANPATH
 set -q INFOPATH; or set INFOPATH ''
@@ -58,7 +58,7 @@ fish_add_path --path $HOME/.cargo/bin
 fish_add_path --path $__brew_prefix/opt/homebrew/opt/coreutils/libexec/gnubin
 fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 
-# Using rip instead of vim
+# Using rip instead of rm
 set -x GRAVEYARD "$HOME/.local/graveyard"
 
 # Autossh

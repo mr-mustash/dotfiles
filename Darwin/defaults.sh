@@ -1,5 +1,4 @@
-#!/bin/bash -xe Get updates in background.
-softwareupdate --download --verbose --install --all
+#!/bin/bash -xe
 
 # Ask for the administrator password upfront
 if ! sudo -v; then
@@ -13,6 +12,9 @@ while true; do
 	sleep 120
 	kill -0 "$$" || exit
 done 2>/dev/null &
+
+# Get all current update
+#softwareupdate --download --verbose --all
 
 # Agree to the Xcode license
 if /usr/bin/xcode-select -p; then
@@ -106,10 +108,17 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# Disable printer sharing
-cupsctl --no-share-printers
-cupsctl --no-remote-any
-cupsctl --no-remote-admin
+if [ -f /System/Library/LaunchDaemons/org.cups.cupsd.plist ]; then
+	echo "Attempting to unload and disable CUPS (cupsd)..."
+	if sudo launchctl bootout system /System/Library/LaunchDaemons/org.cups.cupsd.plist 2>/dev/null; then
+		echo -e "OK: CUPS service unloaded successfully"
+	else
+		echo -e "ERROR: Failed to unload CUPS; it may already be disabled"
+	fi
+else
+	echo -e "OK: CUPS is already unloaded$"
+fi
+
 # ========================================================================= }}}
 # User Experience ========================================================= {{{
 
@@ -120,9 +129,10 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false  # 
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 25
 
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE                                  # Re-enable subpixel antialiasing
-defaults write NSGlobalDomain AppleFontSmoothing -int 1                                             # Enable subpixel font rendering on non-Apple LCDs
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true # Enable HiDPI display modes (requires restart)
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE                                        # Re-enable subpixel antialiasing
+defaults write NSGlobalDomain AppleFontSmoothing -int 1                                                   # Enable subpixel font rendering on non-Apple LCDs
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true       # Enable HiDPI display modes (requires restart)
+sudo defaults write /Library/Preferences/com.apple.windowserver.plist DisplayResolutionEnabled -bool true # Enable HiDPI display modes (requires restart)
 
 defaults write com.apple.dock mru-spaces -bool false               # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock expose-animation-duration -float 0.1 # Speed up Mission Control animations
@@ -175,9 +185,9 @@ exclusions=("$HOME/.local"
 	"$HOME/Dropbox"
 	"$HOME/Library/Caches"
 	"$HOME/Library/Logs"
-	"$HOME/Library/Application\ Support/MacUpdater/OldAppBackups"
-	"$HOME/Library/Application\ Support/MacUpdater/NewDownloadBackups"
-	"$HOME/Library/Application\ Support/Steam")
+	"$HOME/Library/Application Support/MacUpdater/OldAppBackups"
+	"$HOME/Library/Application Support/MacUpdater/NewDownloadBackups"
+	"$HOME/Library/Application Support/Steam")
 
 for directory in "${exclusions[@]}"; do
 	if [ -d "${directory}" ]; then
@@ -207,6 +217,10 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 sudo systemsetup -setremoteappleevents off                                                                     # Disable remote apple events
 
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false # Disable internet based spellcheck
+
+# Disable AirDrop
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
+
 # ========================================================================= }}}
 
 # Privacy#Siri ============================================================ {{{
@@ -235,18 +249,14 @@ defaults write com.apple.AdLib forceLimitAdTracking -bool true
 # ========================================================================= }}}
 # Security#Firewall ======================================================= {{{
 
-sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool false
-sudo defaults write /Library/Preferences/com.apple.alf allowdownloadsignedenabled -bool false
-sudo defaults write /Library/Preferences/com.apple.alf globalstate -bool true
-sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -bool true
-sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
-defaults write com.apple.security.firewall EnableFirewall -bool true
-defaults write com.apple.security.firewall EnableStealthMode -bool true
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+sudo pkill -HUP socketfilterfw
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setblockall on
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingopt detail
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
 sudo pkill -HUP socketfilterfw
 
