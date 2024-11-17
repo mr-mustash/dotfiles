@@ -2,4 +2,7 @@
 let &listchars="tab:  ,trail:\uB7,nbsp:~"
 "vint: +ProhibitUnnecessaryDoubleQuote
 
-autocmd customaugroup BufNewFile,BufRead *.sh setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+setlocal noexpandtab
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=4

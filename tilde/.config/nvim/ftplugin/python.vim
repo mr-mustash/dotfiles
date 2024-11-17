@@ -1,5 +1,5 @@
-" Syntax Plugins
-let g:python_highlight_all = 1
-
-" Nicer tabs and editing for python
-autocmd customaugroup BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+setlocal autoindent

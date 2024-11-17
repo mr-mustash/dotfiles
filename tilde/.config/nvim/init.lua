@@ -7,8 +7,8 @@ vim.cmd.source(vimrc)
 
 -- Load any new vim options that are in lua files
 local optionpath = vim.split(vim.fn.glob(vim.fn.stdpath("config") .. "/lua/vimrc/*.lua"), '\n')
-for _, file in pairs(optionpath) do
-    vim.cmd('source ' .. file)
+for _, file in ipairs(optionpath) do
+        dofile(file)
 end
 
 require("pking")
