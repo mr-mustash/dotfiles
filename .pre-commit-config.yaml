@@ -50,13 +50,7 @@ repos:
       - id: git-check
       - id: shellcheck
       - id: shfmt
-# - repo: https://github.com/lunarmodules/luacheck
-#   rev: c795cbec5cbf022f2eb52f42cd1861c32d2b180f
-#   hooks:
-#     - id: luacheck
-#       args: [--globals, --ignore 'accessing undefined variable', --filename]
-# -  repo: https://github.com/JohnnyMorganz/StyLua
-#    rev: v0.11.3
-#    hooks:
-#      - id: stylua-system
-#        args: [--indent-type, Spaces]
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
