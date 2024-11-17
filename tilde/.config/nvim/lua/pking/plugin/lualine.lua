@@ -197,7 +197,7 @@ return {
                                 newfile = '  ',       -- Text to show for new created file before first writting
                             }
                         },
-                        auto_session,
+                        -- auto_session,
                         'location',
                         require('lsp-progress').progress,
                     },

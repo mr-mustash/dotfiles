@@ -1,5 +1,5 @@
 function fish_prompt --description 'Write out the prompt'
-    __fish_prompt_in_docker #Check first to see if we're in a docker container
+    #__fish_prompt_in_docker #Check first to see if we're in a docker container
     __fish_prompt_username
     __fish_prompt_hostname
     __fish_prompt_pwd
@@ -9,7 +9,7 @@ function fish_prompt --description 'Write out the prompt'
     __fish_prompt_git
 
     __fish_prompt_languages
-    __fish_prompt_jobs
+    #__fish_prompt_jobs
     __fish_prompt_screen
 
     # Change the color of the glyph based on vi mode
