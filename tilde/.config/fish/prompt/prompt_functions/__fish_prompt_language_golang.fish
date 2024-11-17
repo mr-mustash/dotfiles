@@ -22,6 +22,6 @@ function __fish_prompt_language_golang -d "Print out the golang version"
         end
     end
 
-    echo -ns (set_color $fish_prompt_color_golang_icon) " ﳑ" (set_color normal)
+    echo -ns (set_color $fish_prompt_color_golang_icon) " " (set_color normal)
     echo -ns (set_color --bold) " $go_version" (set_color normal)
 end

@@ -35,18 +35,10 @@ return {
         event = "InsertEnter",
         config = function ()
             require('copilot').setup({
-                  panel = {
-                    enabled = false,
-                },
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = true,
-                    debounce = 75,
-                    keymap = {
-                        accept = "<C-k>",
-                    },
-                },
+                suggestion = { enabled = false },
+                panel = { enabled = false },
                 filetypes = {
+                    [""] = false,
                     commit = false,
                     cvs = false,
                     git = false,
@@ -55,6 +47,7 @@ return {
                     gitsendmail = false,
                     help = false,
                     hgcommit = false,
+                    man = false,
                     markdown = false,
                     md = false,
                     mkd = false,

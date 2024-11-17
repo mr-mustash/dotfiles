@@ -12,11 +12,12 @@
         [".global_gitignore"],
         [".gnupg/gpg-agent.conf"],
         [".gnupg/gpg.conf"],
+        [".luacheckrc"],
         [".mytop"],
         [".psqlrc"],
         [".terminfo"],
         [".tmux.conf"],
-        [".vintrc"],
+        [".vintrc.yaml"],
         [".yamllint"],
         ["Library/LaunchAgents/com.local.KeyRemapping.plist"],
     ]
@@ -30,16 +31,7 @@
 [tasks.npm]
 accepts = [["which", "npm"]]
     cmds = [
-        ["npm", "install", "markcat", "ipfs-deploy"],
-    ]
-
-[tasks.go]
-accepts = [["which", "go"]]
-    envs = [
-            ["GO111MODULE", "on"],
-        ]
-    cmds = [
-        ["go", "install", "golang.org/x/tools/gopls@latest"],
+        ["npm", "install", "markcat", "ipfs-deploy", "tree-sitter-cli"],
     ]
 
 [tasks.fish]
@@ -47,12 +39,7 @@ accepts = [["which", "go"]]
             ["which", "fish"],
             ["echo", "$SHELL", "|", "grep", "fish"],
         ]
-    cmds = [["chsh", "-s", "/usr/bin/fish"]]
-
-[tasks.vimplug]
-    cmds = [
-        ["nvim", "-es", "-u", "~/.config/nvim/init.vim", "-i", "NONE", "-c" , "'PlugUpdate'", "-c", "'qa'"],
-    ]
+    cmds = [["chsh", "-s", "/opt/homebrew/bin/fish"]]
 
 [tasks.terminfo]
     accepts = [["which", "tic"]]
@@ -62,16 +49,12 @@ accepts = [["which", "go"]]
         ["tic", "$HOME/.terminfo/xterm-256color.terminfo"],
     ]
 
-[tasks.fish_links]
-    cmds = [
-        ["ln", "-s", "$HOME/.local/share/nvim/plugged/fzf/shell/key-bindings.fish", "$HOME/.config/fish/functions/fzf_key_bindings.fish"],
-    ]
-
 
 # ========================================================================= }}}
 # meta ==================================================================== {{{
 [tasks.default]
-    deps = ["links", "systemconfig", "pip", "npm", "go", "fish", "fish_completions", "fish_links", "terminfo"]
+    # deps = ["links", "systemconfig", "pip", "npm", "fish", "fish_completions", "terminfo"]
+    deps = ["links", "pip", "npm", "fish", "fish_completions", "terminfo"]
 
 # ========================================================================= }}}
 # macOS =================================================================== {{{

@@ -1,13 +1,10 @@
 function fish_right_prompt --description 'Display the right side of the interactive prompt'
+    set -l _status $status
+    set -l _duration $CMD_DURATION
 
-    set -l exit $status
-    set -l time $CMD_DURATION
-
-    __fish_right_prompt_git_autofetch
-
-    __fish_right_prompt_timer $time
-    if test $exit -ne 0
-        __fish_right_prompt_signal $exit
+    if test $_status -ne 0
+        __fish_right_prompt_signal $_status
+        set -e _status
     end
 
     if test $COLUMNS -gt 132 && set -q __gproject && set -q __gzone
@@ -24,11 +21,10 @@ function fish_right_prompt --description 'Display the right side of the interact
         __fish_right_prompt_saml2aws
     end
 
-    # Display the time if we're wide enough
-    if test $COLUMNS -gt 132
-        set_color $fish_prompt_color_clock
-        date +%T
-        set_color normal
+    if test $_duration -ne 0
+        __fish_right_prompt_timer $_duration
+        set -e _duration
     end
 
+    __fish_right_prompt_wall_time
 end
