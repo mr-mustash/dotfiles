@@ -2,13 +2,15 @@ local networking = {}
 
 local wifiWatcher = nil
 local homeSSID = secrets.networking.homeSSID
-local workSSID = secrets.networking.workSSID
+local homeOfficeSSID = secrets.networking.workSSID
 local phoneSSID = secrets.networking.phoneSSID
 local officeSSID = secrets.networking.officeSSID
+local travelSSID = secrets.networking.travelSSID
 local lastSSID = "startup"
 
-function networking.networkReconnect(dns)
-    -- Right after swapping interfaces the result can be nil. We want to retrun until it's not
+function networking.setDNS(dns)
+    -- Right after swapping interfaces the result can be nil. We want to rerun
+    -- until it's not
     local defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
     while (defaultInterface == nil) do
         defaultInterface = string.format("%s", hs.network.interfaceName(hs.network.primaryInterfaces()))
@@ -26,7 +28,69 @@ function networking.networkReconnect(dns)
     end
 
     run.cmd("/usr/bin/dscacheutil", { "-flushcache" })
-    run.cmd("/usr/bin/curl", {secrets.networking.link})
+end
+
+local function detectCaptivePortal()
+    detectCaptive, retval, _, _ = hs.execute("/usr/bin/curl -s http://captive.apple.com/hotspot-detect.html | /opt/homebrew/bin/w3m -dump -T text/html")
+    if not retval then
+        _log("Captive portal detection command failed. Assuming no captive portal is present.")
+        return 1
+    end
+
+    -- Remove newline
+    detectCaptive = detectCaptive:gsub("\n[^\n]*$", "")
+
+    if detectCaptive == "Success" then
+        _log("Captive portal detected.")
+        return 0
+    else
+        _log("No captive portal detected.")
+        return 1
+    end
+end
+
+local function captiveWifiNetwork()
+    notification("Captive portal detected on network.", castle_image)
+
+    networking.setDNS("Empty")
+
+    -- Open the captive portal in a browser
+    hs.osascript.applescript('tell application "Safari" to open location "http://captive.apple.com/"')
+    sleep(3)
+    hs.application.launchOrFocus("Safari.app")
+
+    return
+end
+
+function networking.networkReconnect(dns)
+    -- Being connected to a VPN messes this process up as it changes the default
+    -- interface. So we need to disconnect from the VPN before we can reconnect
+    if hs.application.find("Passepartout") ~= nil then
+        _log("Disabling VPN for network reconnection.")
+
+        hs.shortcuts.run("VPN Off")
+        sleep(1)
+        hs.application.find("Passepartout"):hide()
+    end
+
+    -- Before setting the desired DNS we need to check for a captive portal. If
+    -- we detect one we set the DNS to "empty" so we can use the local network
+    -- resolver and navigate to the captive Portal.
+    if (detectCaptivePortal() == 0 and (hs.wifi.currentNetwork() ~= homeSSID or hs.wifi.currentNetwork() ~= homeOfficeSSID)) then
+        captiveWifiNetwork()
+    end
+
+    -- Set the desired DNS server
+    networking.setDNS(dns)
+
+    -- Enable VPN again.
+    if hs.application.find("Passepartout") ~= nil then
+        _log("Enabling VPN after network reconnection.")
+
+        hs.shortcuts.run("VPN On")
+        sleep(1)
+        hs.application.find("Passepartout"):hide()
+    end
 end
 
 local function homeWifiConnected()
@@ -46,7 +110,7 @@ local function phoneWifiConnected()
     _log("Connected to home WiFi")
 end
 
-local function workWifiConnected()
+local function homeOfficeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(50)
 
     networking.networkReconnect(secrets.networking.homeDNS)
@@ -58,10 +122,19 @@ end
 local function officeWifiConnected()
     hs.audiodevice.defaultOutputDevice():setVolume(0)
 
-    networking.networkReconnect("Empty")
+    networking.networkReconnect(secrets.networking.publicDNS)
 
     notification("Have a good day working from the office!", work_logo)
-    _log("Connected to work WiFi")
+    _log("Connected to office WiFi")
+end
+
+local function travelWifiConnected()
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+
+    networking.networkReconnect(secrets.networking.publicDNS)
+
+    notification("Have fun on your vacation!", island_image)
+    _log("Connected to travel router.")
 end
 
 local function unknownWifiNetwork()
@@ -73,32 +146,6 @@ local function unknownWifiNetwork()
     _log("Connected to unknown WiFi")
 end
 
-local function captiveWifiNetwork()
-    hs.audiodevice.defaultOutputDevice():setVolume(0)
-
-    notification("Known captive network.")
-    networking.networkReconnect("Empty")
-    _log("Connected to known captive wifi network.", castle_image)
-
-    -- Open the captive portal in a browser
-    sleep(3)
-    hs.osascript.applescript('tell application "Safari" to open location "http://captive.apple.com/"')
-    sleep(1)
-    hs.application.launchOrFocus("Safari.app")
-
-end
-
-local function captiveWifi(ssid)
-    _log("Testing for captive SSID.")
-
-    for _, s in ipairs(secrets.networking.captiveSSIDs) do
-        if s == ssid then
-            return true
-        end
-    end
-
-    return false
-end
 
 local function ssidChangedCallback()
     local newSSID = hs.wifi.currentNetwork()
@@ -114,20 +161,20 @@ local function ssidChangedCallback()
         if newSSID == homeSSID then
             -- We just joined our home WiFi network
             homeWifiConnected()
-        elseif newSSID == workSSID then
+        elseif newSSID == homeOfficeSSID then
             -- Connected to work Wifi
-            workWifiConnected()
+            homeOfficeWifiConnected()
         elseif newSSID == officeSSID then
-            -- Connected to work Wifi
+            -- Connected to office Wifi
             officeWifiConnected()
         elseif newSSID == phoneSSID then
             -- Tethered to iPhone
             phoneWifiConnected()
-        elseif captiveWifi(newSSID) == true then
-            -- Captive wifi network
-            captiveWifiNetwork()
-        elseif newSSID ~= homeSSID or newSSID ~= workSSID or newSSID ~= phoneSSID then
-            -- Connected to unknown WiFi networ
+        elseif newSSID == travelSSID then
+            -- Connected to travel router
+            travelWifiConnected()
+        else
+            -- Connected to unknown WiFi network
             unknownWifiNetwork()
         end
     else

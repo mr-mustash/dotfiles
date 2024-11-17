@@ -1,4 +1,5 @@
 -- Important =============================================================== {{{
+
 hs.logger.defaultLogLevel = "debug"
 local basePath = os.getenv("HOME") .. "/.hammerspoon/"
 require("hs.crash")
@@ -25,10 +26,9 @@ function notification(notification, image)
 end
 
 function File_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+    local f = io.open(name, "r")
+    if f ~= nil then io.close(f) return true else return false end
 end
-
 
 function getFunctionLocation()
     local w = debug.getinfo(3, "S")
@@ -76,11 +76,15 @@ phone_logo = hs.image.imageFromPath(hs.configdir .. "/assets/phone.jpg")
 sleep_image = hs.image.imageFromPath(hs.configdir .. "/assets/sleep.png")
 spotify_logo = hs.image.imageFromPath(hs.configdir .. "/assets/spotify.png")
 work_logo = hs.image.imageFromPath(hs.configdir .. "/assets/replicant.png")
+island_image = hs.image.imageFromPath(hs.configdir .. "/assets/island.png")
 
+menubarStyleTiny = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 8 } }
 menubarStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 14 } }
 menubarLargeStyle = { font = { name = "DejaVuSansMono Nerd Font Mono", size = 20 } }
 
 defaultStyle = { font = { name = ".AppleSystemUIFont", size = 13 } }
+
+Homedir = os.getenv( "HOME" )
 
 -- ========================================================================= }}}
 -- Important functions ===================================================== {{{
@@ -106,7 +110,10 @@ charging = require("system/charging")
 display = require("system/display")
 Dock = require("system/dock")
 networking = require("system/networking")
+-- Ping = require("system/Ping") -- needs work
 videoCalls = require("system/videoCalls")
+-- Keytrap = require("system/keytrap")
+
 
 audioControl.init()
 caffeine.init()
@@ -114,18 +121,24 @@ charging.init()
 display.init()
 Dock.init()
 networking.init()
+-- Ping.init() -- needs work
 videoCalls.init()
+-- Keytrap.init()
 -- ========================================================================= }}}
 
 -- App configuration ======================================================= {{{
 Elgato = require("app-config/elgato")
 Mailmate = require("app-config/mailmate")
+--Moviest = require("app-config/moviest")
 Stretchly = require("app-config/stretchly")
+--Vivid = require("app-config/vivid")
 Zoom = require("app-config/zoom")
 
 Elgato.init()
 Mailmate.init()
+--Moviest.init()
 Stretchly.init()
+--Vivid.init()
 Zoom.init()
 -- ========================================================================= }}}
 

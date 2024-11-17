@@ -1,9 +1,6 @@
 local audioControl = {}
 
--- Avoid automatically setting a bluetooth audio input device
 lastChangeTime = os.time()
-lastInputDevice = hs.audiodevice.defaultInputDevice()
-lastOutputDevice = hs.audiodevice.defaultOutputDevice()
 
 local function internalOrExternalSpeaker()
     local speakers = hs.audiodevice.findOutputByName(secrets.audioControl.internalOutput)
@@ -53,20 +50,52 @@ local function internalOrExternalMic()
     _log("Unable to set any mic as default")
     return 1
 end
+local function perDeviceWatcher(dev_uid, event_name, event_scope, event_element)
+    local device = hs.audiodevice.findDeviceByUID(dev_uid)
+    if device and event_name == "mute" then
+        _log("\"" .. device:name() .. "\" mute state has changed.")
+        audioControl.matchInputMuteToOutputMute()
+        sleep(1)
+    end
+end
+
+local function startOutputWatcher()
+    local defaultOutput = hs.audiodevice.defaultOutputDevice()
+
+    if defaultOutput:watcherIsRunning() then
+        _log("Audio watcher for " .. defaultOutput:name() .. " already exists.")
+    else
+        _log("No audio watcher found for " .. defaultOutput:name() .. " starting one.")
+        defaultOutput:watcherCallback(perDeviceWatcher)
+        defaultOutput:watcherStart()
+    end
+end
 
 local function audioDeviceChanged(arg)
-    local sRetval = 1
-    local mRetval = 1
-    if arg == "dev#" and os.time() - lastChangeTime > 2 then
-        sRetval = internalOrExternalSpeaker()
-        mRetval = internalOrExternalMic()
+    local outputRetval = 1
+    local micRetval = 1
 
-        if sRetval == 0 and mRetval == 0 then
-            lastSetOutputTime = os.time()
-        else
-            _log("Unable to set mic or speakers. Mic: " .. mRetval .. ", Speakers: " .. sRetval)
+    LastSetOutputTime = os.time()
+
+    -- Debounce audio device changes
+    if arg == "dev#" and os.time() - lastChangeTime > 2 then
+        -- This sleep here is a total hack. Without it macOS resets the default
+        -- audio devices to what it things should be correct. What this usually
+        -- means is that the mic on the AirPods is set as the default input
+        -- instead of the built-in mic on the laptop.
+        sleep(5)
+
+        _log("New audio device detected. Current values: Speaker: " .. hs.audiodevice.defaultOutputDevice():name() .. " Mic: " .. hs.audiodevice.defaultInputDevice():name())
+        startOutputWatcher()
+
+        outputRetval = internalOrExternalSpeaker()
+        micRetval = internalOrExternalMic()
+
+        if outputRetval ~= 0 and micRetval ~= 0 then
+            _log("Unable to set mic or speakers. Mic: " .. micRetval .. ", Speakers: " .. outputRetval)
         end
     end
+
 end
 
 local function trapVolumeControls()
@@ -81,25 +110,23 @@ local function trapVolumeControls()
 
                     -- Send mute to external monitor if connected and it's the default audio output
                     if event["key"] == "MUTE" then
-                        if isMuted == false then
-                            isMuted = true
-                            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
-                            _log("Muted external monitor.")
-                        else
-                            isMuted = false
+                        if hs.audiodevice.defaultOutputDevice():outputMuted() then
                             run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
                             _log("Unmuted external monitor.")
+                        else
+                            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
+                            _log("Muted external monitor.")
                         end
                         return true
                     end
 
                     -- Send volume up to external monitor if connected and it's the default audio output
                     if event["key"] == "SOUND_UP" then
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "+5" })
+                        run.cmd(string.format("%s/bin/m1ddc", Homedir), { "chg", "volume", "+5" })
                         return true
                     end
                     if event["key"] == "SOUND_DOWN" then
-                        run.cmd("/Users/patrickking/bin/m1ddc", { "chg", "volume", "-5" })
+                        run.cmd(string.format("%s/bin/m1ddc", Homedir), { "chg", "volume", "-5" })
                         return true
                     end
                 end
@@ -120,6 +147,7 @@ function audioControl.init()
     local initStart = os.clock()
     hs.audiodevice.watcher.setCallback(audioDeviceChanged)
     hs.audiodevice.watcher.start()
+    startOutputWatcher()
 
     trapVolumeControls()
     hs.hotkey.bind({'cmd', 'shift'}, "k", function() audioControl.mediaControls("PLAY") end)
@@ -127,6 +155,14 @@ function audioControl.init()
     hs.hotkey.bind({'cmd', 'shift'}, "l", function() audioControl.mediaControls("NEXT") end)
 
     _log(debug.getinfo(1, "S").short_src:gsub(".*/", "") .. " loaded in " .. (os.clock() - initStart) .. " seconds.")
+end
+
+function audioControl.matchInputMuteToOutputMute()
+    if hs.audiodevice.defaultOutputDevice():muted() then
+        audioControl.muteInputs()
+    else
+        audioControl.unmuteInputs()
+    end
 end
 
 function audioControl.muteInputs()
@@ -150,7 +186,7 @@ end
 function audioControl.muteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "on" })
+            run.cmd(string.format("%s/bin/m1ddc", Homedir), { "set", "mute", "on" })
             _log("External display " .. device:name() .. " muted")
             return
         end
@@ -165,7 +201,7 @@ end
 function audioControl.unmuteOutputs()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
         if device:name() == secrets.audioControl.monitorOutput then
-            run.cmd("/Users/patrickking/bin/m1ddc", { "set", "mute", "off" })
+            run.cmd(string.format("%s/bin/m1ddc", Homedir), { "set", "mute", "off" })
             _log("External display " .. device:name() .. " unmuted")
             return
         end
