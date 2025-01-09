@@ -1,7 +1,11 @@
 return {
     {
         "psliwka/vim-dirtytalk",
-        build = ":DirtytalkUpdate"
+        build = ":DirtytalkUpdate",
+        config = function()
+            vim.opt.spelllang = { "en", "programming" }
+            vim.opt.spelloptions = { "camel", "noplainbuffer" }
+        end,
     },
     {
         "micarmst/vim-spellsync",

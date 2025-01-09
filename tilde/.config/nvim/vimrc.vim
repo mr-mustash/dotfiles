@@ -68,9 +68,7 @@ set hlsearch
 autocmd customaugroup VimEnter,InsertLeave,BufEnter,BufWinEnter * setlocal cursorline
 autocmd customaugroup WinLeave,InsertEnter,BufLeave,BufWinLeave * setlocal nocursorline
 
-set spelllang=en_us,programming
-set spelloptions=camel,noplainbuffer
-
+" Other spelling options moves to `lua/pking/plugin/spelling.lua`
 set spell
 
 " ========================================================================= }}}
@@ -191,9 +189,6 @@ nnoremap <leader>l >>
 nnoremap : q:
 nnoremap / q/
 nnoremap ? q?
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
 
 
 " Save a file as sudo
