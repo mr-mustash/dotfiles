@@ -11,6 +11,7 @@ return {
         },
         "nvim-lua/plenary.nvim",
         "SmiteshP/nvim-navic",
+        "ray-x/lsp_signature.nvim",
     },
     config = function()
         local lspconfig = require('lspconfig')
@@ -69,18 +70,62 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl })
         end
 
-        local navic = require("nvim-navic")
-        navic.setup {
-            highlight = true,
-            separator = " > ",
-            depth_limit_indicator = "...",
-            lazy_update_context = false,
-            click = false,
-        }
-
         local on_attach = function(client, bufnr)
+
+            -- Attach Navic if supported
             if client.server_capabilities.documentSymbolProvider then
+                local navic = require("nvim-navic")
+                navic.setup {
+                    highlight = true,
+                    separator = " > ",
+                    depth_limit_indicator = "...",
+                    lazy_update_context = false,
+                    click = false,
+                }
+
                 navic.attach(client, bufnr)
+            end
+
+            -- Highlight symbol under cursor
+            if client.server_capabilities.documentHighlightProvider then
+                vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
+                vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                    group = "LspDocumentHighlight",
+                    buffer = bufnr,
+                    callback = vim.lsp.buf.document_highlight,
+                })
+                vim.api.nvim_create_autocmd("CursorMoved", {
+                    group = "LspDocumentHighlight",
+                    buffer = bufnr,
+                    callback = vim.lsp.buf.clear_references,
+                })
+            end
+
+            -- Code Lens support
+            if client.server_capabilities.codeLensProvider then
+                vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+                    buffer = bufnr,
+                    callback = vim.lsp.codelens.refresh,
+                })
+            end
+
+            -- Attach lsp_signature" if signatureHelpProvider supported
+            if client.server_capabilities.signatureHelpProvider then
+                require("lsp_signature").on_attach({
+                    bind = true,
+                    always_trigger = true,
+                    auto_close_after = 5,
+                    floating_window = true,
+                    floating_window_above_cur_line = true,
+                    floating_window_off_x = 30, -- Right 10 columns
+                    handler_opts = { border = "single" },
+                    hi_parameter = 'LspSignatureActiveParameter',
+                    hint_enable = false,
+                    wrap = true,
+                    doc_lines = 15,
+                    max_height = 12,
+                    max_width = 150,
+                }, bufnr)
             end
         end
 
@@ -129,6 +174,7 @@ return {
                                     path = vim.split(package.path, ';'),
                                 },
                                 diagnostics = {
+                                    enable = true,
                                     globals = { 'vim', 'hs' },
                                 },
                                 workspace = {

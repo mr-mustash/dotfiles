@@ -56,8 +56,10 @@ return {
         ]]--
 
         require("copilot_cmp").setup()
+
         -- Setup copilot icon in lspkind
         lspkind.init({
+            preset = 'codicons',
             symbol_map = {
                 Copilot = "",
             },
@@ -103,6 +105,7 @@ return {
             -- configure lspkind for vs-code like pictograms in completion menu
             formatting = {
                 format = lspkind.cmp_format({
+                    mode = 'symbol',
                     maxwidth = 80,
                     ellipsis_char = "...",
                 }),
