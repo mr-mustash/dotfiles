@@ -37,7 +37,7 @@ return {
             -- Functions for status line
             local function lsp_client_names()
                 local client_names = {}
-                for _, client in ipairs(vim.lsp.get_active_clients()) do
+                for _, client in ipairs(vim.lsp.get_clients()) do
                     if client.name ~= 'null-ls' and client.name ~= 'copilot' then
                         table.insert(client_names, client.name)
                     end

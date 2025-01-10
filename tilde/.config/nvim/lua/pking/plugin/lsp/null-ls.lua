@@ -38,7 +38,9 @@ return {
                     null_ls.builtins.formatting.golines,
 
                     -- Lua
-                    null_ls.builtins.diagnostics.selene,
+                    null_ls.builtins.diagnostics.selene.with({
+                        extra_args = { "--config", vim.fn.expand("~/.config/selene/selene.toml") },
+                    }),
                     null_ls.builtins.formatting.stylua,
 
                     -- Markdown / Text
@@ -68,7 +70,7 @@ return {
                     null_ls.builtins.formatting.yamlfmt,
                     null_ls.builtins.diagnostics.yamllint,
                 },
-                diagnostics_format = "#{s}: #{m} [#{c}]",
+                diagnostics_format = "[#{c}] #{m} (#{s})",
             })
         end
     },
