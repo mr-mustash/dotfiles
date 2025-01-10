@@ -1,6 +1,6 @@
 return {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = "FileType",
     dependencies = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -29,6 +29,7 @@ return {
         require("cmp_git").setup()
         require("luasnip.loaders.from_vscode").lazy_load()
 
+        --[[
         require('copilot').setup({
             suggestion = { enabled = false },
             panel = { enabled = false },
@@ -52,6 +53,7 @@ return {
                 yaml = false,
             },
         })
+        ]]--
 
         require("copilot_cmp").setup()
         -- Setup copilot icon in lspkind

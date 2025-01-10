@@ -43,6 +43,7 @@ set incsearch
 " ========================================================================= }}}
 " 4 displaying text ======================================================= {{{
 
+set scrolloff=5
 set wrap
 "vint: -ProhibitUnnecessaryDoubleQuote
 let &listchars="tab:\uBB\uBB,trail:\uB7,nbsp:~"
@@ -190,7 +191,6 @@ nnoremap : q:
 nnoremap / q/
 nnoremap ? q?
 
-
 " Save a file as sudo
 cnoremap w!! w !sudo tee % > /dev/null<CR>
 
@@ -321,7 +321,7 @@ if !isdirectory(expand(&viewdir))
     call mkdir(expand(&viewdir), 'p')
 endif
 
-set viminfo='50,\"5000,h,/0
+set shada='50,\"5000,h
 
 " Setting up explore to behaive like we expect
 let g:netrw_banner = 0
