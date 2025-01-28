@@ -1,0 +1,15 @@
+# While this is an interesting idea it turns out to be not much of a
+# performance uplift. This is because any listener to the fish_prompt event is
+# executed synchronously. This basically then just shifts the burden from the
+# `__fish_prompt_git` function to here. One way around this would be to create
+# shims that emit a custom event for things that could modify files (vim, git,
+# cd, mv, rm, etc) but that is a _lot_ of overhead.
+#
+#function __fish_prompt_git_status --on-event fish_prompt --description "Get the git status when prompt is printed, then trigger a repaint if required"
+#    if command git rev-parse --is-inside-work-tree >/dev/null 2>&1
+#        set -g __git_status (git status --porcelain --branch)
+#        commandline -f repaint
+#    else
+#        set -e __git_status
+#    end
+#end

@@ -2,7 +2,7 @@
 # This is here because I will often want to get the brew prefix to check to see
 # if a file exists with something installed be brew. Calling `brew --prefix` is
 # slow, so I cache it here.
-if which brew > /dev/null
+if which brew >/dev/null
     if not set -q __brew_prefix && $__brew_prefix == ""
         set -U __brew_prefix (/opt/homebrew/bin/brew --prefix)
     end
@@ -17,7 +17,7 @@ set -Ux MANPAGER 'nvim +Man!'
 # Homebrew
 set -x HOMEBREW_NO_ANALYTICS 1
 set -x HOMEBREW_NO_INSECURE_REDIRECT 1
-set -x HOMEBREW_CASK_OPTS "--require-sha"
+set -x HOMEBREW_CASK_OPTS --require-sha
 
 # Docker
 set -x DOCKER_BUILDKIT 1
@@ -29,7 +29,7 @@ set -gx TZ America/Los_Angeles
 
 # GPG
 set -gx GPG_TTY (tty)
-if not pgrep gpg-agent > /dev/null # Only start up the gpg-agent if it isn't running
+if not pgrep gpg-agent >/dev/null # Only start up the gpg-agent if it isn't running
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
 end
@@ -68,9 +68,15 @@ fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 # Using rip instead of rm
 set -x GRAVEYARD "$HOME/.local/graveyard"
 
+# selene lua linter
+set -x SELENE_CONFIG ~/.config/selene.toml
+
 # Autossh
 set -x AUTOSSH_DEBUG 1
 set -x AUTOSSH_LOGFILE "/tmp/autossh.log"
+
+# Terragrunt
+set -x TERRAGRUNT_FORWARD_TF_STDOUT true
 
 # Autojump
 [ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish

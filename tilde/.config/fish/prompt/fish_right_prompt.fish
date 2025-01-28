@@ -23,7 +23,7 @@ function fish_right_prompt --description 'Display the right side of the interact
 
     if test $_duration -ne 0
         __fish_right_prompt_timer $_duration
-        set -e _duration
+        #set -e _duration
     end
 
     __fish_right_prompt_wall_time
