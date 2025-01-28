@@ -60,6 +60,7 @@ if not set -q __pking_init_colors
     set -U fish_prompt_color_gc f7d161 --bold
     set -U fish_prompt_color_python_icon ffd43b --bold
     set -U fish_prompt_color_vim_icon 41913F --bold
+    set -U fish_prompt_color_terraform_icon 986AD3 --bold
 
     # Number of jobs running in prompt
     set -U fish_prompt_color_jobs yellow --bold

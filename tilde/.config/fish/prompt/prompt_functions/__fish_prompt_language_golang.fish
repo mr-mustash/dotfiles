@@ -1,9 +1,8 @@
 function __fish_prompt_language_golang -d "Print out the golang version"
 
-    if not test -f go.mod \
+    if not string match -q "*.go" $__dir_file_list; or not test -f go.mod \
             -o -d Godeps \
             -o -f glide.yaml \
-            -o (count *.go) -gt 0 \
             -o (count src/*.go) -gt 0 \
             -o -f Gopkg.yml \
             -o -f Gopkg.lock \
