@@ -2,9 +2,9 @@
 # This is here because I will often want to get the brew prefix to check to see
 # if a file exists with something installed be brew. Calling `brew --prefix` is
 # slow, so I cache it here.
-if which brew >/dev/null
-    if not set -q __brew_prefix && $__brew_prefix == ""
-        set -U __brew_prefix (/opt/homebrew/bin/brew --prefix)
+if not set -q __brew_prefix && $__brew_prefix == ""
+    if set -lx __brew (which brew)
+        set -U __brew_prefix ($__brew --prefix)
     end
 end
 
