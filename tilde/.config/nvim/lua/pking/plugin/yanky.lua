@@ -1,6 +1,6 @@
 return{
     {
-        "https://github.com/gbprod/yanky.nvim",
+        "gbprod/yanky.nvim",
         keys = {
             { "yy", mode = { "n",}, "yy", desc = "yank" },
             { "y", mode = { "x",}, "y", desc = "yank" },
