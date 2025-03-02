@@ -5,6 +5,7 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lsp",
         "petertriho/cmp-git",
         "onsails/lspkind.nvim",
         {
@@ -53,18 +54,9 @@ return {
                 yaml = false,
             },
         })
-        ]]--
 
         require("copilot_cmp").setup()
-
-        -- Setup copilot icon in lspkind
-        lspkind.init({
-            preset = 'codicons',
-            symbol_map = {
-                Copilot = "",
-            },
-        })
-        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+        ]]--
 
         cmp.setup({
             completion = {
@@ -105,9 +97,10 @@ return {
             -- configure lspkind for vs-code like pictograms in completion menu
             formatting = {
                 format = lspkind.cmp_format({
-                    mode = 'symbol',
-                    maxwidth = 80,
+                    mode = 'symbol_text',
+                    maxwidth = 50,
                     ellipsis_char = "...",
+                    symbol_map = { Copilot = "" }
                 }),
             },
             sorting = {
@@ -137,24 +130,6 @@ return {
                 { name = 'buffer' },
             })
         })
-
-        -- This doesn't work while using the cmd window. See below
-        --[[
-        cmp.setup.cmdline({ '/', '?' }, {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'buffer' }
-            })
-        })
-
-        cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' },
-                { name = 'cmdline' }
-            })
-        })
-        ]]--
 
         -- Hack to get cmp to work in command window https://github.com/hrsh7th/cmp-cmdline/pull/61#issuecomment-1243380455
         vim.api.nvim_create_augroup('CMP', { clear = true })

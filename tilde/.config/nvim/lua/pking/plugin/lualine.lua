@@ -97,14 +97,14 @@ return {
 
             local function null_ls_attached_sources() -- Show active null-ls sources
                 local full_status = {}
-                local actions = null_ls_code_actions()
                 local diagnostics = null_ls_diagnostics()
                 local formatting = null_ls_formatting()
+                local actions = null_ls_code_actions()
 
 
-                if actions ~= "" then table.insert(full_status, actions) end
                 if diagnostics ~= "" then table.insert(full_status, diagnostics) end
                 if formatting ~= "" then table.insert(full_status, formatting) end
+                if actions ~= "" then table.insert(full_status, actions) end
 
                 local lualine = table.concat(full_status, "  ")
 
@@ -115,9 +115,9 @@ return {
                 end
             end
 
-            -- Display number of serach results
+            -- Display number of search results
             local function searchCount()
-                local search = vim.fn.searchcount({maxcount = 0}) -- maxcount = 0 makes the number not be capped at 99
+                local search = vim.fn.searchcount({maxcount = 0}) --`maxcount = 0` makes the number not be capped at 99
                 local searchCurrent = search.current
                 local searchTotal = search.total
                 if searchCurrent > 0 and vim.v.hlsearch ~= 0 then
@@ -209,12 +209,21 @@ return {
                             'copilot',
                             symbols = {
                                 status = {
+                                    icons = {
+                                        enabled = "",
+                                        sleep = "",
+                                        disabled = "",
+                                        warning = "",
+                                        unknown = ""
+                                    },
                                     hl = {
                                         enabled = "#859900",
                                         disabled = "#dc322f",
                                         warning = "#b58900",
                                         unknown = "#268bd2"
-                                    }
+                                    },
+                                    spinners = "arc",
+                                    spinner_color = "#6c71c4",
                                 },
                             },
                             show_colors = true,
@@ -247,7 +256,7 @@ return {
                                     fg = "Black",
                                 },
                             },
-                            colored = true,           -- Displays diagnostics status in color if set to true.
+                            colored = true,
                             always_visible = true,
                             separator = nil,
                         },

@@ -14,7 +14,6 @@ return {
             { "<leader>fl", "<cmd>Telescope highlights<cr>", desc = "Search vim highlights" },
         },
         cmd = "Telescope",
-        branch = '0.1.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },

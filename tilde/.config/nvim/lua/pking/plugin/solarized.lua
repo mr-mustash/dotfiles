@@ -43,6 +43,8 @@ return {
                 highlight RainbowDelimiterBlue guifg=#4D4DFF
                 highlight RainbowDelimiterViolet guifg=#C724B1
 
+                highlight CmpItemKindCopilot guifg=#6CC644
+
             endfunction
 
             augroup MyColors
@@ -59,7 +61,9 @@ return {
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { "ColorScheme" },
-        config = true,
+        event = { "BufReadPre" },
+        opts = {
+            lazy_load = true,
+        },
     },
 }
