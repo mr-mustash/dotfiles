@@ -30,13 +30,13 @@ return {
         require("cmp_git").setup()
         require("luasnip.loaders.from_vscode").lazy_load()
 
-        --[[
         require('copilot').setup({
             suggestion = { enabled = false },
             panel = { enabled = false },
             filetypes = {
                 [""] = false,
                 commit = false,
+                ["copilot-chat"] = false,
                 cvs = false,
                 git = false,
                 gitcommit = false,
@@ -48,6 +48,7 @@ return {
                 markdown = false,
                 md = false,
                 mkd = false,
+                netrw = false,
                 svn = false,
                 tex = false,
                 text = false,
@@ -56,13 +57,22 @@ return {
         })
 
         require("copilot_cmp").setup()
-        ]]--
+
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 
         cmp.setup({
+            enabled = function()
+            -- Disable completion in copilot-chat buffers
+                local buftype = vim.api.nvim_buf_get_option(0, 'filetype')
+                if buftype == "copilot-chat" or buftype == 'TelescopePrompt' then
+                    return false
+                end
+                return true
+            end,
             completion = {
                 completeopt = "menu,menuone,preview,noselect"
             },
-            snippet = { -- configure how nvim-cmp interacts with snippet engine
+            snippet = { -- Configure how nvim-cmp interacts with snippet engine
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end,
@@ -80,27 +90,34 @@ return {
                 { name = "copilot", group_index = 2, max_item_count = 3 },
                 { name = "nvim_lsp", group_index = 2 },
                 { name = "luasnip" }, -- snippets
-                { name = "path" }, -- file system paths
+                { name = "path" }, -- filesystem paths
                 {
                     name = 'buffer',
                     option = {
                         get_bufnrs = function()
-                        local bufs = {}
+                            local bufs = {}
                             for _, win in ipairs(vim.api.nvim_list_wins()) do
                                 bufs[vim.api.nvim_win_get_buf(win)] = true
                             end
-                        return vim.tbl_keys(bufs)
-                        end
+                            return vim.tbl_keys(bufs)
+                        end,
+                        keyword_length = 4,
+                        keyword_pattern = [[\k\+]],
+                        max_item_count = 5,
                     }
                 }
             }),
-            -- configure lspkind for vs-code like pictograms in completion menu
+            -- Configure lspkind for vs-code like pictograms in completion menu
             formatting = {
                 format = lspkind.cmp_format({
+                    preset = 'codicons',
                     mode = 'symbol_text',
-                    maxwidth = 50,
+                    maxwidth = 80,
                     ellipsis_char = "...",
-                    symbol_map = { Copilot = "" }
+                    show_labelDetails = true,
+                    symbol_map = {
+                        Copilot = "",
+                    },
                 }),
             },
             sorting = {
@@ -111,51 +128,48 @@ return {
                     cmp.config.compare.exact,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.score,
-                    cmp.config.compare.recently_used,
-                    cmp.config.compare.locality,
                     cmp.config.compare.kind,
                     cmp.config.compare.length,
                     cmp.config.compare.order,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
                 },
             },
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
             },
-        })
-        -- Set up specific sources for file types
-        cmp.setup.filetype('gitcommit', {
-            sources = cmp.config.sources({
-                { name = 'git' },
-                { name = 'buffer' },
-            })
+            filetype = {
+                ['copilot-chat'] = {
+                    enabled = false
+                },
+                gitcommit = {
+                    sources = cmp.config.sources({
+                        { name = 'git' },
+                        { name = 'buffer' },
+                    })
+                }
+            }
         })
 
         -- Hack to get cmp to work in command window https://github.com/hrsh7th/cmp-cmdline/pull/61#issuecomment-1243380455
         vim.api.nvim_create_augroup('CMP', { clear = true })
         vim.api.nvim_create_autocmd('CmdwinEnter', {
-          group = 'CMP',
-          pattern = '*',
-          callback = function()
-            cmp.setup.buffer({
-                sources = cmp.config.sources({
-                    { name = 'cmdline' },
-                    { name = 'path' },
-                    {
-                        name = 'buffer',
-                        option = {
-                            get_bufnrs = function()
-                                local bufs = {}
-                                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                                    bufs[vim.api.nvim_win_get_buf(win)] = true
-                                end
-                                return vim.tbl_keys(bufs)
-                            end
-                        }
-                    },
+            group = 'CMP',
+            pattern = '*',
+            callback = function()
+                cmp.setup.buffer({
+                    sources = cmp.config.sources({
+                        { name = 'cmdline' },
+                        { name = 'path' },
+                        { name = 'buffer' }
+                    }),
+                    mapping = cmp.mapping.preset.cmdline(), -- Add this line
+                    completion = {
+                        completeopt = 'menu,menuone,noselect'
+                    }
                 })
-            })
-          end
+            end
         })
     end
 }

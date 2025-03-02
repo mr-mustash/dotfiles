@@ -5,65 +5,80 @@ return {
         priority = 1000, -- make sure to load this before all the other start plugins
         commit = "d69a263c97cbc765ca442d682b3283aefd61d4ac",
         config = function()
-            -- load the colorscheme here
-            vim.cmd([[
-            " Load custom highlights after colorscheme is loaded
-            " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
-            function! MyHighlights() abort
-                " Only highlight the 121st character when it's visible on the screen.
-                highlight ColorColumn guibg=#e75480 guifg=#b58900
-                let g:noColumnHighlight = ['man', 'fzf']
-                autocmd customaugroup Filetype * if index(g:noColumnHighlight, &ft) == -1 | call matchadd('ColorColumn', '\%121v',100) | endif
+            vim.opt.termguicolors = true
+            vim.g.solarized_italics = 0
 
-                highlight SearchHighlight ctermfg=3
-                highlight CursorLineNR    cterm=bold guifg=#b58900
-                highlight CursorLine      cterm=none ctermbg=0 ctermfg=none
-                highlight SignColumn      guibg=#073642
+            -- Set up highlights before loading colorscheme
+            local custom_highlights = {
+                ColorColumn = { bg = "#e75480", fg = "#b58900" },
+                SearchHighlight = { ctermfg = 3 },
+                CursorLineNR = { bold = true, fg = "#b58900" },
+                CursorLine = { bg = "NONE" },
+                SignColumn = { bg = "#073642" },
+                SpellBad = { bg = "NONE", fg = "#ef3b3b" },
+                SpellLocal = { bg = "NONE", fg = "#ef3b3b" },
+                -- The icons I use in Copilot Chat (, , and 󰬅) trigger SpellCap for some reason and this is the easiest way to fix it
+                SpellCap = { clear = true },
+                -- Clear SpellRare because of https://github.com/psliwka/vim-dirtytalk#known-issues
+                SpellRare = { clear = true },
+                -- Diagnostic signs
+                DiagnosticSignError = { fg = "#dc322f", bg = "#073642" },
+                DiagnosticSignWarn = { fg = "#b58900", bg = "#073642" },
+                DiagnosticSignHint = { fg = "#859900", bg = "#073642" },
+                DiagnosticSignInfo = { fg = "#268bd2", bg = "#073642" },
+                -- Float windows
+                FloatBorder = { bg = "#002b36" },
+                NormalFloat = { bg = "#002b36" },
+                -- Telescope
+                TelescopeSelection = { bg = "#073642", bold = true },
+                -- Rainbow delimiters
+                RainbowDelimiterRed = { fg = "#DE2A33" },
+                RainbowDelimiterOrange = { fg = "#FFAD00" },
+                RainbowDelimiterYellow = { fg = "#ffef00" },
+                RainbowDelimiterGreen = { fg = "#08FF08" },
+                RainbowDelimiterCyan = { fg = "#00C8F0" },
+                RainbowDelimiterBlue = { fg = "#4D4DFF" },
+                RainbowDelimiterViolet = { fg = "#C724B1" },
+            }
 
-                highlight SpellBad   ctermbg=7 guifg=#ef3b3b
-                highlight SpellLocal ctermbg=7 guifg=#ef3b3b
-                highlight SpellCap   ctermbg=7 guifg=#ef3b3b
-                highlight clear SpellRare " clearing because of https://github.com/psliwka/vim-dirtytalk#known-issues
+            -- Apply the highlights
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                callback = function()
+                    for group, colors in pairs(custom_highlights) do
+                        if colors.clear then
+                            vim.cmd.highlight("clear " .. group)
+                        else
+                            vim.api.nvim_set_hl(0, group, colors)
+                        end
+                    end
+                end,
+            })
 
-                highlight DiagnosticSignError guifg=#dc322f guibg=#073642
-                highlight DiagnosticSignWarn guifg=#b58900 guibg=#073642
-                highlight DiagnosticSignHint guifg=#859900 guibg=#073642
-                highlight DiagnosticSignInfo guifg=#268bd2 guibg=#073642
+            -- For the 121st column highlight
+            local noColumnHighlight = { "man", "fzf" }
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    if not vim.tbl_contains(noColumnHighlight, vim.bo.filetype) then
+                        vim.fn.matchadd("ColorColumn", "\\%121v", 100)
+                    end
+                end,
+            })
 
-                highlight FloatBorder guibg=#002b36
-                highlight NormalFloat guibg=#002b36
-
-                highlight TelescopeSelection guibg=#073642 gui=bold
-
-                highlight RainbowDelimiterRed guifg=#DE2A33
-                highlight RainbowDelimiterOrange guifg=#FFAD00
-                highlight RainbowDelimiterYellow guifg=#ffef00
-                highlight RainbowDelimiterGreen guifg=#08FF08
-                highlight RainbowDelimiterCyan guifg=#00C8F0
-                highlight RainbowDelimiterBlue guifg=#4D4DFF
-                highlight RainbowDelimiterViolet guifg=#C724B1
-
-                highlight CmpItemKindCopilot guifg=#6CC644
-
-            endfunction
-
-            augroup MyColors
-                autocmd!
-                autocmd ColorScheme * call MyHighlights()
-            augroup END
-
-            set termguicolors
-
-            let g:solarized_italics = 0
-            colorscheme solarized
-            ]])
-        end,
+            -- Load the colorscheme
+            vim.cmd.colorscheme("solarized")
+        end
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { "BufReadPre" },
+        event = "VeryLazy",
         opts = {
             lazy_load = true,
+            buftypes = {
+                "*",
+                "!prompt",
+                "!popup",
+                "!copilot-chat",
+            }
         },
     },
 }
