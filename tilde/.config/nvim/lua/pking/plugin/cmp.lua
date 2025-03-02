@@ -5,6 +5,7 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lsp",
         "petertriho/cmp-git",
         "onsails/lspkind.nvim",
         {
@@ -150,24 +151,6 @@ return {
                 }
             }
         })
-
-        -- This doesn't work while using the cmd window. See below
-        --[[
-        cmp.setup.cmdline({ '/', '?' }, {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'buffer' }
-            })
-        })
-
-        cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' },
-                { name = 'cmdline' }
-            })
-        })
-        ]]--
 
         -- Hack to get cmp to work in command window https://github.com/hrsh7th/cmp-cmdline/pull/61#issuecomment-1243380455
         vim.api.nvim_create_augroup('CMP', { clear = true })
