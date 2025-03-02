@@ -37,7 +37,7 @@ if status --is-interactive
     abbr --add tgg 'terragrunt show'
 
     # K8s
-    abbr --add kctx 'kubectx'
+    abbr --add kctx kubectx
 
     # History
     abbr -a !! --position anywhere --function last_history_item
@@ -69,7 +69,7 @@ if status --is-interactive
     abbr --add grd 'cd (git rev-parse --git-dir) ; cd ..'
     abbr --add gpom --function git_pull_origin_default
     abbr --add gcm --function git_checkout_default
-    abbr --add gcm --function git_diff_default
+    abbr --add gdm --function git_diff_default
 
     # `gpom`, `gdm`, and `gcm` are now set in:
     # prompt/prompt_functions/__fish_prompt_git_checkout_default.fish

@@ -16,12 +16,10 @@ if status --is-interactive
     set -l cyan 37
     set -l green 64
 
-    # Solarized Dark color scheme for fzf
     set -gx FZF_DEFAULT_OPTS "--height 40% --reverse --border --inline-info --color fg:-1,bg:-1,hl:$blue,fg+:$base2,hl+:$blue --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow"
+    set -gx FZF_DEFAULT_COMMAND 'command rg --files --no-messages --no-ignore --hidden --follow --glob "!.git/*"'
 
     # Add in a preview window when using C-t to search for files.
-    set -gx FZF_CTRL_T_OPTS "--preview-window right:60% --preview='bat --color=always --style=numbers --line-range=:500 {}' "
-
-    set -gx FZF_DEFAULT_COMMAND 'rg --files --no-messages --no-ignore --hidden --follow --glob "!.git/*"'
-    set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
+    set -gx FZF_CTRL_T_OPTS "--preview-window right:60% --preview='bat --color=always --style=numbers --line-range=:500 {}'"
+    set -gx FZF_CTRL_T_COMMAND 'command rg --files --no-messages --no-ignore --hidden --follow --glob "!.git/*"'
 end
