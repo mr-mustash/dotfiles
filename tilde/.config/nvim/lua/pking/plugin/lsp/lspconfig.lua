@@ -178,8 +178,17 @@ return {
                                     globals = { 'vim', 'hs' },
                                 },
                                 workspace = {
-                                    library = vim.api.nvim_get_runtime_file("", true),
+                                    library = {
+                                        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                                        [vim.fn.stdpath('config') .. '/lua'] = true,
+                                    },
                                     checkThirdParty = false,
+                                    maxPreload = 2000,
+                                    preloadFileSize = 1000,
+                                },
+                                completion = {
+                                    callSnippet = "Replace",
                                 },
                                 telemetry = {
                                     enable = false,

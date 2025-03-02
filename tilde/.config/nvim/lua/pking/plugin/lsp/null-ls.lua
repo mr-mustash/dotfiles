@@ -10,6 +10,9 @@ return {
             local null_ls = require("null-ls")
             -- Formatters/linters installed here. Language servers installed
             -- with mason-lspconfig in lspconfig.lua
+            local formatting = null_ls.builtins.formatting
+            local diagnostics = null_ls.builtins.diagnostics
+            local code_actions = null_ls.builtins.code_actions
             null_ls.setup({
                 sources = {
                     -- Everything but LSPs are listed here. All automatic LSP
@@ -17,58 +20,57 @@ return {
                     -- `ensure_installed` for the mason-lspconfig setup.
 
                     -- Bash
-
-                    null_ls.builtins.formatting.shellharden,
-                    null_ls.builtins.formatting.shfmt,
+                    formatting.shellharden,
+                    formatting.shfmt,
 
                     -- Docker
-                    null_ls.builtins.diagnostics.hadolint,
+                    diagnostics.hadolint,
 
                     -- Fish
-                    null_ls.builtins.diagnostics.fish,
-                    null_ls.builtins.formatting.fish_indent,
+                    diagnostics.fish,
+                    formatting.fish_indent,
 
                     -- Git
-                    null_ls.builtins.code_actions.gitrebase,
-                    null_ls.builtins.diagnostics.gitlint,
+                    code_actions.gitrebase,
+                    diagnostics.gitlint,
 
                     -- Golang
-                    null_ls.builtins.formatting.gofumpt,
-                    null_ls.builtins.formatting.goimports,
-                    null_ls.builtins.formatting.golines,
+                    formatting.gofumpt,
+                    formatting.goimports,
+                    formatting.golines,
 
                     -- Lua
-                    null_ls.builtins.diagnostics.selene.with({
+                    diagnostics.selene.with({
                         extra_args = { "--config", vim.fn.expand("~/.config/selene/selene.toml") },
                     }),
-                    null_ls.builtins.formatting.stylua,
+                    formatting.stylua,
 
                     -- Markdown / Text
-                    null_ls.builtins.code_actions.proselint,
-                    null_ls.builtins.diagnostics.write_good.with({ filetypes = { "markdown", "text" }}),
-                    null_ls.builtins.formatting.markdownlint,
+                    code_actions.proselint,
+                    diagnostics.write_good.with({ filetypes = { "markdown", "text" }}),
+                    formatting.markdownlint,
 
                     -- SQL
-                    null_ls.builtins.diagnostics.sqlfluff.with({
+                    diagnostics.sqlfluff.with({
                         extra_args = { "--dialect", "postgres" }, -- change to your dialect
                     }),
-                    null_ls.builtins.formatting.sql_formatter,
+                    formatting.sql_formatter,
 
                     -- Terraform
-                    null_ls.builtins.diagnostics.tfsec,
-                    null_ls.builtins.diagnostics.terraform_validate,
-                    null_ls.builtins.diagnostics.trivy,
-                    null_ls.builtins.formatting.terraform_fmt, -- Terraform formatting in .tf files
+                    diagnostics.tfsec,
+                    diagnostics.terraform_validate,
+                    diagnostics.trivy,
+                    formatting.terraform_fmt, -- Terraform formatting in .tf files
 
                     -- Typescript
-                    null_ls.builtins.formatting.prettierd,
+                    formatting.prettierd,
 
                     -- Vim
-                    null_ls.builtins.diagnostics.vint,
+                    diagnostics.vint,
 
                     -- YAML
-                    null_ls.builtins.formatting.yamlfmt,
-                    null_ls.builtins.diagnostics.yamllint,
+                    formatting.yamlfmt,
+                    diagnostics.yamllint,
                 },
                 diagnostics_format = "[#{c}] #{m} (#{s})",
             })
