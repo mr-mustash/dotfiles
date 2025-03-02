@@ -8,7 +8,6 @@
         [".config/nvim"],
         [".config/terminal"],
         [".config/tmux"],
-        [".gitconfig"],
         [".global_gitignore"],
         [".gnupg/gpg-agent.conf"],
         [".gnupg/gpg.conf"],
@@ -21,15 +20,16 @@
         [".yamllint"],
         ["Library/LaunchAgents/com.local.KeyRemapping.plist"],
     ]
+    cmds = [["cp", "-p", ".gitconfig", "$HOME"]]
 
 [tasks.pip]
     accepts = [["which", "pip3"]]
     cmds = [
-        ["pip3", "install", "gmail-yaml-filters", "pynvim"],
+        ["pipx", "install", "gmail-yaml-filters", "pynvim", "pipe-strip"],
     ]
 
 [tasks.npm]
-accepts = [["which", "npm"]]
+    accepts = [["which", "npm"]]
     cmds = [
         ["npm", "install", "markcat", "ipfs-deploy", "tree-sitter-cli"],
     ]

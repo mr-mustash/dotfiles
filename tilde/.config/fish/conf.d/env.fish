@@ -68,9 +68,15 @@ fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 # Using rip instead of rm
 set -x GRAVEYARD "$HOME/.local/graveyard"
 
+# selene lua linter
+set -x SELENE_CONFIG ~/.config/selene.toml
+
 # Autossh
 set -x AUTOSSH_DEBUG 1
 set -x AUTOSSH_LOGFILE "/tmp/autossh.log"
+
+# Terragrunt
+set -x TERRAGRUNT_FORWARD_TF_STDOUT true
 
 # Autojump
 [ -f $__brew_prefix/share/autojump/autojump.fish ]; and source $__brew_prefix/share/autojump/autojump.fish

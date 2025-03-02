@@ -1,5 +1,5 @@
 function __fish_prompt_language_vim -d "Display vim version"
-    if not test (count *.vim) -gt 0
+    if not string match -q "*.vim" $__dir_file_list
         return 0
     end
 

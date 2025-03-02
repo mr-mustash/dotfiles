@@ -1,5 +1,5 @@
 function __fish_prompt_language_fish -d "Display fish version"
-    if not test (count *.fish) -gt 0
+    if not string match -q "*.fish" $__dir_file_list
         return 0
     end
 

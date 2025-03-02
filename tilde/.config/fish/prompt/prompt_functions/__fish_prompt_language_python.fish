@@ -1,7 +1,5 @@
 function __fish_prompt_language_python -d "Print out the golang version"
-
-    if not test -f __init__.py \
-            -o (count *.py) -gt 0
+    if not test -f __init__.py; or not string match -q "*.py" $__dir_file_list
         return 0
     end
 
