@@ -2,9 +2,9 @@
 # This is here because I will often want to get the brew prefix to check to see
 # if a file exists with something installed be brew. Calling `brew --prefix` is
 # slow, so I cache it here.
-if not set -q __brew_prefix && $__brew_prefix == ""
-    if set -lx __brew (which brew)
-        set -U __brew_prefix ($__brew --prefix)
+if which brew >/dev/null
+    if not set -q __brew_prefix && $__brew_prefix == ""
+        set -U __brew_prefix (/opt/homebrew/bin/brew --prefix)
     end
 end
 
@@ -12,7 +12,7 @@ end
 set -x EDITOR nvim
 set -x PAGER less
 set -x LESSCHARSET utf-8
-set -Ux MANPAGER 'nvim +Man!'
+set -x MANPAGER 'nvim +Man!'
 
 # Homebrew
 set -x HOMEBREW_NO_ANALYTICS 1
@@ -42,11 +42,8 @@ set -gx HOMEBREW_REPOSITORY $__brew_prefix
 set -gx HOMEBREW_GNUBIN $__brew_prefix/opt/coreutils/libexec/gnubin
 set -gx HOMEBREW_GNUMAN $__brew_prefix/opt/coreutils/libexec/gnuman
 
-set -q PATH; or set PATH ''
-set -gx PATH $HOMEBREW_GNUBIN $__brew_prefix/bin $__brew_prefix/sbin $PATH
-
 set -q MANPATH; or set MANPATH ''
-set -gx MANPATH $HOMEBREW_GNUMAN /opt/homebrew/share/man $MANPATH
+set -gx MANPATH $__brew_prefix/opt/coreutils/libexec/gnuman $__brew_prefix/share/man $MANPATH
 
 set -q INFOPATH; or set INFOPATH ''
 set -gx INFOPATH $__brew_prefix/share/info $INFOPATH
@@ -56,13 +53,16 @@ if test -e $__brew_prefix/opt/fish/share/fish/__fish_build_paths.fish
 end
 
 # Local binaries
+set -q PATH; or set PATH ''
 fish_add_path --path $HOME/bin
+fish_add_path --path $__brew_prefix/opt/coreutils/libexec/gnubin
+fish_add_path --path $__brew_prefix/bin
+fish_add_path --path $__brew_prefix/sbin
 fish_add_path --path $HOME/.yarn/bin
 fish_add_path --path $HOME/.config/yarn/global/node_modules/.bin
 fish_add_path --path $HOME/go/bin
 fish_add_path --path $HOME/.cargo/bin
 fish_add_path --path $HOME/.local/bin # pipx path
-fish_add_path --path $__brew_prefix/opt/homebrew/opt/coreutils/libexec/gnubin
 fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
 
 # Using rip instead of rm
@@ -79,4 +79,4 @@ set -x AUTOSSH_LOGFILE "/tmp/autossh.log"
 set -x TERRAGRUNT_FORWARD_TF_STDOUT true
 
 # Autojump
-[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
+[ -f $__brew_prefix/share/autojump/autojump.fish ]; and source $__brew_prefix/share/autojump/autojump.fish

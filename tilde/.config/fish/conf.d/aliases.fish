@@ -32,6 +32,10 @@ alias less='less -R'
 abbr --add ag rg # some habits are too hard to break
 abbr --add hub gh # I always type `hub` instead of the newer `gh` command
 
+
+# K8s
+abbr --add kctx kubectx
+
 # Terraform
 abbr --add tf 'terraform fmt'
 abbr --add tp 'terraform fmt && terraform plan'
@@ -49,13 +53,6 @@ abbr -a !! --position anywhere --function last_history_item
 abbr --add t tmux
 abbr --add tt tmux_for_ticket
 abbr --add tls 'tmux list-sessions'
-
-# Sensu expansion
-abbr --add silence '/nail/sys/bin/downtime (hostname --fqdn)'
-abbr --add unsilence 'sensu-cli stash delete silence/(hostname --fqdn)'
-abbr --add sreport /nail/sys/bin/sensu-report
-abbr --add ssreport 'sensu-cli client delete (hostname --fqdn) ;and sleep 60 ;and sensu-report'
-abbr --add cnfdiff 'git diff --no-index -- /etc/my.cnf /nail/etc/my.cnf'
 
 # Git expansions
 abbr --add gco 'git checkout'
