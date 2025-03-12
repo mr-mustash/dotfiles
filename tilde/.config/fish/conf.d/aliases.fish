@@ -30,7 +30,11 @@ alias less='less -R'
 ### Abbreviations ###
 # Misc
 abbr --add ag rg # some habits are too hard to break
+abbr --add which type # `type` will return function definitions in addition to binary paths
+
+# GitHub
 abbr --add hub gh # I always type `hub` instead of the newer `gh` command
+abbr --add ghb 'gh browse'
 
 
 # K8s

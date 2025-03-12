@@ -43,7 +43,7 @@ return {
         },
         keys = {
             -- Automatically load the chat history
-            { "<leader>co", function()
+            { "<leader>cco", function()
                 -- Get the current buffer's file path
                 local current_file = vim.fn.expand('%:p')
                 if current_file and current_file ~= "" then
@@ -57,10 +57,10 @@ return {
                 -- Create a new chat buffer
                 vim.cmd("CopilotChatOpen")
             end, desc = "Open Copilot Chat" },
-            { "<leader>cot", " <cmd>CopilotChatToggle<cr>", desc = "Toggle Chat" },
-            { "<leader>coe",  "<cmd>CopilotChatExplain<cr>", desc = "Explain Code" },
-            { "<leader>cof",  "<cmd>CopilotChatFix<cr>", desc = "Fix Code" },
-            { "<leader>cor",  "<cmd>CopilotChatReset<cr>", desc = "Reset Chat" },
+            { "<leader>cct", " <cmd>CopilotChatToggle<cr>", desc = "Toggle Chat" },
+            { "<leader>cce",  "<cmd>CopilotChatExplain<cr>", desc = "Explain Code" },
+            { "<leader>ccf",  "<cmd>CopilotChatFix<cr>", desc = "Fix Code" },
+            { "<leader>ccr",  "<cmd>CopilotChatReset<cr>", desc = "Reset Chat" },
         },
         cmd = "CopilotChat",
         build = "make tiktoken",
@@ -84,7 +84,7 @@ return {
                     insert = '<C-c>'
                 },
                 toggle = {
-                    normal = '<leader>cot',
+                    normal = '<leader>cct',
                 },
             },
             code_actions = {

@@ -64,6 +64,7 @@ fish_add_path --path $HOME/go/bin
 fish_add_path --path $HOME/.cargo/bin
 fish_add_path --path $HOME/.local/bin # pipx path
 fish_add_path --path $__brew_prefix/share/google-cloud-sdk/path.fish.inc
+fish_add_path --path $HOME/.lmstudio/bin
 
 # Using rip instead of rm
 set -x GRAVEYARD "$HOME/.local/graveyard"
@@ -76,7 +77,7 @@ set -x AUTOSSH_DEBUG 1
 set -x AUTOSSH_LOGFILE "/tmp/autossh.log"
 
 # Terragrunt
-set -x TERRAGRUNT_FORWARD_TF_STDOUT true
+set -x TG_TF_FORWARD_STDOUT true
 
 # Autojump
 [ -f $__brew_prefix/share/autojump/autojump.fish ]; and source $__brew_prefix/share/autojump/autojump.fish

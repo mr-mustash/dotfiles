@@ -8,6 +8,9 @@ if status is-interactive
     # Load custom prompt directory
     set -gx fish_function_path $__fish_config_dir/prompt/prompt_functions/ $fish_function_path
     set -gx fish_function_path $__fish_config_dir/prompt/ $fish_function_path
+    set -gx async_prompt_functions __fish_prompt_git __fish_prompt_screen __fish_prompt_jobs __fish_right_prompt_github_user
+    set -gx async_prompt_inherit_variables status pipestatus SHLVL CMD_DURATION fish_bind_mode __wall_clock_time_pre __wall_clock_time_post
+    set -gx async_prompt_internal_signal SIGUSR3
 
     # Load shims that `--wrap` commands
     set -gx fish_function_path $__fish_config_dir/shims/ $fish_function_path
@@ -17,11 +20,6 @@ if status is-interactive
     for event_function in $__fish_config_dir/event_handlers/*.fish
         source $event_function
     end
-
-    # Async Prompt
-    set async_prompt_functions __fish_prompt_git
-    set -U async_prompt_inherit_variables status pipestatus SHLVL CMD_DURATION fish_bind_mode __wall_clock_time_pre __wall_clock_time_post
-    set -U async_prompt_internal_signal SIGUSR3
 
     # Add private scripts to the function path
     set -gx fish_function_path $__fish_config_dir/private/ $fish_function_path
