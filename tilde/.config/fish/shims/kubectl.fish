@@ -1,4 +1,4 @@
 function kubectl --wraps kubectl -d 'kubectl shorthand'
-    set -gx __kubectl_run (date '+%s')
+    emit fish_k8s_command
     command kubectl $argv
 end

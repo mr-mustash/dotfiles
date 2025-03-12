@@ -7,6 +7,8 @@ function fish_right_prompt --description 'Display the right side of the interact
         set -e _status
     end
 
+    __fish_right_prompt_github_user
+
     if test $COLUMNS -gt 132 && set -q __gproject && set -q __gzone
         __fish_right_prompt_gc_context
     end
