@@ -1,7 +1,6 @@
-status --is-interactive
-or exit 0
+if status --is-interactive; and command -sq pyenv
+    set -Ux PYENV_ROOT $HOME/.pyenv
+    fish_add_path $PYENV_ROOT/bin
 
-set -Ux PYENV_ROOT $HOME/.pyenv
-fish_add_path $PYENV_ROOT/bin
-
-pyenv init - fish | source
+    pyenv init - | source
+end
